@@ -16,14 +16,4 @@ class UsersController < ApplicationController
     redirect_to "/"
   end
 
-  private
-
-  def set_username
-    user = User.find_by(id: session[:user_id])
-    @username = nil
-    if user
-      @username = user.username
-    end
-  end
-
 end
