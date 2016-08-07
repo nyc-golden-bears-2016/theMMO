@@ -36,6 +36,12 @@ wSocket.onmessage = function(response) {
   otherPlayers[data.username].pos_y = data.pos_y;
 };
 
+wSocket.onclose = function(response) {
+  console.log("closed!!!")
+};
+
+
+
 var allowInput = function() {
   $(document).keydown(function(e){
     e.preventDefault();
