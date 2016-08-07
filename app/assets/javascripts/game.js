@@ -21,7 +21,7 @@ var updateCharacters = function(username){
 };
 wSocket.onmessage = function(response) {
   var data = JSON.parse(response.data);
-  // console.log(data.pos_x + " " + data.pos_y);
+  console.log(data.username + " " + data.pos_x + " " + data.pos_y);
 
   // if username is not found, add it to existing users
   if (playerNames.indexOf(data.username) === -1) {
