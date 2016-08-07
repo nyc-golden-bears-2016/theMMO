@@ -94,3 +94,14 @@ var drawGame = function(){
 var setCanvasDrawingUpdate = function(){
   setInterval(drawGame, FRAME_RATE);
 };
+
+var logout = function() {
+  var deleteIndex = playerNames.indexOf(your_username);
+  playerNames.splice(deleteIndex, 1);
+};
+
+var setAutoLogout = function() {
+  window.onbeforeunload = function(e) {
+    logout();
+  };
+};

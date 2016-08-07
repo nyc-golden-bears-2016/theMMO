@@ -4,6 +4,7 @@
   console.log('<%= @username %>')
 
   $('document').ready(function(){
+    setAutoLogout();
     allowInput();
     setCharacterUpdate('<%= @username %>');
     setCanvasDrawingUpdate();
