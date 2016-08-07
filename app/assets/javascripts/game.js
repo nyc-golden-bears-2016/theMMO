@@ -54,8 +54,8 @@ var allowInput = function() {
   });
 };
 
-var setCharacterUpdate = function() {
-    setInterval(updateCharacters, FRAME_RATE);
+var setCharacterUpdate = function(username) {
+    setInterval(updateCharacters(username), FRAME_RATE);
 };
 
 var drawCharacter = function(character, context){
