@@ -1,2 +1,20 @@
 <span id="register"></span>
-<p>Hello World</p>
+
+<% if flash[:user_created] %>
+  <% flash[:user_created].split("\n").each do |message| %>
+    <p><%= message %></p>
+  <% end %>
+<% end %>
+
+<%= form_for @user do |f| %>
+  <%= f.label :email %>
+  <%= f.text_field :email %><br />
+
+  <%= f.label :username %>
+  <%= f.text_field :username  %><br />
+
+  <%= f.label :password %>
+  <%= f.password_field :password %><br />
+
+  <%= f.submit %>
+<% end %>
