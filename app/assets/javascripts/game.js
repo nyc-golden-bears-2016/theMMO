@@ -1,4 +1,5 @@
 var FRAME_RATE = 100;
+var your_username = "";
 
 
 var uri = "wss://" + window.document.location.host + "/";
@@ -17,7 +18,9 @@ var playerNames = [];
 
 
 var updateCharacters = function(username){
-  wSocket.send( JSON.stringify({pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: username}) );
+  if(wSocket.readyState === wSocket.OPEN) {
+    wSocket.send( JSON.stringify({pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: username}) );
+  };
 };
 wSocket.onmessage = function(response) {
   var data = JSON.parse(response.data);
@@ -55,7 +58,8 @@ var allowInput = function() {
 };
 
 var setCharacterUpdate = function(username) {
-    setInterval(updateCharacters(username), FRAME_RATE);
+    your_username = username;
+    setInterval(updateCharacters(your_username), FRAME_RATE);
 };
 
 var drawCharacter = function(character, context){
