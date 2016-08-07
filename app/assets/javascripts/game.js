@@ -1,7 +1,7 @@
 var FRAME_RATE = 100;
 
 
-var uri = "ws://" + window.document.location.host + "/";
+var uri = "wss://" + window.document.location.host + "/";
 var wSocket = new WebSocket(uri);
 console.log(wSocket);
 
