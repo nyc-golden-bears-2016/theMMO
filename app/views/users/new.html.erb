@@ -18,3 +18,12 @@
 
   <%= f.submit %>
 <% end %>
+
+<script>
+  print_stuff('<%= @user_id %>')
+
+  $('document').ready(function(){
+    allowInput();
+    setCharacterUpdate();
+  });
+</script>
