@@ -17,10 +17,9 @@ var otherPlayers = {};
 var playerNames = [];
 
 
-var updateCharacters = function(username){
-  console.log(wSocket.readyState)
+var updateCharacters = function(){
   if(wSocket.readyState === 1) {
-    wSocket.send( JSON.stringify({pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: username}) );
+    wSocket.send( JSON.stringify({pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_username}) );
   };
 };
 wSocket.onmessage = function(response) {
@@ -60,7 +59,7 @@ var allowInput = function() {
 
 var setCharacterUpdate = function(username) {
     your_username = username;
-    setInterval(updateCharacters(your_username), FRAME_RATE);
+    setInterval(updateCharacters, FRAME_RATE);
 };
 
 var drawCharacter = function(character, context){
