@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :set_username
+
   def new
     @user = User.new
   end
@@ -13,4 +15,15 @@ class UsersController < ApplicationController
     end
     redirect_to "/"
   end
+
+  private
+
+  def set_username
+    user = User.find_by(id: session[:user_id])
+    @username = nil
+    if user
+      @username = user.username
+    end
+  end
+
 end
