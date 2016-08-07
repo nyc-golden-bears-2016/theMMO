@@ -19,21 +19,25 @@ var playerNames = [];
 
 var updateCharacters = function(){
   if(wSocket.readyState === 1) {
-    wSocket.send( JSON.stringify({pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_username}) );
+    wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_username}) );
   };
 };
 wSocket.onmessage = function(response) {
   var data = JSON.parse(response.data);
-  console.log(data.username + " " + data.pos_x + " " + data.pos_y);
+  if (data.logout === true) {
+    var deleteIndex = playerNames.indexOf(data.username);
+    playerNames.splice(deleteIndex, 1);
+  } else {
 
-  // if username is not found, add it to existing users
-  if (playerNames.indexOf(data.username) === -1) {
-    playerNames.push(data.username);
-    // initialize an object to store this player's info
-    otherPlayers[data.username] = new Character;
+    // if username is not found, add it to existing users
+    if (playerNames.indexOf(data.username) === -1) {
+      playerNames.push(data.username);
+      // initialize an object to store this player's info
+      otherPlayers[data.username] = new Character;
+    }
+    otherPlayers[data.username].pos_x = data.pos_x;
+    otherPlayers[data.username].pos_y = data.pos_y;
   }
-  otherPlayers[data.username].pos_x = data.pos_x;
-  otherPlayers[data.username].pos_y = data.pos_y;
 };
 
 wSocket.onclose = function(response) {
@@ -96,12 +100,9 @@ var setCanvasDrawingUpdate = function(){
 };
 
 var logout = function() {
-  var deleteIndex = playerNames.indexOf(your_username);
-  playerNames.splice(deleteIndex, 1);
+  wSocket.send( JSON.stringify({logout: true, username: your_username}) );
 };
 
 var setAutoLogout = function() {
-  window.onbeforeunload = function(e) {
-    logout();
-  };
+  $( window ).unload(logout);
 };
