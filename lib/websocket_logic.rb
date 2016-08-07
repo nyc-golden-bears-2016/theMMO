@@ -20,7 +20,7 @@ class WebsocketLogic
 
       websocket.on :message do |event|
         p [:message, event.data]
-        @clients.each {|client| client.send(event.data) }
+        @clients.each {|client| Thread.new { client.send(event.data) } }
       end
 
       websocket.on :close do |event|
