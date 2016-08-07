@@ -18,7 +18,7 @@ var playerNames = [];
 
 
 var updateCharacters = function(username){
-  if(wSocket.readyState === wSocket.OPEN) {
+  if(wSocket.readyState === 1) {
     wSocket.send( JSON.stringify({pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: username}) );
   };
 };
