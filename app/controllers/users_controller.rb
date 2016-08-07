@@ -1,9 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_user
+  before_action :set_username
 
   def new
     @user = User.new
-    @peanuts = "hey"
   end
 
   def create
@@ -19,7 +18,12 @@ class UsersController < ApplicationController
 
   private
 
-  def set_user
-    @user_id = session[:user_id].to_s
+  def set_username
+    user = User.find_by(id: session[:user_id])
+    @username = nil
+    if user
+      @username = user.username
+    end
   end
+
 end

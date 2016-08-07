@@ -1,0 +1,11 @@
+<canvas id="game_screen" width="800" height="600"></canvas>
+
+<script>
+  console.log('<%= @username %>')
+
+  $('document').ready(function(){
+    allowInput();
+    setCharacterUpdate('<%= @user_id %>');
+    setCanvasDrawingUpdate();
+  });
+</script>

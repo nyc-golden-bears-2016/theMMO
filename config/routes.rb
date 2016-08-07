@@ -4,4 +4,6 @@ Rails.application.routes.draw do
 
   post "/users" => 'users#create'
   get "/users/register" => "users#new"
+
+  get "/game" => 'characters#game'
 end
