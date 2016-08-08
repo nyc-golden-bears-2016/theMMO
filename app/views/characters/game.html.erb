@@ -1,8 +1,11 @@
 <canvas id="game_screen" width="800" height="600"></canvas>
 
 <script>
-  console.log('<%= @username %>')
-
+  var scheme = "ws://"
+  <% if ENV["ENCRYPTED_WEBSOCKET"] == true %>
+    scheme = "wss://"
+  <% end %>
+  setUpWebsocket(scheme);
   $('document').ready(function(){
     setAutoLogout();
     allowInput();

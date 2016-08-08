@@ -1,22 +1,47 @@
 class CharactersController < ApplicationController
-  before_action :check_user, :set_username
+  before_action :check_user, :set_character_name
+  before_action :check_character, only: :game
+
+  def new
+    @character = Character.new
+  end
+
+  def create
+    @character = Character.new(params.require(:character).permit(:name))
+    @character.user_id = session[:user_id]
+    if @character.save
+      flash[:notice] = "\"#{@character.name}\" has been successfully created."
+      session[:character_id] = @character.id
+    else
+      flash[:notice] = @character.errors.full_messages.join("\n")
+    end
+    redirect_to "/"
+  end
 
   def game
 
   end
 
   private
+
     def check_user
       if session[:user_id].nil?
         redirect_to "/users/register"
       end
     end
 
-    def set_username
-      user = User.find_by(id: session[:user_id])
+    def check_character
+      if session[:character_id].nil?
+        flash[:notice] = "Please create a character."
+        redirect_to "/"
+      end
+    end
+
+    def set_character_name
+      character = Character.find_by(id: session[:character_id])
       @username = nil
-      if user
-        @username = user.username
+      if character
+        @username = character.name
       end
     end
 

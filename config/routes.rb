@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   get "/users/register" => "users#new"
 
   get "/game" => 'characters#game'
+  resources :characters
 end
