@@ -1,10 +1,36 @@
 var FRAME_RATE = 100;
 var your_username = "";
 
+var wSocket = 0;
 
-var uri = "wss://" + window.document.location.host + "/";
-var wSocket = new WebSocket(uri);
-console.log(wSocket);
+var setUpWebsocket = function(scheme){
+
+  var uri = scheme + window.document.location.host + "/";
+  wSocket = new WebSocket(uri);
+
+
+  wSocket.onmessage = function(response) {
+    var data = JSON.parse(response.data);
+    if (data.logout === true) {
+      var deleteIndex = playerNames.indexOf(data.username);
+      playerNames.splice(deleteIndex, 1);
+    } else {
+
+      // if username is not found, add it to existing users
+      if (playerNames.indexOf(data.username) === -1) {
+        playerNames.push(data.username);
+        // initialize an object to store this player's info
+        otherPlayers[data.username] = new Character;
+      }
+      otherPlayers[data.username].pos_x = data.pos_x;
+      otherPlayers[data.username].pos_y = data.pos_y;
+    }
+  };
+
+  wSocket.onclose = function(response) {
+    console.log("closed!!!")
+  };
+};
 
 var Character = function Character(){
   this.pos_x = 0;
@@ -22,28 +48,6 @@ var updateCharacters = function(){
     wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_username}) );
   };
 };
-wSocket.onmessage = function(response) {
-  var data = JSON.parse(response.data);
-  if (data.logout === true) {
-    var deleteIndex = playerNames.indexOf(data.username);
-    playerNames.splice(deleteIndex, 1);
-  } else {
-
-    // if username is not found, add it to existing users
-    if (playerNames.indexOf(data.username) === -1) {
-      playerNames.push(data.username);
-      // initialize an object to store this player's info
-      otherPlayers[data.username] = new Character;
-    }
-    otherPlayers[data.username].pos_x = data.pos_x;
-    otherPlayers[data.username].pos_y = data.pos_y;
-  }
-};
-
-wSocket.onclose = function(response) {
-  console.log("closed!!!")
-};
-
 
 
 var allowInput = function() {

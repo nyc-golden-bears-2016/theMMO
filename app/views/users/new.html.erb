@@ -1,7 +1,7 @@
 <span id="register"></span>
 
-<% if flash[:user_created] %>
-  <% flash[:user_created].split("\n").each do |message| %>
+<% if flash[:notice] %>
+  <% flash[:notice].split("\n").each do |message| %>
     <p><%= message %></p>
   <% end %>
 <% end %>
@@ -18,6 +18,11 @@
 
   <%= f.submit %>
 <% end %>
+
+
+<%= form_tag('/characters/new', {method: "GET"}) do -%>
+  <%= submit_tag("Create New Character") %>
+<% end -%>
 
 <h2>How to Play:</h2>
 <p>Use the directional pad to move your triangle.</p>
