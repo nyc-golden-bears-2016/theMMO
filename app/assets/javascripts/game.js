@@ -1,4 +1,4 @@
-var FRAME_RATE = 100;
+var FRAME_RATE = 33;
 // is stored with your character name passed in by the erb view
 var your_username = "";
 // upon keydown, keycode is loaded in here and delted upon keyup
@@ -57,10 +57,11 @@ var allowInput = function() {
   $(document).keydown(function(e){
     e.preventDefault();
     keys_pressed.push(e.which);
+    console.log(keys_pressed);
   });
   $(document).keyup(function(e){
     e.preventDefault();
-    if (16 in keys_pressed) {
+    if (keys_pressed.indexOf(16)) {
       if (e.which === 38) {
         your_char.pos_y--;
       };
