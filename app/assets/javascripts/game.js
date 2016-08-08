@@ -1,5 +1,8 @@
 var FRAME_RATE = 100;
+// is stored with your character name passed in by the erb view
 var your_username = "";
+// upon keydown, keycode is loaded in here and delted upon keyup
+var keys_pressed = [];
 
 var wSocket = 0;
 
@@ -53,21 +56,38 @@ var updateCharacters = function(){
 var allowInput = function() {
   $(document).keydown(function(e){
     e.preventDefault();
+    keys_pressed.push(e.which);
   });
   $(document).keyup(function(e){
     e.preventDefault();
-    if (e.which === 38) {
-      your_char.pos_y--;
-    };
-    if (e.which === 40) {
-      your_char.pos_y++;
-    };
-    if (e.which === 37) {
-      your_char.pos_x--;
-    };
-    if (e.which === 39) {
-      your_char.pos_x++;
-    };
+    if (16 in keys_pressed) {
+      if (e.which === 38) {
+        your_char.pos_y--;
+      };
+      if (e.which === 40) {
+        your_char.pos_y++;
+      };
+      if (e.which === 37) {
+        your_char.pos_x--;
+      };
+      if (e.which === 39) {
+        your_char.pos_x++;
+      };
+    } else {
+      if (e.which === 38) {
+        your_char.pos_y-= 10;
+      };
+      if (e.which === 40) {
+        your_char.pos_y+= 10;
+      };
+      if (e.which === 37) {
+        your_char.pos_x-= 10;
+      };
+      if (e.which === 39) {
+        your_char.pos_x+= 10;
+      };
+    }
+    keys_pressed.splice(keys_pressed.indexOf(e.which), 1);
   });
 };
 

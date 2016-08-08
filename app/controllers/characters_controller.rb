@@ -39,9 +39,9 @@ class CharactersController < ApplicationController
 
     def set_character_name
       character = Character.find_by(id: session[:character_id])
-      @username = nil
+      @character_name = nil
       if character
-        @username = character.name
+        @character_name = character.name
       end
     end
 
