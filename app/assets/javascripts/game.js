@@ -88,7 +88,9 @@ var allowInput = function() {
         your_char.pos_x+= 10;
       };
     }
-    keys_pressed.splice(keys_pressed.indexOf(e.which), 1);
+    keys_pressed = keys_pressed.filter(function(keycode){
+      return keycode != e.which;
+    })
   });
 };
 

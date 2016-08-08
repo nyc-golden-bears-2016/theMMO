@@ -26,6 +26,7 @@ class CharactersController < ApplicationController
 
     def check_user
       if session[:user_id].nil?
+        flash[:notice] = "Please login or create a new account."
         redirect_to "/users/register"
       end
     end
