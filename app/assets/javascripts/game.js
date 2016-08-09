@@ -52,51 +52,58 @@ var updateCharacters = function(){
   };
 };
 
+var processInputBuffer = function(){
+  if (keys_pressed.indexOf(16) != -1) {
+    console.log("shift held");
+      if (keys_pressed.indexOf(38) != -1) {
+        your_char.pos_y--;
+      };
+      if (keys_pressed.indexOf(40) != -1) {
+        your_char.pos_y++;
+      };
+      if (keys_pressed.indexOf(37) != -1) {
+        your_char.pos_x--;
+      };
+      if (keys_pressed.indexOf(39) != -1) {
+        your_char.pos_x++;
+      };
+    } else {
+      if (keys_pressed.indexOf(38) != -1) {
+        your_char.pos_y-= 4;
+      };
+      if (keys_pressed.indexOf(40) != -1) {
+        your_char.pos_y+= 4;
+      };
+      if (keys_pressed.indexOf(37) != -1) {
+        your_char.pos_x-= 4;
+      };
+      if (keys_pressed.indexOf(39) != -1) {
+        your_char.pos_x+= 4;
+      };
+    };
+};
+
 
 var allowInput = function() {
   $(document).keydown(function(e){
     e.preventDefault();
-    keys_pressed.push(e.which);
+    if(keys_pressed.indexOf(e.which) === -1) {
+      keys_pressed.push(e.which);
+    };
     console.log(keys_pressed);
   });
   $(document).keyup(function(e){
     e.preventDefault();
-    if (keys_pressed.indexOf(16)) {
-      if (e.which === 38) {
-        your_char.pos_y--;
-      };
-      if (e.which === 40) {
-        your_char.pos_y++;
-      };
-      if (e.which === 37) {
-        your_char.pos_x--;
-      };
-      if (e.which === 39) {
-        your_char.pos_x++;
-      };
-    } else {
-      if (e.which === 38) {
-        your_char.pos_y-= 10;
-      };
-      if (e.which === 40) {
-        your_char.pos_y+= 10;
-      };
-      if (e.which === 37) {
-        your_char.pos_x-= 10;
-      };
-      if (e.which === 39) {
-        your_char.pos_x+= 10;
-      };
-    }
     keys_pressed = keys_pressed.filter(function(keycode){
       return keycode != e.which;
-    })
+    });
   });
+  setInterval(processInputBuffer, FRAME_RATE/2);
 };
 
 var setCharacterUpdate = function(username) {
     your_username = username;
-    setInterval(updateCharacters, FRAME_RATE);
+    setInterval(updateCharacters, FRAME_RATE/2);
 };
 
 var drawCharacter = function(character, context){
