@@ -54,7 +54,6 @@ var updateCharacters = function(){
 
 var processInputBuffer = function(){
   if (keys_pressed.indexOf(16) != -1) {
-    console.log("shift held");
       if (keys_pressed.indexOf(38) != -1) {
         your_char.pos_y--;
       };
@@ -114,18 +113,25 @@ var drawCharacter = function(character, context){
   context.fill();
 };
 
+var dracula = new Image();
+dracula.src = '<%= asset_path("dracula-1280x720.png") %>'
+dracula.onload = function(){
+  console.log("dracula loaded");
+}
+
 
 var drawGame = function(){
   var canvas = document.getElementById('game_screen');
   var context = canvas.getContext('2d');
-  context.clearRect(0, 0, canvas.width, canvas.height);
+  // context.clearRect(0, 0, canvas.width, canvas.height);
+  context.drawImage(dracula, 0, 0, 800, 600);
 
-  context.fillStyle = "black";
+  context.fillStyle = "#7FFFFF";
   for (var i = playerNames.length - 1; i >= 0; i--) {
     drawCharacter(otherPlayers[playerNames[i]], context);
   };
 
-  context.fillStyle = "green";
+  context.fillStyle = "#FF00FF";
   drawCharacter(your_char, context);
 };
 
