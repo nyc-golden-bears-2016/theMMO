@@ -118,9 +118,9 @@ var setCharacterUpdate = function(username) {
 
 var drawCharacter = function(character, context){
   context.beginPath();
-  context.moveTo(character.pos_x, character.pos_y);
-  context.lineTo(character.pos_x + 25, character.pos_y + 25);
-  context.lineTo(character.pos_x + 25, character.pos_y - 25);
+  context.moveTo( (character.pos_x + currentScrollFactorX), character.pos_y);
+  context.lineTo( (character.pos_x + currentScrollFactorX) + 25, character.pos_y + 25);
+  context.lineTo( (character.pos_x + currentScrollFactorX) + 25, character.pos_y - 25);
   context.fill();
 };
 
