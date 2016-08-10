@@ -152,13 +152,12 @@ var drawGame = function(){
   } else if (your_char.pos_y - currentScrollFactorY <= DEAD_ZONE_HEIGHT) {
     currentScrollFactorY = Math.max(your_char.pos_y - DEAD_ZONE_HEIGHT, 0);
   }
-  console.log("scroll", currentScrollFactorX);
-  console.log("pos_x", your_char.pos_x);
   var canvas = document.getElementById('game_screen');
   var context = canvas.getContext('2d');
   // context.clearRect(0, 0, canvas.width, canvas.height);
   for(var x = SCREEN_TILES_WIDTH; x >= 0; x--) {
     for(var y = SCREEN_TILES_HEIGHT; y >= 0; y--) {
+      // TODO: this should be refactored so that it only draws within a radius of the player, roughly 600 pixels in X direction, and roughly 450 pixels in Y direction
       context.drawImage(current_background, (SCREEN_WIDTH * x) - currentScrollFactorX, (SCREEN_HEIGHT * y) - currentScrollFactorY, SCREEN_WIDTH, SCREEN_HEIGHT);
     };
   };
