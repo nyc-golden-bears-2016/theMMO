@@ -1,8 +1,8 @@
 var FRAME_RATE = 33;
 var SCREEN_WIDTH = 800;
 var SCREEN_HEIGHT = 600;
-var DEAD_ZONE_WIDTH = 220;
-var DEAD_ZONE_HEIGHT = 180;
+var DEAD_ZONE_WIDTH = 250;
+var DEAD_ZONE_HEIGHT = 200;
 var DEAD_ZONE_WIDTH_X_MAX = (SCREEN_WIDTH - DEAD_ZONE_WIDTH);
 var DEAD_ZONE_HEIGHT_Y_MAX = (SCREEN_HEIGHT - DEAD_ZONE_HEIGHT);
 var SCREEN_TILES_WIDTH = 8;
@@ -118,15 +118,15 @@ var setCharacterUpdate = function(username) {
 
 var drawCharacter = function(character, context){
   context.beginPath();
-  context.moveTo( (character.pos_x - currentScrollFactorX), character.pos_y);
-  context.lineTo( (character.pos_x - currentScrollFactorX) + 25, character.pos_y + 25);
-  context.lineTo( (character.pos_x - currentScrollFactorX) + 25, character.pos_y - 25);
+  context.moveTo( (character.pos_x - currentScrollFactorX), (character.pos_y - currentScrollFactorY));
+  context.lineTo( (character.pos_x - currentScrollFactorX) + 25, (character.pos_y - currentScrollFactorY) + 25);
+  context.lineTo( (character.pos_x - currentScrollFactorX) + 25, (character.pos_y - currentScrollFactorY) - 25);
   context.fill();
 };
 
 var drawPlayer = function(context){
   var adjusted_pos_x = your_char.pos_x - currentScrollFactorX;
-  var adjusted_pos_y = your_char.pos_y;
+  var adjusted_pos_y = your_char.pos_y - currentScrollFactorY;
   context.beginPath();
   context.moveTo(adjusted_pos_x, adjusted_pos_y);
   context.lineTo(adjusted_pos_x + 25, adjusted_pos_y + 25);
@@ -147,6 +147,11 @@ var drawGame = function(){
   } else if (your_char.pos_x - currentScrollFactorX <= DEAD_ZONE_WIDTH) {
     currentScrollFactorX = Math.max(your_char.pos_x - DEAD_ZONE_WIDTH, 0);
   }
+  if(your_char.pos_y - currentScrollFactorY >= DEAD_ZONE_HEIGHT_Y_MAX) {
+    currentScrollFactorY = Math.max(your_char.pos_y - DEAD_ZONE_HEIGHT_Y_MAX, 0);
+  } else if (your_char.pos_y - currentScrollFactorY <= DEAD_ZONE_HEIGHT) {
+    currentScrollFactorY = Math.max(your_char.pos_y - DEAD_ZONE_HEIGHT, 0);
+  }
   console.log("scroll", currentScrollFactorX);
   console.log("pos_x", your_char.pos_x);
   var canvas = document.getElementById('game_screen');
@@ -154,9 +159,9 @@ var drawGame = function(){
   // context.clearRect(0, 0, canvas.width, canvas.height);
   for(var x = SCREEN_TILES_WIDTH; x >= 0; x--) {
     for(var y = SCREEN_TILES_HEIGHT; y >= 0; y--) {
-      context.drawImage(current_background, (SCREEN_WIDTH * x) - currentScrollFactorX, SCREEN_HEIGHT * y, SCREEN_WIDTH, SCREEN_HEIGHT);
-    }
-  }
+      context.drawImage(current_background, (SCREEN_WIDTH * x) - currentScrollFactorX, (SCREEN_HEIGHT * y) - currentScrollFactorY, SCREEN_WIDTH, SCREEN_HEIGHT);
+    };
+  };
 
   context.fillStyle = "#7FFFFF";
   for (var i = playerNames.length - 1; i >= 0; i--) {
