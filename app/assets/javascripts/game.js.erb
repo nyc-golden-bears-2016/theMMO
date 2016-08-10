@@ -102,7 +102,7 @@ var allowInput = function() {
 
 var setCharacterUpdate = function(username) {
     your_username = username;
-    setInterval(updateCharacters, FRAME_RATE);
+    setInterval(updateCharacters, FRAME_RATE/3);
 };
 
 var drawCharacter = function(character, context){
