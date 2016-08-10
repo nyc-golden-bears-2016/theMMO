@@ -1,5 +1,12 @@
 var FRAME_RATE = 33;
-// is stored with your character name passed in by the erb view
+var DEAD_ZONE_WIDTH = 200;
+var DEAD_ZONE_HEIGHT = 160;
+var SCREEN_WIDTH = 800;
+var SCREEN_HEIGHT = 600;
+var SCREEN_TILES_WIDTH = 8;
+var SCREEN_TILES_HEIGHT = 6;
+
+// stored with your character name passed in by the erb view
 var your_username = "";
 // upon keydown, keycode is loaded in here and delted upon keyup
 var keys_pressed = [];
@@ -113,10 +120,10 @@ var drawCharacter = function(character, context){
   context.fill();
 };
 
-var dracula = new Image();
-dracula.src = '<%= asset_path("dracula-1280x720.png") %>'
-dracula.onload = function(){
-  console.log("dracula loaded");
+var current_background = new Image();
+current_background.src = '<%= asset_path("dracula-1280x720.png") %>'
+current_background.onload = function(){
+  console.log("background loaded");
 }
 
 
@@ -124,7 +131,11 @@ var drawGame = function(){
   var canvas = document.getElementById('game_screen');
   var context = canvas.getContext('2d');
   // context.clearRect(0, 0, canvas.width, canvas.height);
-  context.drawImage(dracula, 0, 0, 800, 600);
+  for(var x = SCREEN_TILES_WIDTH; x > 0; x--) {
+    for(var y = SCREEN_TILES_HEIGHT; y > 0; y--) {
+      context.drawImage(current_background, x, y, 200, 150);
+    }
+  }
 
   context.fillStyle = "#7FFFFF";
   for (var i = playerNames.length - 1; i >= 0; i--) {
