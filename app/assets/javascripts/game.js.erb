@@ -1,5 +1,16 @@
 var FRAME_RATE = 33;
-// is stored with your character name passed in by the erb view
+var SCREEN_WIDTH = 800;
+var SCREEN_HEIGHT = 600;
+var DEAD_ZONE_WIDTH = 220;
+var DEAD_ZONE_HEIGHT = 180;
+var DEAD_ZONE_WIDTH_X_MAX = (SCREEN_WIDTH - DEAD_ZONE_WIDTH);
+var DEAD_ZONE_HEIGHT_Y_MAX = (SCREEN_HEIGHT - DEAD_ZONE_HEIGHT);
+var SCREEN_TILES_WIDTH = 8;
+var SCREEN_TILES_HEIGHT = 6;
+var currentScrollFactorX = 0;
+var currentScrollFactorY = 0;
+
+// stored with your character name passed in by the erb view
 var your_username = "";
 // upon keydown, keycode is loaded in here and delted upon keyup
 var keys_pressed = [];
@@ -102,29 +113,42 @@ var allowInput = function() {
 
 var setCharacterUpdate = function(username) {
     your_username = username;
-    setInterval(updateCharacters, FRAME_RATE/2);
+    setInterval(updateCharacters, FRAME_RATE/3);
 };
 
 var drawCharacter = function(character, context){
+  var adjusted_pos_x = your_char.pos_x - currentScrollFactorX;
+  var adjusted_pos_y;
   context.beginPath();
-  context.moveTo(character.pos_x, character.pos_y);
-  context.lineTo(character.pos_x + 25, character.pos_y + 25);
-  context.lineTo(character.pos_x + 25, character.pos_y - 25);
+  context.moveTo(adjusted_pos_x, character.pos_y);
+  context.lineTo(adjusted_pos_x + 25, character.pos_y + 25);
+  context.lineTo(adjusted_pos_x + 25, character.pos_y - 25);
   context.fill();
 };
 
-var dracula = new Image();
-dracula.src = '<%= asset_path("dracula-1280x720.png") %>'
-dracula.onload = function(){
-  console.log("dracula loaded");
+var current_background = new Image();
+current_background.src = '<%= asset_path("dracula-1280x720.png") %>'
+current_background.onload = function(){
+  console.log("background loaded");
 }
 
 
 var drawGame = function(){
+  if(your_char.pos_x - currentScrollFactorX >= DEAD_ZONE_WIDTH_X_MAX) {
+    currentScrollFactorX = Math.max(your_char.pos_x - DEAD_ZONE_WIDTH_X_MAX, 0);
+  } else if (your_char.pos_x - currentScrollFactorX <= DEAD_ZONE_WIDTH) {
+    currentScrollFactorX = Math.max(your_char.pos_x - DEAD_ZONE_WIDTH, 0);
+  }
+  console.log("scroll", currentScrollFactorX);
+  console.log("pos_x", your_char.pos_x);
   var canvas = document.getElementById('game_screen');
   var context = canvas.getContext('2d');
   // context.clearRect(0, 0, canvas.width, canvas.height);
-  context.drawImage(dracula, 0, 0, 800, 600);
+  for(var x = SCREEN_TILES_WIDTH; x >= 0; x--) {
+    for(var y = SCREEN_TILES_HEIGHT; y >= 0; y--) {
+      context.drawImage(current_background, (SCREEN_WIDTH * x) - currentScrollFactorX, SCREEN_HEIGHT * y, SCREEN_WIDTH, SCREEN_HEIGHT);
+    }
+  }
 
   context.fillStyle = "#7FFFFF";
   for (var i = playerNames.length - 1; i >= 0; i--) {
