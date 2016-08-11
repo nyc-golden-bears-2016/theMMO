@@ -5,8 +5,8 @@ var DEAD_ZONE_WIDTH = 250;
 var DEAD_ZONE_HEIGHT = 200;
 var DEAD_ZONE_WIDTH_X_MAX = (SCREEN_WIDTH - DEAD_ZONE_WIDTH);
 var DEAD_ZONE_HEIGHT_Y_MAX = (SCREEN_HEIGHT - DEAD_ZONE_HEIGHT);
-var SCREEN_TILES_WIDTH = 8;
-var SCREEN_TILES_HEIGHT = 6;
+var SCREEN_TILES_WIDTH = 3;
+var SCREEN_TILES_HEIGHT = 3;
 var currentScrollFactorX = 0;
 var currentScrollFactorY = 0;
 
@@ -146,17 +146,24 @@ var drawGame = function(){
     currentScrollFactorX = Math.max(your_char.pos_x - DEAD_ZONE_WIDTH_X_MAX, 0);
   } else if (your_char.pos_x - currentScrollFactorX <= DEAD_ZONE_WIDTH) {
     currentScrollFactorX = Math.max(your_char.pos_x - DEAD_ZONE_WIDTH, 0);
-  }
+  };
   if(your_char.pos_y - currentScrollFactorY >= DEAD_ZONE_HEIGHT_Y_MAX) {
     currentScrollFactorY = Math.max(your_char.pos_y - DEAD_ZONE_HEIGHT_Y_MAX, 0);
   } else if (your_char.pos_y - currentScrollFactorY <= DEAD_ZONE_HEIGHT) {
     currentScrollFactorY = Math.max(your_char.pos_y - DEAD_ZONE_HEIGHT, 0);
-  }
+  };
+  if(currentScrollFactorX >= (SCREEN_WIDTH * SCREEN_TILES_WIDTH) ) {
+      currentScrollFactorX = (SCREEN_WIDTH * SCREEN_TILES_WIDTH);
+  };
+  if(currentScrollFactorY >= (SCREEN_HEIGHT * SCREEN_TILES_HEIGHT) ) {
+      currentScrollFactorY = (SCREEN_HEIGHT * SCREEN_TILES_HEIGHT);
+  };
+
   var canvas = document.getElementById('game_screen');
   var context = canvas.getContext('2d');
   // context.clearRect(0, 0, canvas.width, canvas.height);
-  for(var x = SCREEN_TILES_WIDTH; x >= 0; x--) {
-    for(var y = SCREEN_TILES_HEIGHT; y >= 0; y--) {
+  for(var x = (SCREEN_TILES_WIDTH); x >= 0; x--) {
+    for(var y = (SCREEN_TILES_HEIGHT); y >= 0; y--) {
       // TODO: this should be refactored so that it only draws within a radius of the player, roughly 600 pixels in X direction, and roughly 450 pixels in Y direction
       context.drawImage(current_background, (SCREEN_WIDTH * x) - currentScrollFactorX, (SCREEN_HEIGHT * y) - currentScrollFactorY, SCREEN_WIDTH, SCREEN_HEIGHT);
     };
