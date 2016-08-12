@@ -9,6 +9,8 @@ var Enemy = function Enemy() {
   this.speed = 0;
   this.health = 0;
   this.maxHealth = 0;
+  this.pose = "";
+  this.poseFrame = 0;
   this.sprites = {stand: "",
                   attack: ""};
 }
@@ -21,11 +23,36 @@ var enemyMake = function(type) {
     enemy.height = 131;
     enemy.attack = 4;
     enemy.defense = 4;
-    enemy.speed = 4;
+    enemy.attackSpeed = 10;
     enemy.maxHealth = 10;
     enemy.sprites = {stand: slime_stand01,
                     attack: slime_attack01};
   }
+  enemy.pose = "standing";
   enemy.health = enemy.maxHealth;
   return enemy;
 }
+
+Enemy.prototype.drawEnemy = function(){
+  this.poseFrame++;
+  if (this.pose === "standing") {
+    return this.sprites.stand;
+  } else if (this.pose === "attacking") {
+    if (this.poseFrame > 20) {
+      this.setPose("standing");
+      return this.drawEnemy();
+    } else {
+      return this.sprites.attack;
+    }
+  }
+}
+
+Enemy.prototype.setPose = function(pose) {
+  this.pose = pose;
+  this.poseFrame = 0;
+}
+
+Enemy.prototype.attackPlayer = function(player) {
+  player.health -= this.attack;
+}
+

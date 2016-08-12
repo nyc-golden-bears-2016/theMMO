@@ -18,4 +18,5 @@
 //= require ./graphics.js.erb
 //= require ./game.js.erb
 //= require ./socket.js.erb
+//= require ./battle.js.erb
 //= require_tree .
