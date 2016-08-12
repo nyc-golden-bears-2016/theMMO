@@ -1,15 +1,19 @@
-<canvas id="game_screen" width="800" height="600"></canvas>
+<!-- <div style="position:absolute;width:300px;height:200px;left:0;top:20px;background-color:red;z-index:1"> This is the menu
+  </div> -->
+<canvas style="z-index:-1" id="game_screen" width="800" height="600"></canvas>
 
 <script>
-  var scheme = "ws://"
+  var scheme = "ws://";
   <% if ENV["ENCRYPTED_WEBSOCKET"] == "true" %>
-    scheme = "wss://"
+    scheme = "wss://";
   <% end %>
   setUpWebsocket(scheme);
   $('document').ready(function(){
-    setAutoLogout();
-    allowInput();
-    setCharacterUpdate('<%= @character_name %>');
-    setCanvasDrawingUpdate();
+    setAutoLogout(); //logout when user exits browser or tab
+    allowInput(); // key listeners to keyboard
+
+    // Main logic
+    setCharacterUpdate('<%= @character_name %>'); // passes player position and player identity data to the server
+    setCanvasDrawingUpdate(); //redraws canvas 30 fps
   });
 </script>

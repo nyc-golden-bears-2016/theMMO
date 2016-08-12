@@ -5,8 +5,11 @@ class WebsocketLogic
   KEEPALIVE_TIME = 15
 
   def initialize(app)
-    @app = app
-    @clients = []
+    @main_server = app
+    @players = []
+    @messages_per_frame = 0
+    @time_counter = Time.now
+    @time_per_frame = 0.166
   end
 
   def call(env)
@@ -15,23 +18,30 @@ class WebsocketLogic
 
       websocket.on :open do |event|
         p [:open, websocket.object_id]
-        @clients << websocket
+        @players << websocket
       end
 
       websocket.on :message do |event|
         p [:message, event.data]
-        @clients.each {|client| Thread.new { client.send(event.data) } }
+        # TODO: refactor so that it only sends out client info 60 times a second
+        @messages_per_frame += 1
+        if Time.now - @time_counter >= @time_per_frame
+          @time_counter = Time.now
+          puts @messages_per_frame
+          @messages_per_frame = 0;
+        end
+        @players.each {|client| Thread.new { client.send(event.data) } }
       end
 
       websocket.on :close do |event|
         p [:close, websocket.object_id, event.code, event.reason]
-        @clients.delete(websocket)
+        @players.delete(websocket)
         websocket = nil
       end
 
       websocket.rack_response
     else
-      @app.call(env)
+      @main_server.call(env)
     end
   end
 
