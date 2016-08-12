@@ -1,0 +1,53 @@
+console.log("CONTROL PAGE LOADING")
+var processInputBuffer = function(){
+  if(inBattle) { // Battle controls
+
+  } else { // Field controls
+      if (keys_pressed.indexOf(79) != -1) {
+        inBattle = true;
+      } else if (keys_pressed.indexOf(16) != -1) {
+        if (keys_pressed.indexOf(38) != -1) {
+          your_char.pos_y--;
+        };
+        if (keys_pressed.indexOf(40) != -1) {
+          your_char.pos_y++;
+        };
+        if (keys_pressed.indexOf(37) != -1) {
+          your_char.pos_x--;
+        };
+        if (keys_pressed.indexOf(39) != -1) {
+          your_char.pos_x++;
+        };
+      } else {
+        if (keys_pressed.indexOf(38) != -1) {
+          your_char.pos_y-= your_char.speed;
+        };
+        if (keys_pressed.indexOf(40) != -1) {
+          your_char.pos_y+= your_char.speed;
+        };
+        if (keys_pressed.indexOf(37) != -1) {
+          your_char.pos_x-= your_char.speed;
+        };
+        if (keys_pressed.indexOf(39) != -1) {
+          your_char.pos_x+= your_char.speed;
+        };
+      };
+    }
+};
+
+var allowInput = function() {
+  $(document).keydown(function(e){
+    e.preventDefault();
+    if(keys_pressed.indexOf(e.which) === -1) {
+      keys_pressed.push(e.which);
+    };
+    console.log(keys_pressed);
+  });
+  $(document).keyup(function(e){
+    e.preventDefault();
+    keys_pressed = keys_pressed.filter(function(keycode){
+      return keycode != e.which;
+    });
+  });
+  setInterval(processInputBuffer, FRAME_RATE/2);
+};
