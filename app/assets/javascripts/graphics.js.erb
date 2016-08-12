@@ -84,14 +84,6 @@ var drawField = function(){
   drawPlayer(context);
 };
 
-var prepareBattle = function(){
-  for(var i=0; i < 3; i++){
-    currentEnemies.push(enemyMake("slime"));
-  };
-}
-
-prepareBattle();
-
 var drawBattle = function(){
   var canvas = document.getElementById('game_screen');
   var context = canvas.getContext('2d');
@@ -112,7 +104,7 @@ var drawBattle = function(){
     previousEnemiesWidths.forEach(function(prevWidth){
       offset += prevWidth;
     });
-    context.drawImage(enemy.sprites.stand, drawPositionX + offset, 300);
+    context.drawImage(enemy.drawEnemy(), drawPositionX + offset, 300);
     //enemyCount ++;
     previousEnemiesWidths.push(enemy.width);
     offset = 0;
