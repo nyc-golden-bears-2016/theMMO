@@ -4,6 +4,13 @@ class CreateCharacters < ActiveRecord::Migration[5.0]
       t.string :name
       t.string :location
       t.integer :user_id
+      t.integer :party_id
+      t.integer :attack
+      t.integer :health
+      t.integer :XP
+      t.integer :defense
+      t.integer :max_health
+
 
       t.timestamps null: false
     end
