@@ -2,6 +2,7 @@ var prepareBattle = function(){
   for(var i=0; i < 3; i++){
     currentEnemies.push(enemyMake("slime"));
   };
+  your_char.changeTarget(currentEnemies[0]);
 }
 
 prepareBattle();

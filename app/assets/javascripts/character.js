@@ -9,4 +9,13 @@ var Character = function Character(){
   this.attack = 10;
   this.xp = 0;
   this.defense = 1;
+  this.enemyTarget = 0;
 };
+
+Character.prototype.attackEnemy = function(enemy) {
+  enemy.health -= this.attack
+}
+
+Character.prototype.changeTarget = function(enemy) {
+  this.enemyTarget = enemy;
+}
