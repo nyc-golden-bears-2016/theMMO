@@ -1,0 +1,129 @@
+console.log("GRAPHICS PAGE LOADING")
+// other players
+var drawOtherCharacter = function(character, context){
+  context.beginPath();
+  context.moveTo( (character.pos_x - backgroundScrollX), (character.pos_y - backgroundScrollY));
+  context.lineTo( (character.pos_x - backgroundScrollX) + 25, (character.pos_y - backgroundScrollY) + 25);
+  context.lineTo( (character.pos_x - backgroundScrollX) + 25, (character.pos_y - backgroundScrollY) - 25);
+  context.fill();
+};
+
+//draw your own character locally, relative to canvas
+var drawPlayer = function(context){
+  var adjusted_pos_x = your_char.pos_x - backgroundScrollX;
+  var adjusted_pos_y = your_char.pos_y - backgroundScrollY;
+  context.beginPath();
+  context.moveTo(adjusted_pos_x, adjusted_pos_y);
+  context.lineTo(adjusted_pos_x + 25, adjusted_pos_y + 25);
+  context.lineTo(adjusted_pos_x + 25, adjusted_pos_y - 25);
+  context.fill();
+};
+
+var current_background = new Image();
+current_background.src = '<%= asset_path("dracula-1280x720.png") %>'
+current_background.onload = function(){
+  console.log("background loaded");
+}
+
+var beach_battle = new Image();
+beach_battle.src = '<%= asset_path("lake_beach.jpg") %>'
+beach_battle.onload = function(){
+  console.log("beach loaded");
+}
+
+var slime_stand01 = new Image();
+slime_stand01.src = '<%= asset_path("slime_stand01.png") %>'
+slime_stand01.onload = function(){
+  console.log("slime_stand01 loaded");
+}
+
+var slime_attack01 = new Image();
+slime_attack01.src = '<%= asset_path("slime_attack01.png") %>'
+slime_attack01.onload = function(){
+  console.log("slime_attack01 loaded");
+}
+
+
+var drawField = function(){
+  // determines how much to scroll camera (aka the canvas)
+  if(your_char.pos_x - backgroundScrollX >= DEAD_ZONE_WIDTH_X_MAX) {
+    backgroundScrollX = Math.max(your_char.pos_x - DEAD_ZONE_WIDTH_X_MAX, 0);
+  } else if (your_char.pos_x - backgroundScrollX <= DEAD_ZONE_WIDTH) {
+    backgroundScrollX = Math.max(your_char.pos_x - DEAD_ZONE_WIDTH, 0);
+  };
+  if(your_char.pos_y - backgroundScrollY >= DEAD_ZONE_HEIGHT_Y_MAX) {
+    backgroundScrollY = Math.max(your_char.pos_y - DEAD_ZONE_HEIGHT_Y_MAX, 0);
+  } else if (your_char.pos_y - backgroundScrollY <= DEAD_ZONE_HEIGHT) {
+    backgroundScrollY = Math.max(your_char.pos_y - DEAD_ZONE_HEIGHT, 0);
+  };
+  // determines whether or not the camera hit the boundary
+  if(backgroundScrollX >= (SCREEN_WIDTH * SCREEN_TILES_WIDTH) ) {
+      backgroundScrollX = (SCREEN_WIDTH * SCREEN_TILES_WIDTH);
+  };
+  if(backgroundScrollY >= (SCREEN_HEIGHT * SCREEN_TILES_HEIGHT) ) {
+      backgroundScrollY = (SCREEN_HEIGHT * SCREEN_TILES_HEIGHT);
+  };
+
+  var canvas = document.getElementById('game_screen');
+  var context = canvas.getContext('2d');
+  // context.clearRect(0, 0, canvas.width, canvas.height);
+  for(var x = (SCREEN_TILES_WIDTH); x >= 0; x--) {
+    for(var y = (SCREEN_TILES_HEIGHT); y >= 0; y--) {
+      // TODO: this should be refactored so that it only draws within a radius of the player
+      context.drawImage(current_background, (SCREEN_WIDTH * x) - backgroundScrollX, (SCREEN_HEIGHT * y) - backgroundScrollY, SCREEN_WIDTH, SCREEN_HEIGHT);
+    };
+  };
+
+  context.fillStyle = "#7FFFFF";
+  for (var i = playerNames.length - 1; i >= 0; i--) {
+    // TODO: remove aftershadow
+    drawOtherCharacter(otherPlayers[playerNames[i]], context);
+  };
+
+  context.fillStyle = "#FF00FF";
+  drawPlayer(context);
+};
+
+var prepareBattle = function(){
+  for(var i=0; i < 3; i++){
+    currentEnemies.push(enemyMake("slime"));
+  };
+}
+
+prepareBattle();
+
+var drawBattle = function(){
+  var canvas = document.getElementById('game_screen');
+  var context = canvas.getContext('2d');
+  context.drawImage(beach_battle, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+  var totalEnemyWidth = 0;
+
+  currentEnemies.forEach(function(enemy){
+    totalEnemyWidth += enemy.width;
+  });
+
+  var drawPositionX = (SCREEN_WIDTH / 2) - (totalEnemyWidth / 2);
+  //var enemyCount = 1;
+  var previousEnemiesWidths = [];
+  var offset = 0;
+
+  currentEnemies.forEach(function(enemy){
+    previousEnemiesWidths.forEach(function(prevWidth){
+      offset += prevWidth;
+    });
+    context.drawImage(enemy.sprites.stand, drawPositionX + offset, 300);
+    //enemyCount ++;
+    previousEnemiesWidths.push(enemy.width);
+    offset = 0;
+  });
+}
+
+var drawGame = function(){
+  if (inBattle) {drawBattle()
+  } else {drawField()};
+}
+
+var setCanvasDrawingUpdate = function(){
+  setInterval(drawGame, FRAME_RATE);
+};

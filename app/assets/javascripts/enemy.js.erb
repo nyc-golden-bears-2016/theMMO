@@ -1,0 +1,31 @@
+console.log("ENEMY PAGE LOADING")
+var currentEnemies = [];
+var Enemy = function Enemy() {
+  this.name = "missing no.";
+  this.width = 0;
+  this.height = 0;
+  this.attack = 0;
+  this.defense = 0;
+  this.speed = 0;
+  this.health = 0;
+  this.maxHealth = 0;
+  this.sprites = {stand: "",
+                  attack: ""};
+}
+
+var enemyMake = function(type) {
+  if (type === "slime") {
+    var enemy = new Enemy;
+    enemy.name = "slime";
+    enemy.width = 174;
+    enemy.height = 131;
+    enemy.attack = 4;
+    enemy.defense = 4;
+    enemy.speed = 4;
+    enemy.maxHealth = 10;
+    enemy.sprites = {stand: slime_stand01,
+                    attack: slime_attack01};
+  }
+  enemy.health = enemy.maxHealth;
+  return enemy;
+}

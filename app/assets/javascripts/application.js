@@ -12,4 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require ./character.js.erb
+//= require ./enemy.js.erb
+//= require ./controls.js.erb
+//= require ./graphics.js.erb
+//= require ./game.js.erb
+//= require ./socket.js.erb
 //= require_tree .
