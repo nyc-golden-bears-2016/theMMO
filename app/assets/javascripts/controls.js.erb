@@ -1,10 +1,14 @@
 console.log("CONTROL PAGE LOADING")
 var processInputBuffer = function(){
   if(inBattle) { // Battle controls
-
+    if((keys_pressed.indexOf(66) != -1) && (keys_pressed_checker.indexOf(66) === -1) ) {
+      keys_pressed_checker.push(66);
+      slashes.push(new Slash(your_char.enemyTarget));
+      your_char.attackEnemy(your_char.enemyTarget);
+    }
   } else { // Field controls
       if (keys_pressed.indexOf(79) != -1) {
-        inBattle = true;
+        inBattle = true; // TODO: remove later
       } else if (keys_pressed.indexOf(16) != -1) {
         if (keys_pressed.indexOf(38) != -1) {
           your_char.pos_y--;
@@ -45,7 +49,13 @@ var allowInput = function() {
   });
   $(document).keyup(function(e){
     e.preventDefault();
+    if( (can_attack === false) && (e.which === 66)) {
+      can_attack = true;
+    }
     keys_pressed = keys_pressed.filter(function(keycode){
+      return keycode != e.which;
+    });
+    keys_pressed_checker = keys_pressed_checker.filter(function(keycode){
       return keycode != e.which;
     });
   });

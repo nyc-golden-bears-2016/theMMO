@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require ./image_loader.js.erb
 //= require ./character.js.erb
 //= require ./enemy.js.erb
 //= require ./controls.js.erb
