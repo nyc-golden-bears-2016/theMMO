@@ -1,10 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root "users#new"
-
-  post "/users" => 'users#create'
-  get "/users/register" => "users#new"
+  root "game#index"
 
   get "/game" => 'characters#game'
-  resources :characters
+  resources :characters, only: [:create, :game, :new]
 end

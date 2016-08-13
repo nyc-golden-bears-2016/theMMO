@@ -25,6 +25,10 @@ gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
+gem 'haml', '~> 4.0', '>= 4.0.7'
+gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
+gem 'simple_form', '~> 3.2', '>= 3.2.1'
+gem 'devise', '~> 4.2'
 gem 'bcrypt', '~> 3.1.7'
 
 # Use Capistrano for deployment
