@@ -11,10 +11,17 @@ var proceedBattle = function() {
   if (inBattle === true) {
     currentBattleFrame++;
     for (var i = currentEnemies.length - 1; i >= 0; i--) {
+      if(currentEnemies[i].health <= 0) {
+        currentEnemies[i].setPose("dead");
+      }
+    }
+    for (var i = currentEnemies.length - 1; i >= 0; i--) {
       if (currentBattleFrame % (255 - currentEnemies[i].attackSpeed) === 0) {
-        currentEnemies[i].attackPlayer(your_char);
-        currentEnemies[i].setPose("attacking");
-        console.log(your_char.health)
+        if(currentEnemies[i].pose === "standing") {
+          currentEnemies[i].attackPlayer(your_char);
+          currentEnemies[i].setPose("attacking");
+          console.log(your_char.health);
+        }
       }
     };
   }

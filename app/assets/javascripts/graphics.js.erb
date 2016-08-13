@@ -79,7 +79,11 @@ var drawBattle = function(){
       offset += prevWidth;
     });
     enemy.pos_x = drawPositionX + offset;
-    context.drawImage(enemy.drawEnemy(), enemy.pos_x, enemy.pos_y);
+    if(enemy.pose === "dead") {
+      context.drawImage(enemy.drawEnemy(), enemy.pos_x, enemy.pos_y, enemy.width, enemy.height);
+    } else {
+      context.drawImage(enemy.drawEnemy(), enemy.pos_x, enemy.pos_y);
+    }
     var slashesThisFrame = slashes.slice(0);
     for (var i = 0; i < slashesThisFrame.length; i++) {
       context.drawImage(slashesThisFrame[i].drawSlash(), slashesThisFrame[i].pos_x, slashesThisFrame[i].pos_y);
@@ -103,8 +107,8 @@ var Slash = function Slash(enemy) {
   this.currentFrame = 0;
   this.sprites = [slash01, slash02, slash03, slash04, slash05, slash06];
   this.currentSprite = -1;
-  this.pos_x = (enemy.pos_x - 80) + Math.random() * (100) || 0;
-  this.pos_y = (enemy.pos_y - 100) + Math.random() * (100) || 0;
+  this.pos_x = (enemy.pos_x - 60) + Math.floor(Math.random() * (100)) || 0;
+  this.pos_y = (enemy.pos_y - 125) + Math.floor(Math.random() * (100)) || 0;
 }
 
 Slash.prototype.drawSlash = function(){
@@ -112,6 +116,8 @@ Slash.prototype.drawSlash = function(){
     this.currentSprite++;
   }
   this.currentFrame++;
+  this.pos_x -= 5;
+  this.pos_y += 5;
   if (this.currentFrame >= 12) {
     var index = slashes.indexOf(this);
     slashes.splice(index, 1);

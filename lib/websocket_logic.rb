@@ -8,8 +8,8 @@ class WebsocketLogic
     @main_server = app
     @players = []
     @messages_per_frame = 0
-    @time_counter = Time.now
-    @time_per_frame = 0.166
+    @time_counter = Time.now.to_f
+    @time_per_frame = 1.0
   end
 
   def call(env)
@@ -23,12 +23,12 @@ class WebsocketLogic
 
       websocket.on :message do |event|
         p [:message, event.data]
-        # TODO: refactor so that it only sends out client info 60 times a second
+        # TODO: refactor so that it only sends out client info 30 times a second
         @messages_per_frame += 1
-        if Time.now - @time_counter >= @time_per_frame
-          @time_counter = Time.now
+        if(Time.now.to_f - @time_counter >= @time_per_frame)
           puts @messages_per_frame
-          @messages_per_frame = 0;
+          @messages_per_frame = 0
+          @time_counter = Time.now.to_f
         end
         @players.each {|client| Thread.new { client.send(event.data) } }
       end
