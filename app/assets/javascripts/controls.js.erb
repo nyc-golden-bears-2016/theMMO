@@ -69,14 +69,16 @@ var clickBuffer = function(x, y){
   var context = canvas.getContext('2d');
   if (clicked.indexOf("yourself") != -1 ) {
     context.drawImage(slime_stand01, clickLocation[0], clickLocation[1])
+  } else if (clicked.indexOf("other") != -1 ) {
+    context.drawImage(slime_attack01, clickLocation[0], clickLocation[1])
   }
 }
 
 var allowClick = function() {
   //click listener
   document.getElementById('game_screen').addEventListener('click', function(e) {
-    var global_x = e.pageX - 5 - $('#game_screen').offset().left + backgroundScrollX;
-    var global_y = e.pageY - 5 - $('#game_screen').offset().top + backgroundScrollY;
+    global_x = e.pageX + backgroundScrollX - 5 - $('#game_screen').offset().left;
+    global_y = e.pageY + backgroundScrollY - 5 - $('#game_screen').offset().top;
     // x and y relative to canvas
     var x = e.pageX - 5 - $('#game_screen').offset().left;
     var y = e.pageY - 5 - $('#game_screen').offset().top;
@@ -89,16 +91,25 @@ var allowClick = function() {
       console.log("clicked yourself")
       clicked.push("yourself");
       your_menu = true;
+    } else if(checkOther(global_x, global_y) != false) {
+      console.log("CLICK OTHER PLAYER");
+      otherPlayerMenu = true;
+      clicked.push("other");
     } else {
       clicked = [];
+      your_menu = false;
+      otherPlayerMenu = false;
     }
   }, false);
 }
 
-// var checkOther = function() {
-//   for (var i = playerNames.length - 1; i >= 0; i--) {
-//     x = otherPlayers[playerNames[i]].pos_x - backgroundScrollX
-//     y = otherPlayers[playerNames[i]].pos_y - backgroundScrollY
-
-//   };
-// }
+var checkOther = function(x, y) {
+  for (var i = playerNames.length - 1; i >= 0; i--) {
+    otherPlayerX = otherPlayers[playerNames[i]].pos_x;
+    otherPlayerY = otherPlayers[playerNames[i]].pos_y;
+    if ((x >= otherPlayerX && x<= otherPlayerX +25 ) && (y >= otherPlayerY && y<= otherPlayerY +25)) {
+      return otherPlayers[playerNames[i]];
+    };
+    return false;
+  };
+}
