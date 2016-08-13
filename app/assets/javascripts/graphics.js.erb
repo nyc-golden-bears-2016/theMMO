@@ -101,7 +101,10 @@ var drawBattle = function(){
 
 var drawGame = function(){
   if (inBattle) {drawBattle()
-  } else {drawField()};
+  } else {
+    drawField();
+    clickBuffer();
+  };
 }
 
 var setCanvasDrawingUpdate = function(){
