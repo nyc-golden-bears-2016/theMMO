@@ -86,6 +86,9 @@ var drawBattle = function(){
       context.drawImage(enemy.drawEnemy(), enemy.pos_x, enemy.pos_y, enemy.width, enemy.height);
     } else {
       context.drawImage(enemy.drawEnemy(), enemy.pos_x, enemy.pos_y);
+      if(your_char.enemyTarget === enemy) {
+        context.drawImage(selection_arrow, enemy.pos_x - 45, enemy.pos_y - 60);
+      }
     }
     var slashesThisFrame = slashes.slice(0);
     for (var i = 0; i < slashesThisFrame.length; i++) {
@@ -98,7 +101,10 @@ var drawBattle = function(){
 
 var drawGame = function(){
   if (inBattle) {drawBattle()
-  } else {drawField()};
+  } else {
+    drawField();
+    clickBuffer();
+  };
 }
 
 var setCanvasDrawingUpdate = function(){
@@ -106,7 +112,6 @@ var setCanvasDrawingUpdate = function(){
 };
 
 var Slash = function Slash(enemy) {
-  console.log(enemy);
   this.currentFrame = 0;
   this.sprites = [slash01, slash02, slash03, slash04, slash05, slash06];
   this.currentSprite = -1;

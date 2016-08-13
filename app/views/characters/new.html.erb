@@ -1,8 +1,39 @@
+<div class="col-md-4 col-md-offset-4">
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
 <h1>New Character</h2>
 
 <%= form_for @character do |f| %>
   <%= f.label :name %>
-  <%= f.text_field :name %><br />
+  <%= f.text_field :name %><br>
+ 
+  <%= f.label :user_id %>
+  <%= f.text_field :user_id %><br>
+  
+  <%= f.label :party_id %>
+  <%= f.text_field :party_id %><br>
 
-  <%= f.submit %>
+  <%= f.label :attack %>
+  <%= f.text_field :attack %><br>
+
+  <%= f.label :health %>
+  <%= f.text_field :health %><br>
+
+  <%= f.label :XP %>
+  <%= f.text_field :XP %><br>
+
+  <%= f.label :defense %>
+  <%= f.text_field :defense %><br>
+
+  <%= f.label :max_health %>
+  <%= f.text_field :max_health %><br>
+
+<%= f.submit %>
 <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,11 +1,48 @@
 console.log("CONTROL PAGE LOADING")
+
+// direction should be -1 for left and 1 for right
+var nearestLivingEnemy = function(enemyIndex, direction) {
+  if(!currentEnemies[enemyIndex + direction]) {
+    return currentEnemies[enemyIndex];
+  } else if(currentEnemies[enemyIndex + direction].pose !== "dead") {
+    return currentEnemies[enemyIndex + direction];
+  } else {
+    return nearestLivingEnemy(enemyIndex + direction, direction);
+  }
+};
+
 var processInputBuffer = function(){
   if(inBattle) { // Battle controls
     if((keys_pressed.indexOf(66) != -1) && (keys_pressed_checker.indexOf(66) === -1) ) {
       keys_pressed_checker.push(66);
-      slashes.push(new Slash(your_char.enemyTarget));
-      your_char.attackEnemy(your_char.enemyTarget);
-    }
+      if(your_char.enemyTarget) {
+        slashes.push(new Slash(your_char.enemyTarget));
+        your_char.attackEnemy(your_char.enemyTarget);
+      };
+    } else if( (keys_pressed_checker.indexOf(65) === -1 && keys_pressed_checker.indexOf(37) === -1) && ((keys_pressed.indexOf(65) != -1) || (keys_pressed.indexOf(37) != -1)) ) {
+      keys_pressed_checker.push(65);
+      keys_pressed_checker.push(37);
+      for (var i = currentEnemies.length - 1; i >= 0; i--) {
+        if(your_char.enemyTarget === currentEnemies[i]) {
+          if( (i - 1 >= 0) ) {
+            console.log("checker",keys_pressed_checker);
+            your_char.changeTarget(nearestLivingEnemy(i, -1));
+            break;
+          };
+        };
+      };
+    } else if( (keys_pressed_checker.indexOf(83) === -1 && keys_pressed_checker.indexOf(39) === -1) && ((keys_pressed.indexOf(83) != -1) || (keys_pressed.indexOf(39) != -1)) ) {
+      keys_pressed_checker.push(83);
+      keys_pressed_checker.push(39);
+      for (var i = currentEnemies.length - 1; i >= 0; i--) {
+        if(your_char.enemyTarget === currentEnemies[i]) {
+          if( (i + 1 < currentEnemies.length) ) {
+            your_char.changeTarget(nearestLivingEnemy(i, 1));
+            break;
+          };
+        };
+      };
+    };
   } else { // Field controls
       if (keys_pressed.indexOf(79) != -1) {
         inBattle = true; // TODO: remove later
@@ -49,15 +86,70 @@ var allowInput = function() {
   });
   $(document).keyup(function(e){
     e.preventDefault();
-    if( (can_attack === false) && (e.which === 66)) {
-      can_attack = true;
-    }
     keys_pressed = keys_pressed.filter(function(keycode){
       return keycode != e.which;
     });
     keys_pressed_checker = keys_pressed_checker.filter(function(keycode){
-      return keycode != e.which;
+      if(e.which === 65 || e.which === 37) {
+        return (keycode !== 65 && keycode !== 37)
+      } else if(e.which === 83 || e.which === 39) {
+        return (keycode !== 83 && keycode !== 39)
+      } else {
+        return keycode !== e.which;
+      }
     });
   });
   setInterval(processInputBuffer, FRAME_RATE/2);
 };
+
+
+
+var clickBuffer = function(x, y){
+  var canvas = document.getElementById('game_screen');
+  var context = canvas.getContext('2d');
+  if (clicked.indexOf("yourself") != -1 ) {
+    context.drawImage(slime_stand01, clickLocation[0], clickLocation[1])
+  } else if (clicked.indexOf("other") != -1 ) {
+    context.drawImage(slime_attack01, clickLocation[0], clickLocation[1])
+  }
+}
+
+var allowClick = function() {
+  //click listener
+  document.getElementById('game_screen').addEventListener('click', function(e) {
+    global_x = e.pageX + backgroundScrollX - 5 - $('#game_screen').offset().left;
+    global_y = e.pageY + backgroundScrollY - 5 - $('#game_screen').offset().top;
+    // x and y relative to canvas
+    var x = e.pageX - 5 - $('#game_screen').offset().left;
+    var y = e.pageY - 5 - $('#game_screen').offset().top;
+    console.log(global_x, global_y);
+    clickLocation = [];
+    clickLocation.push(x);
+    clickLocation.push(y);
+    // click your_char
+    if((global_x >= your_char.pos_x && global_x <= your_char.pos_x + 25) && (global_y >= your_char.pos_y && global_y <= your_char.pos_y + 25)) {
+      console.log("clicked yourself")
+      clicked.push("yourself");
+      your_menu = true;
+    } else if(checkOther(global_x, global_y) != false) {
+      console.log("CLICK OTHER PLAYER");
+      otherPlayerMenu = true;
+      clicked.push("other");
+    } else {
+      clicked = [];
+      your_menu = false;
+      otherPlayerMenu = false;
+    }
+  }, false);
+}
+
+var checkOther = function(x, y) {
+  for (var i = playerNames.length - 1; i >= 0; i--) {
+    otherPlayerX = otherPlayers[playerNames[i]].pos_x;
+    otherPlayerY = otherPlayers[playerNames[i]].pos_y;
+    if ((x >= otherPlayerX && x<= otherPlayerX +25 ) && (y >= otherPlayerY && y<= otherPlayerY +25)) {
+      return otherPlayers[playerNames[i]];
+    };
+    return false;
+  };
+}

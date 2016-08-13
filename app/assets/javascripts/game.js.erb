@@ -16,6 +16,10 @@ var your_character_name = "";
 // upon keydown, keycode is loaded in here and deleted upon keyup
 var keys_pressed = [];
 var keys_pressed_checker = [];
+var clicked = [];
+var clickLocation = [];
+var yourMenu = false;
+var otherPlayerMenu = false;
 
 var wSocket = 0;
 
@@ -24,8 +28,7 @@ var playerNames = [];
 var inBattle = false;
 var currentBattleFrame = 0;
 var slashes = [];
-var can_attack = true;
-var attacking = false;
+var battleOver = true;
 
 // TODO: ajax call to receive your_char information
 your_char = new Character;

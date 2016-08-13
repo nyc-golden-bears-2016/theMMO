@@ -76,7 +76,7 @@ debugger;
     .enter()
     .append("rect")
     .attr({
-        x: function(d) { return (DISPLAY_WIDTH/2 - xScale_2(d)); },        
+        x: function(d) { return (DISPLAY_WIDTH/2 - xScale_2(d)); },
         y: function(d, i) { return ( i * ( BAR_HEIGHT + space2 ) + space2 ); },
         width: function(d) { return ( xScale_2(d) > 0 ? xScale_2(d) : 0 ); },
         height: BAR_HEIGHT,
