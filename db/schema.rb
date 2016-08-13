@@ -19,6 +19,12 @@ ActiveRecord::Schema.define(version: 20160812182945) do
     t.string   "name"
     t.string   "location"
     t.integer  "user_id"
+    t.integer  "party_id"
+    t.integer  "attack"
+    t.integer  "health"
+    t.integer  "XP"
+    t.integer  "defense"
+    t.integer  "max_health"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
