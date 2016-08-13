@@ -19,31 +19,6 @@ var drawPlayer = function(context){
   context.fill();
 };
 
-var current_background = new Image();
-current_background.src = '<%= asset_path("dracula-1280x720.png") %>'
-current_background.onload = function(){
-  console.log("background loaded");
-}
-
-var beach_battle = new Image();
-beach_battle.src = '<%= asset_path("lake_beach.jpg") %>'
-beach_battle.onload = function(){
-  console.log("beach loaded");
-}
-
-var slime_stand01 = new Image();
-slime_stand01.src = '<%= asset_path("slime_stand01.png") %>'
-slime_stand01.onload = function(){
-  console.log("slime_stand01 loaded");
-}
-
-var slime_attack01 = new Image();
-slime_attack01.src = '<%= asset_path("slime_attack01.png") %>'
-slime_attack01.onload = function(){
-  console.log("slime_attack01 loaded");
-}
-
-
 var drawField = function(){
   // determines how much to scroll camera (aka the canvas)
   if(your_char.pos_x - backgroundScrollX >= DEAD_ZONE_WIDTH_X_MAX) {
@@ -91,12 +66,14 @@ var drawBattle = function(){
 
   var totalEnemyWidth = 0;
 
+  refreshBattleDisplay();
+  battleDisplay(your_char, currentEnemies);
+
   currentEnemies.forEach(function(enemy){
     totalEnemyWidth += enemy.width;
   });
 
   var drawPositionX = (SCREEN_WIDTH / 2) - (totalEnemyWidth / 2);
-  //var enemyCount = 1;
   var previousEnemiesWidths = [];
   var offset = 0;
 
@@ -104,8 +81,19 @@ var drawBattle = function(){
     previousEnemiesWidths.forEach(function(prevWidth){
       offset += prevWidth;
     });
-    context.drawImage(enemy.drawEnemy(), drawPositionX + offset, 300);
-    //enemyCount ++;
+    enemy.pos_x = drawPositionX + offset;
+    if(enemy.pose === "dead") {
+      context.drawImage(enemy.drawEnemy(), enemy.pos_x, enemy.pos_y, enemy.width, enemy.height);
+    } else {
+      context.drawImage(enemy.drawEnemy(), enemy.pos_x, enemy.pos_y);
+      if(your_char.enemyTarget === enemy) {
+        context.drawImage(selection_arrow, enemy.pos_x - 45, enemy.pos_y - 60);
+      }
+    }
+    var slashesThisFrame = slashes.slice(0);
+    for (var i = 0; i < slashesThisFrame.length; i++) {
+      context.drawImage(slashesThisFrame[i].drawSlash(), slashesThisFrame[i].pos_x, slashesThisFrame[i].pos_y);
+    };
     previousEnemiesWidths.push(enemy.width);
     offset = 0;
   });
@@ -113,9 +101,34 @@ var drawBattle = function(){
 
 var drawGame = function(){
   if (inBattle) {drawBattle()
-  } else {drawField()};
+  } else {
+    drawField();
+    clickBuffer();
+  };
 }
 
 var setCanvasDrawingUpdate = function(){
   setInterval(drawGame, FRAME_RATE);
 };
+
+var Slash = function Slash(enemy) {
+  this.currentFrame = 0;
+  this.sprites = [slash01, slash02, slash03, slash04, slash05, slash06];
+  this.currentSprite = -1;
+  this.pos_x = (enemy.pos_x - 60) + Math.floor(Math.random() * (100)) || 0;
+  this.pos_y = (enemy.pos_y - 125) + Math.floor(Math.random() * (100)) || 0;
+}
+
+Slash.prototype.drawSlash = function(){
+  if (this.currentFrame % 2 === 0) {
+    this.currentSprite++;
+  }
+  this.currentFrame++;
+  this.pos_x -= 5;
+  this.pos_y += 5;
+  if (this.currentFrame >= 12) {
+    var index = slashes.indexOf(this);
+    slashes.splice(index, 1);
+  }
+  return this.sprites[this.currentSprite];
+}

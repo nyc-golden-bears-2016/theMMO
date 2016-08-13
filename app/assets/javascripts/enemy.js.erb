@@ -2,6 +2,8 @@ console.log("ENEMY PAGE LOADING")
 var currentEnemies = [];
 var Enemy = function Enemy() {
   this.name = "missing no.";
+  this.pos_x = 0;
+  this.pos_y = 300;
   this.width = 0;
   this.height = 0;
   this.attack = 0;
@@ -21,10 +23,10 @@ var enemyMake = function(type) {
     enemy.name = "slime";
     enemy.width = 174;
     enemy.height = 131;
-    enemy.attack = 4;
-    enemy.defense = 4;
-    enemy.attackSpeed = 10;
-    enemy.maxHealth = 10;
+    enemy.attack = 4 + Math.floor(Math.random() * 4);
+    enemy.defense = 4 + Math.floor(Math.random() * 4);
+    enemy.attackSpeed = 15 + Math.floor(Math.random() * 15);
+    enemy.maxHealth = 30 + Math.floor(Math.random() * 30);
     enemy.sprites = {stand: slime_stand01,
                     attack: slime_attack01};
   }
@@ -35,7 +37,13 @@ var enemyMake = function(type) {
 
 Enemy.prototype.drawEnemy = function(){
   this.poseFrame++;
-  if (this.pose === "standing") {
+  if(this.pose === "dead") {
+    this.height = Math.max(this.height - 20, 0);
+    if(this.height > 0) {
+      this.pos_y += 20;
+    }
+  }
+  if (this.pose === "standing" || this.pose === "dead") {
     return this.sprites.stand;
   } else if (this.pose === "attacking") {
     if (this.poseFrame > 20) {

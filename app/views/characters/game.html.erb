@@ -2,6 +2,7 @@
   </div> -->
 <canvas style="z-index:-1" id="game_screen" width="800" height="600"></canvas>
 
+<script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
   var scheme = "ws://";
   <% if ENV["ENCRYPTED_WEBSOCKET"] == "true" %>
@@ -11,6 +12,7 @@
   $('document').ready(function(){
     setAutoLogout(); //logout when user exits browser or tab
     allowInput(); // key listeners to keyboard
+    allowClick(); // click listener
 
     // Main logic
     setCharacterUpdate('<%= @character_name %>'); // passes player position and player identity data to the server

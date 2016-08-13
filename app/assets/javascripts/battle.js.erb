@@ -1,19 +1,41 @@
 var prepareBattle = function(){
+  battleOver = false;
   for(var i=0; i < 3; i++){
     currentEnemies.push(enemyMake("slime"));
   };
+  your_char.changeTarget(currentEnemies[0]);
 }
 
 prepareBattle();
 
 var proceedBattle = function() {
   if (inBattle === true) {
+    if(battleOver === true) {
+      // TODO: put battle ending logic here
+      inBattle = false;
+      return;
+    }
     currentBattleFrame++;
     for (var i = currentEnemies.length - 1; i >= 0; i--) {
-      if (currentBattleFrame % (255 - currentEnemies[i].attackSpeed) === 0) {
-        currentEnemies[i].attackPlayer(your_char);
-        currentEnemies[i].setPose("attacking");
-        console.log(your_char.health)
+      if(currentEnemies[i].health <= 0) {
+        currentEnemies[i].setPose("dead");
+        if(currentEnemies[i] === your_char.enemyTarget) {
+          your_char.changeTarget(nearestLivingEnemy(-1, 1));
+          // if there is no more enemies:
+          if(your_char.enemyTarget.pose === "dead") {
+            your_char.enemyTarget = null;
+            battleOver = true;
+          }
+        }
+      }
+    }
+    for (var i = currentEnemies.length - 1; i >= 0; i--) {
+      if(currentBattleFrame % (255 - currentEnemies[i].attackSpeed) === 0) {
+        if(currentEnemies[i].pose === "standing") {
+          currentEnemies[i].attackPlayer(your_char);
+          currentEnemies[i].setPose("attacking");
+          console.log(your_char.health);
+        }
       }
     };
   }
