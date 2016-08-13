@@ -66,6 +66,8 @@ var drawBattle = function(){
 
   var totalEnemyWidth = 0;
 
+  battleDisplay(your_char, currentEnemies);
+
   currentEnemies.forEach(function(enemy){
     totalEnemyWidth += enemy.width;
   });
