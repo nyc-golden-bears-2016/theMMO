@@ -1,52 +1,82 @@
-	// <script src="http://d3js.org/d3.v3.min.js"></script>
+var refreshBattleDisplay = function(){
+  	d3.select("body").selectAll("svg").remove();
+};
 
-var battleDisplay = function(player, evnemy){
+var battleDisplay = function(player, enemies){
 
+  var dataset_1 = [];
+  var dataset_1_max = [];
+  var dataset_2 = [];
+  var dataset_2_max = [];
 
-  var dataset_1 = [45];
-  var dataset_2 = [30, 73, 45];
 	var DISPLAY_WIDTH = 780;
 	var DISPLAY_HEIGHT = 85;
   var BAR_HEIGHT = 20;
 
-	var svg_1 = d3.select("body").append("svg").attr({width:DISPLAY_WIDTH/2, height:DISPLAY_HEIGHT}).style("background-color", "rgba(192,192,192,0.1)").style("opacity", "0.2").style("z-index", "1").style( "position", "absolute").style( "left", "20").style( "top", "20");
+  dataset_1.push(player.health);
+  dataset_1_max.push(player.max_health);
 
-  var svg_2 = d3.select("body").append("svg").attr({width:DISPLAY_WIDTH/2, height:DISPLAY_HEIGHT}).style("background-color", "rgba(192,192,192,0.1)").style("opacity", "0.2").style("z-index", "1").style( "position", "absolute").style( "left", "420").style( "top", "20");
+  enemies.forEach(function(enemy){
+    dataset_2.push(enemy.health);
+    dataset_2_max.push(enemy.maxHealth);
+  });
+
+	var svg_1 = d3.select("body")
+								.append("svg")
+								.attr({width:DISPLAY_WIDTH/2, height:DISPLAY_HEIGHT})
+								.style({
+									"background-color": "rgba(192,192,192,0.5)",
+									"z-index": "1",
+									"position": "absolute",
+									"left": "20",
+									"top": "20"});
+
+  var svg_2 = d3.select("body")
+  							.append("svg")
+  							.attr({width:DISPLAY_WIDTH/2, height:DISPLAY_HEIGHT})
+  							.style({
+  								"background-color": "rgba(192,192,192,0.5)",
+  								"z-index": "1",
+  								"position": "absolute",
+  								"left": "420",
+  								"top": "20"});
 
   var xScale_1 = d3.scale.linear()
-                .domain([0, d3.max(dataset_1)])
+                .domain([0, d3.max(dataset_1_max)])
                 .range([0, DISPLAY_WIDTH/2])
 
   var xScale_2 = d3.scale.linear()
-                .domain([0, d3.max(dataset_2)])
+                .domain([0, d3.max(dataset_2_max)])
                 .range([0, DISPLAY_WIDTH/2])
 
-  svg_1.selectAll("rect")
-      .data(dataset_1)
-      .enter()
-      .append("rect")
-      .attr({
-          x: 0,
-          // y: function(d, i) { return i * 25 + 10; },
-          y: function(d, i) { return (DISPLAY_HEIGHT / ((dataset_1).length + 1) - BAR_HEIGHT / ((dataset_1).length + 1)); },
-          width: function(d) { return xScale_1(d); },
-          height: BAR_HEIGHT,
-          fill: "red"
-      });
+  var numData1 = dataset_1.length;
+  var space1 = ( DISPLAY_HEIGHT - BAR_HEIGHT * numData1 ) / ( numData1 + 1 );
+
+	svg_1.selectAll("rect")
+		.data(dataset_1)
+    .enter()
+    .append("rect")
+    .attr({
+        x: 0,
+        y: function(d, i) { return ( i * ( BAR_HEIGHT + space1 ) + space1 ); },
+        width: function(d) { return ( xScale_1(d) > 0 ? xScale_1(d) : 0 ); },
+        height: BAR_HEIGHT,
+        fill: "red"
+    });
+
+
+  var numData2 = dataset_2.length;
+  var space2 = ( DISPLAY_HEIGHT - BAR_HEIGHT * numData2 ) / ( numData2 + 1 );
 
   svg_2.selectAll("rect")
     .data(dataset_2)
     .enter()
     .append("rect")
     .attr({
-        // x: 0,
-        // var space = 6;
         x: function(d) { return (DISPLAY_WIDTH/2 - xScale_2(d)); },        
-        y: function(d, i) { return i * 25 + 10; },
-        // y: function(d, i) { return (BAR_HEIGHT + (DISPLAY_HEIGHT - BAR_HEIGHT * dataset_2.length) * i + 6; },
-        width: function(d) { return xScale_2(d); },
+        y: function(d, i) { return ( i * ( BAR_HEIGHT + space2 ) + space2 ); },
+        width: function(d) { return ( xScale_2(d) > 0 ? xScale_2(d) : 0 ); },
         height: BAR_HEIGHT,
         fill: "blue"
     });
-
 }
