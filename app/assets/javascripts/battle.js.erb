@@ -1,4 +1,5 @@
 var prepareBattle = function(){
+  battleOver = false;
   for(var i=0; i < 3; i++){
     currentEnemies.push(enemyMake("slime"));
   };
@@ -15,6 +16,11 @@ var proceedBattle = function() {
         currentEnemies[i].setPose("dead");
         if(currentEnemies[i] === your_char.enemyTarget) {
           your_char.changeTarget(nearestLivingEnemy(-1, 1));
+          // if there is no more enemies:
+          if(your_char.enemyTarget.pose === "dead") {
+            your_char.enemyTarget = null;
+            battleOver = true;
+          }
         }
       }
     }

@@ -38,7 +38,7 @@ var enemyMake = function(type) {
 Enemy.prototype.drawEnemy = function(){
   this.poseFrame++;
   if(this.pose === "dead") {
-    this.height = Math.max(this.height - 20,0);
+    this.height = Math.max(this.height - 20, 0);
     if(this.height > 0) {
       this.pos_y += 20;
     }

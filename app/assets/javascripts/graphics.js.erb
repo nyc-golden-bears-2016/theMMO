@@ -85,6 +85,9 @@ var drawBattle = function(){
       context.drawImage(enemy.drawEnemy(), enemy.pos_x, enemy.pos_y, enemy.width, enemy.height);
     } else {
       context.drawImage(enemy.drawEnemy(), enemy.pos_x, enemy.pos_y);
+      if(your_char.enemyTarget === enemy) {
+        context.drawImage(selection_arrow, enemy.pos_x - 45, enemy.pos_y - 60);
+      }
     }
     var slashesThisFrame = slashes.slice(0);
     for (var i = 0; i < slashesThisFrame.length; i++) {

@@ -3,13 +3,13 @@ console.log("CONTROL PAGE LOADING")
 // direction should be -1 for left and 1 for right
 var nearestLivingEnemy = function(enemyIndex, direction) {
   if(!currentEnemies[enemyIndex + direction]) {
-    return null;
+    return currentEnemies[enemyIndex];
   } else if(currentEnemies[enemyIndex + direction].pose !== "dead") {
     return currentEnemies[enemyIndex + direction];
   } else {
     return nearestLivingEnemy(enemyIndex + direction, direction);
   }
-}
+};
 
 var processInputBuffer = function(){
   if(inBattle) { // Battle controls
