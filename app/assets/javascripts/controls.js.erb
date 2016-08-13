@@ -1,11 +1,48 @@
 console.log("CONTROL PAGE LOADING")
+
+// direction should be -1 for left and 1 for right
+var nearestLivingEnemy = function(enemyIndex, direction) {
+  if(!currentEnemies[enemyIndex + direction]) {
+    return null;
+  } else if(currentEnemies[enemyIndex + direction].pose !== "dead") {
+    return currentEnemies[enemyIndex + direction];
+  } else {
+    return nearestLivingEnemy(enemyIndex + direction, direction);
+  }
+}
+
 var processInputBuffer = function(){
   if(inBattle) { // Battle controls
     if((keys_pressed.indexOf(66) != -1) && (keys_pressed_checker.indexOf(66) === -1) ) {
       keys_pressed_checker.push(66);
-      slashes.push(new Slash(your_char.enemyTarget));
-      your_char.attackEnemy(your_char.enemyTarget);
-    }
+      if(your_char.enemyTarget) {
+        slashes.push(new Slash(your_char.enemyTarget));
+        your_char.attackEnemy(your_char.enemyTarget);
+      };
+    } else if( (keys_pressed_checker.indexOf(65) === -1 && keys_pressed_checker.indexOf(37) === -1) && ((keys_pressed.indexOf(65) != -1) || (keys_pressed.indexOf(37) != -1)) ) {
+      keys_pressed_checker.push(65);
+      keys_pressed_checker.push(37);
+      for (var i = currentEnemies.length - 1; i >= 0; i--) {
+        if(your_char.enemyTarget === currentEnemies[i]) {
+          if( (i - 1 >= 0) ) {
+            console.log("checker",keys_pressed_checker);
+            your_char.changeTarget(nearestLivingEnemy(i, -1));
+            break;
+          };
+        };
+      };
+    } else if( (keys_pressed_checker.indexOf(83) === -1 && keys_pressed_checker.indexOf(39) === -1) && ((keys_pressed.indexOf(83) != -1) || (keys_pressed.indexOf(39) != -1)) ) {
+      keys_pressed_checker.push(83);
+      keys_pressed_checker.push(39);
+      for (var i = currentEnemies.length - 1; i >= 0; i--) {
+        if(your_char.enemyTarget === currentEnemies[i]) {
+          if( (i + 1 < currentEnemies.length) ) {
+            your_char.changeTarget(nearestLivingEnemy(i, 1));
+            break;
+          };
+        };
+      };
+    };
   } else { // Field controls
       if (keys_pressed.indexOf(79) != -1) {
         inBattle = true; // TODO: remove later
@@ -49,14 +86,17 @@ var allowInput = function() {
   });
   $(document).keyup(function(e){
     e.preventDefault();
-    if( (can_attack === false) && (e.which === 66)) {
-      can_attack = true;
-    }
     keys_pressed = keys_pressed.filter(function(keycode){
       return keycode != e.which;
     });
     keys_pressed_checker = keys_pressed_checker.filter(function(keycode){
-      return keycode != e.which;
+      if(e.which === 65 || e.which === 37) {
+        return (keycode !== 65 && keycode !== 37)
+      } else if(e.which === 83 || e.which === 39) {
+        return (keycode !== 83 && keycode !== 39)
+      } else {
+        return keycode !== e.which;
+      }
     });
   });
   setInterval(processInputBuffer, FRAME_RATE/2);

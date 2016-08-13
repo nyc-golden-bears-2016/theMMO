@@ -13,10 +13,13 @@ var proceedBattle = function() {
     for (var i = currentEnemies.length - 1; i >= 0; i--) {
       if(currentEnemies[i].health <= 0) {
         currentEnemies[i].setPose("dead");
+        if(currentEnemies[i] === your_char.enemyTarget) {
+          your_char.changeTarget(nearestLivingEnemy(-1, 1));
+        }
       }
     }
     for (var i = currentEnemies.length - 1; i >= 0; i--) {
-      if (currentBattleFrame % (255 - currentEnemies[i].attackSpeed) === 0) {
+      if(currentBattleFrame % (255 - currentEnemies[i].attackSpeed) === 0) {
         if(currentEnemies[i].pose === "standing") {
           currentEnemies[i].attackPlayer(your_char);
           currentEnemies[i].setPose("attacking");
