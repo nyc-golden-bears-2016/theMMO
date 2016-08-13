@@ -10,6 +10,11 @@ prepareBattle();
 
 var proceedBattle = function() {
   if (inBattle === true) {
+    if(battleOver === true) {
+      // TODO: put battle ending logic here
+      inBattle = false;
+      return;
+    }
     currentBattleFrame++;
     for (var i = currentEnemies.length - 1; i >= 0; i--) {
       if(currentEnemies[i].health <= 0) {
