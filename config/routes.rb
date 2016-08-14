@@ -5,4 +5,5 @@ Rails.application.routes.draw do
 
   get "/game" => 'characters#game'
   resources :characters, only: [:create, :game, :new]
+  resources :items, only: [:create]
 end

@@ -42,13 +42,14 @@ var processInputBuffer = function(){
           };
         };
       };
+    } else if( (keys_pressed.indexOf(32) != -1) && (keys_pressed_checker.indexOf(32) === -1) ) {
+      keys_pressed_checker.push(32);
+      clearMessage = true;
     };
   } else { // Field controls
     var currentPositionX = your_char.pos_x;
     var currentPositionY = your_char.pos_y;
-      if (keys_pressed.indexOf(79) != -1) {
-        inBattle = true; // TODO: remove later
-      } else if (keys_pressed.indexOf(16) != -1) {
+      if (keys_pressed.indexOf(16) != -1) {
         if (keys_pressed.indexOf(38) != -1) {
           your_char.pos_y--;
         };
