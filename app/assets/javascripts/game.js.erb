@@ -29,6 +29,14 @@ var inBattle = false;
 var currentBattleFrame = 0;
 var slashes = [];
 var battleOver = true;
+// distanceTraveled is used to determine the random encounter ratio and is reset every battle
+var distanceTraveled = 0;
 
 // TODO: ajax call to receive your_char information
 your_char = new Character;
+
+var checkEncounter = function() {
+  if(Math.random() * distanceTraveled > 600) {
+    prepareBattle();
+  }
+}

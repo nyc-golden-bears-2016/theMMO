@@ -66,14 +66,16 @@ var drawBattle = function(){
 
   var totalEnemyWidth = 0;
 
-  refreshBattleDisplay();
-  battleDisplay(your_char, currentEnemies);
+  if(inBattle === true) {
+    refreshBattleDisplay();
+    battleDisplay(your_char, currentEnemies);
+  }
 
   currentEnemies.forEach(function(enemy){
     totalEnemyWidth += enemy.width;
   });
 
-  var drawPositionX = (SCREEN_WIDTH / 2) - (totalEnemyWidth / 2);
+  var drawPositionX = Math.floor( (SCREEN_WIDTH / 2) - (totalEnemyWidth / 2) );
   var previousEnemiesWidths = [];
   var offset = 0;
 
@@ -90,13 +92,13 @@ var drawBattle = function(){
         context.drawImage(selection_arrow, enemy.pos_x - 45, enemy.pos_y - 60);
       }
     }
-    var slashesThisFrame = slashes.slice(0);
-    for (var i = 0; i < slashesThisFrame.length; i++) {
-      context.drawImage(slashesThisFrame[i].drawSlash(), slashesThisFrame[i].pos_x, slashesThisFrame[i].pos_y);
-    };
     previousEnemiesWidths.push(enemy.width);
     offset = 0;
   });
+  var slashesThisFrame = slashes.slice(0);
+  for (var i = 0; i < slashesThisFrame.length; i++) {
+    context.drawImage(slashesThisFrame[i].drawSlash(), slashesThisFrame[i].pos_x, slashesThisFrame[i].pos_y);
+  };
 }
 
 var drawGame = function(){
