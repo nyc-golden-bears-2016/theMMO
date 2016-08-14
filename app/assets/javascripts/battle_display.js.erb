@@ -18,8 +18,7 @@ var battleDisplay = function(player, enemies){
   dataset_1_max.push(player.max_health);
 
   enemies.forEach(function(enemy){
-    dataset_2.push(enemy.health);
-    dataset_2_max.push(enemy.maxHealth);
+    dataset_2.push(esh(enemy.maxHealth);
     dataset_2_name.push({health: enemy.health,
     											name: enemy.name});
   });
@@ -30,8 +29,7 @@ var battleDisplay = function(player, enemies){
 									id: "player",
 									width:DISPLAY_WIDTH/2, 
 									height:DISPLAY_HEIGHT})
-								.style({
-									"border": "3px solid rgba(192,192,192,0.8)",
+								.s"border": "3px solid rgba(192,192,192,0.8)",
 									"border-radius": "3px",
 									"background-color": "rgba(192,192,192,0.4)",
 									"z-index": "1",
@@ -115,5 +113,4 @@ var battleDisplay = function(player, enemies){
         y: function(d, i) { return ( i * ( BAR_HEIGHT + space2 ) + space2 + 16); },
         width: function(d) { return ( xScale_2(d.heatlh) > 0 ? xScale_2(d.heatlh) : 0 ); }})
     .html(function(d) {return d.name});
-debugger;
 }
