@@ -1,17 +1,28 @@
 var prepareBattle = function(){
+  currentEnemies = [];
+  slashes = [];
   battleOver = false;
-  for(var i=0; i < 3; i++){
-    currentEnemies.push(enemyMake("slime"));
+  inBattle = true;
+  var numberOfEnemies = Math.floor( (Math.random() * 4) + 1);
+  for (var i = numberOfEnemies; i > 0; i--) {
+    var typeOfEnemy = Math.floor( (Math.random() * 2) + 1);
+    if (typeOfEnemy === 1) {
+      currentEnemies.push(enemyMake("bat"));
+    } else if (typeOfEnemy === 2) {
+      currentEnemies.push(enemyMake("slime"));
+    }
   };
   your_char.changeTarget(currentEnemies[0]);
 }
-
-prepareBattle();
 
 var proceedBattle = function() {
   if (inBattle === true) {
     if(battleOver === true) {
       // TODO: put battle ending logic here
+      refreshBattleDisplay();
+      distanceTraveled = 0;
+
+
       inBattle = false;
       return;
     }
