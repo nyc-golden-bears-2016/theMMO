@@ -4,6 +4,18 @@ current_background.onload = function(){
   console.log("background loaded");
 }
 
+var seamless_grass = new Image();
+seamless_grass.src = '<%= asset_path("seamless_grass.jpg") %>'
+seamless_grass.onload = function(){
+  console.log("seamless_grass loaded");
+}
+
+var seamless_stone = new Image();
+seamless_stone.src = '<%= asset_path("seamless_stone.jpg") %>'
+seamless_stone.onload = function(){
+  console.log("seamless_stone loaded");
+}
+
 var beach_battle = new Image();
 beach_battle.src = '<%= asset_path("lake_beach.jpg") %>'
 beach_battle.onload = function(){
