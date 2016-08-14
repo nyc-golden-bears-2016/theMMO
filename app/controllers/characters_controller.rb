@@ -1,7 +1,8 @@
 class CharactersController < ApplicationController
   before_action :check_character, only: :game
+  before_action :set_character_name, only: :game
   before_action :authenticate_user!, except: [:index, :show]
-  
+
   def new
     @character = current_user.characters.build
   end
@@ -37,13 +38,13 @@ class CharactersController < ApplicationController
       end
     end
 
-    # def set_character_name
-    #   character = Character.find_by(id: session[:character_id])
-    #   @character_name = nil
-    #   if character
-    #     @character_name = character.name
-    #   end
-    # end
+    def set_character_name
+      character = Character.find_by(id: session[:character_id])
+      @character_name = nil
+      if character
+        @character_name = character.name
+      end
+    end
       private
 
   def character_params

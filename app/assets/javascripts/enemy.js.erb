@@ -25,10 +25,21 @@ var enemyMake = function(type) {
     enemy.height = 131;
     enemy.attack = 4 + Math.floor(Math.random() * 4);
     enemy.defense = 4 + Math.floor(Math.random() * 4);
-    enemy.attackSpeed = 15 + Math.floor(Math.random() * 15);
+    enemy.attackSpeed = 70 + Math.floor(Math.random() * 35);
     enemy.maxHealth = 30 + Math.floor(Math.random() * 30);
     enemy.sprites = {stand: slime_stand01,
                     attack: slime_attack01};
+  } else if (type === "bat") {
+    var enemy = new Enemy;
+    enemy.name = "bat";
+    enemy.width = 159;
+    enemy.height = 129;
+    enemy.attack = 10 + Math.floor(Math.random() * 10);
+    enemy.defense = 4 + Math.floor(Math.random() * 4);
+    enemy.attackSpeed = 125 + Math.floor(Math.random() * 62);
+    enemy.maxHealth = 35 + Math.floor(Math.random() * 35);
+    enemy.sprites = {stand: bat_stand01,
+                    attack: bat_attack01};
   }
   enemy.pose = "standing";
   enemy.health = enemy.maxHealth;
