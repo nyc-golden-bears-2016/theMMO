@@ -8,7 +8,7 @@ var battleDisplay = function(player, enemies){
   var dataset_1_max = [];
   var dataset_2 = [];
   var dataset_2_max = [];
-  var dataset_2_name = [];
+  var dataset_2_test = [];
 
 	var DISPLAY_WIDTH = 780;
 	var DISPLAY_HEIGHT = 100;
@@ -18,8 +18,9 @@ var battleDisplay = function(player, enemies){
   dataset_1_max.push(player.max_health);
 
   enemies.forEach(function(enemy){
-    dataset_2.push(esh(enemy.maxHealth);
-    dataset_2_name.push({health: enemy.health,
+    dataset_2.push(enemy.health);
+    dataset_2_max.push(enemy.maxHealth);
+    dataset_2_test.push({health: enemy.health,
     											name: enemy.name});
   });
 
@@ -29,7 +30,8 @@ var battleDisplay = function(player, enemies){
 									id: "player",
 									width:DISPLAY_WIDTH/2, 
 									height:DISPLAY_HEIGHT})
-								.s"border": "3px solid rgba(192,192,192,0.8)",
+								.style({
+									"border": "3px solid rgba(192,192,192,0.8)",
 									"border-radius": "3px",
 									"background-color": "rgba(192,192,192,0.4)",
 									"z-index": "1",
@@ -105,7 +107,7 @@ var battleDisplay = function(player, enemies){
     });
 
   svg_2.selectAll("text")
-    .data(dataset_2_name)
+    .data(dataset_2_test)
     .enter()
     .append("text")
     .attr({
