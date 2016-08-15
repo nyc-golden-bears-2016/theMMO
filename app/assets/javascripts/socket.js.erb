@@ -16,7 +16,7 @@ var setUpWebsocket = function(scheme){
       if (playerNames.indexOf(data.username) === -1) {
         playerNames.push(data.username);
         // initialize an object to store this player's info
-        otherPlayers[data.username] = new Character;
+        otherPlayers[data.username] = new Character(data.username);
       };
       otherPlayers[data.username].pos_x = data.pos_x;
       otherPlayers[data.username].pos_y = data.pos_y;

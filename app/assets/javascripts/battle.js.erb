@@ -18,6 +18,7 @@ var prepareBattle = function(){
 
 var proceedBattle = function() {
   if (inBattle === true) {
+    $(".player-names").remove();
     if(battleOver === true) {
       if(messagesLoaded === false) {
         victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + SCREEN_HEIGHT / 4 + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;">YOU WIN!!</div>');

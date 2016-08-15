@@ -5,7 +5,9 @@ var knight_south = [knight_south01, knight_south02, knight_south01, knight_south
 var knight_east = [knight_east01, knight_east02];
 var knight_west = [knight_west01, knight_west02];
 
-var Character = function Character(){
+var Character = function Character(name){
+  this.name = name;
+
   this.direction = "south";
   this.framesPassed = 0;
   this.animationFrame = 0;
