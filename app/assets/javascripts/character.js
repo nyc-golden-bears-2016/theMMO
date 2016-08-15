@@ -43,3 +43,7 @@ Character.prototype.faceDirection = function(direction) {
     this.direction = direction;
   }
 }
+
+
+
+  

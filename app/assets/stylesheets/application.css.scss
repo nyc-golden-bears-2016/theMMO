@@ -9,9 +9,8 @@
  * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope. *
- *= require jquery-ui
+  *= require jquery-ui
  */
-
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -25,7 +24,7 @@ h1, h2, h3, h4, h5,  {
 	font-weight: 100;
 	text-align: center;
 	font-family: 'Shadows Into Light', cursive;
-	color:#334d00;
+	color:#008066;
 }
 
 h6{
@@ -34,45 +33,47 @@ font-size: 200%;
 text-align: center;
 font-family: 'Shadows Into Light', cursive;
 font-weight: bold;
+color:  #008066 !important;
 }
 
-p{color:  #cc5200;
+/*p{color:  #008066 !important;
 font-weight: bold;
 font-size: 200%;
 text-align: center;
-font-family: 'Passion One', cursive;
+font-family: 'Passion One', cursive!important;
 }
-
-a{color: #39e600;
+*/
+a{color: #777; 
 font-weight: 200;
 font-family: 'Passion One', cursive;
-font-size: 250%;}
+font-size: 175%;}
 
 #homepage_links{text-align: center;
 font-weight: bold;
 font-size: 200%;}
 
-nav {
-	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.22);
-	.navbar-brand {
-		a {
-			color:  #39e600;
-			font-weight: bold;
-			&:hover {
-				text-decoration: none;
 
-			}
-		}
+.navbar-default {
+  background-color:  #99ff99;
+
 	}
 
+.panel-heading{background-color: #ffdf80 !important; }
+.panel-body{background-color:  #99ff99 !important; }
+
+label {
+    display: inline-block;
+    margin-bottom: 5px;
+    color: #008066 !important;
+    font-size: 150% !important;
+    font-family: 'Passion One', cursive;
+}
 
 textarea {
 	min-height: 250px;
 }
-.panel-heading{
-	color: #804000 ;
-}
-}
+
+
 #video-background {
 /*  making the video fullscreen  */
   position: fixed;

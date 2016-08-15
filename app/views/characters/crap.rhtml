@@ -1,0 +1,30 @@
+<p><%= @character.attack %></p>
+<%= form_for @character do |create| %>
+  
+  <%= create.label :name %>
+  <%= create.text_field :name %>
+  <%= create.label :location %>
+  <%= create.text_field :location %><br>
+  
+
+  <%= create.label :attack %>
+  <%= create.hidden_field :attack %>
+ <%= range_field_tag(:attack) %>
+
+    <%= create.label :health %>
+    <%= create.hidden_field :health %>
+    <%= range_field_tag(:helath) %>
+
+    <%= create.label :XP %>
+  <%= create.hidden_field :XP %>
+    <%= range_field_tag(:XP) %>
+
+    <%= create.label :defense %>
+  <%= create.hidden_field :defense %>
+    <%= range_field_tag(:defense) %>
+
+    <%= create.label :max_health %>
+  <%= create.hidden_field :max_health %>
+    <%= range_field_tag(:max_health) %>
+<%= create.submit %>
+ <% end %>
