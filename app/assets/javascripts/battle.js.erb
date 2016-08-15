@@ -1,3 +1,8 @@
+// Try not to have global variables. I'm assuming your_char is a global.
+// Pass it into each function, so it is easier to track changes.
+// Break big functions into smaller functions, so it is easier to test in isolation, which
+// results in easier debugging
+
 var prepareBattle = function(){
   currentEnemies = [];
   slashes = [];

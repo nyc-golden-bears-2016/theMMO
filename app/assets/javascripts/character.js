@@ -1,10 +1,12 @@
 console.log("CHARACTER PAGE LOADING")
 
+// Can these variables be local to a class?
 var knight_north = [knight_north01, knight_north02, knight_north01, knight_north03];
 var knight_south = [knight_south01, knight_south02, knight_south01, knight_south03];
 var knight_east = [knight_east01, knight_east02];
 var knight_west = [knight_west01, knight_west02];
 
+// Nice job with encapsulating character
 var Character = function Character(name){
   this.name = name;
 

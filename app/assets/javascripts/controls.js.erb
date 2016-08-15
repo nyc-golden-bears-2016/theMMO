@@ -166,6 +166,10 @@ var allowClick = function() {
       clicked.push("yourself");
       yourMenu = true;
       var width = getTextWidth("I am " + your_character_name + "!", "18px Arial");
+
+      // Consider separating styles out, which would reduce this code down
+      // and give you more flexibility to update the styles.
+      
       var menu = '<div class="player-menu" style="padding:7px;position:absolute;background-color:white;top:' + (your_char.pos_y - backgroundScrollY).toString() + 'px;left:' + (your_char.pos_x - backgroundScrollX).toString() + 'px;width:'+ width.toString() +'px;height:30px;">I am '+ your_character_name +'!</div>';
       $("body").prepend(menu);
       // click other chars
