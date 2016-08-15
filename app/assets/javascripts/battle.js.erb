@@ -16,6 +16,15 @@ var prepareBattle = function(){
   your_char.changeTarget(currentEnemies[0]);
 }
 
+var prepareTeamBattle = function(enemies){
+  currentEnemies = enemies;
+  slashes = [];
+  battleOver = false;
+  inBattle = true;
+  messagesLoaded = false;
+  your_char.changeTarget(currentEnemies[0]);
+}
+
 var proceedBattle = function() {
   if (inBattle === true) {
     $(".player-names").remove();
