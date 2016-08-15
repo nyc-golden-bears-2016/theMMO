@@ -23,6 +23,9 @@ var Character = function Character(name){
   this.xp = 0;
   this.defense = 1;
   this.enemyTarget = 0;
+
+  // cool down time before player can use an item again
+  this.recoveryTime = 0;
   this.inventory = [];
 };
 
