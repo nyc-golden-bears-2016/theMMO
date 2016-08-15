@@ -43,37 +43,56 @@ var processInputBuffer = function(){
         };
       };
     } else if( (keys_pressed.indexOf(32) != -1) && (keys_pressed_checker.indexOf(32) === -1) ) {
-      keys_pressed_checker.push(32);
-      clearMessage = true;
+      if(battleOver === true) {
+        keys_pressed_checker.push(32);
+        clearMessage = true;
+      };
     };
   } else { // Field controls
+    your_char.turnedThisFrame = false;
     var currentPositionX = your_char.pos_x;
     var currentPositionY = your_char.pos_y;
       if (keys_pressed.indexOf(16) != -1) {
-        if (keys_pressed.indexOf(38) != -1) {
-          your_char.pos_y--;
-        };
-        if (keys_pressed.indexOf(40) != -1) {
-          your_char.pos_y++;
-        };
         if (keys_pressed.indexOf(37) != -1) {
+          your_char.faceDirection("west");
+          your_char.turnedThisFrame = true;
           your_char.pos_x--;
         };
         if (keys_pressed.indexOf(39) != -1) {
+          your_char.faceDirection("east");
+          your_char.turnedThisFrame = true;
           your_char.pos_x++;
         };
-      } else {
         if (keys_pressed.indexOf(38) != -1) {
-          your_char.pos_y-= your_char.speed;
+          your_char.faceDirection("north");
+          your_char.turnedThisFrame = true;
+          your_char.pos_y--;
         };
         if (keys_pressed.indexOf(40) != -1) {
-          your_char.pos_y+= your_char.speed;
+          your_char.faceDirection("south");
+          your_char.turnedThisFrame = true;
+          your_char.pos_y++;
         };
+      } else {
         if (keys_pressed.indexOf(37) != -1) {
+          your_char.faceDirection("west");
+          your_char.turnedThisFrame = true;
           your_char.pos_x-= your_char.speed;
         };
         if (keys_pressed.indexOf(39) != -1) {
+          your_char.faceDirection("east");
+          your_char.turnedThisFrame = true;
           your_char.pos_x+= your_char.speed;
+        };
+        if (keys_pressed.indexOf(38) != -1) {
+          your_char.faceDirection("north");
+          your_char.turnedThisFrame = true;
+          your_char.pos_y-= your_char.speed;
+        };
+        if (keys_pressed.indexOf(40) != -1) {
+          your_char.faceDirection("south");
+          your_char.turnedThisFrame = true;
+          your_char.pos_y+= your_char.speed;
         };
       };
       distanceTraveled += Math.abs(your_char.pos_x - currentPositionX);
@@ -107,7 +126,6 @@ var allowInput = function() {
   });
   setInterval(processInputBuffer, FRAME_RATE/2);
 };
-
 
 function getTextWidth(text, font) {
   // re-use canvas object for better performance

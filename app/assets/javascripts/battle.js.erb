@@ -27,8 +27,8 @@ var prepareTeamBattle = function(enemies){
 
 var proceedBattle = function() {
   if (inBattle === true) {
+    $(".player-names").remove();
     if(battleOver === true) {
-      distanceTraveled = 0;
       if(messagesLoaded === false) {
         victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + SCREEN_HEIGHT / 4 + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;">YOU WIN!!</div>');
         for (var i = currentEnemies.length - 1; i >= 0; i--) {
