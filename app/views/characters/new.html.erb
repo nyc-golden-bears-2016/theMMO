@@ -1,39 +1,39 @@
+
 <div class="col-md-4 col-md-offset-4">
   <div class="row">
     <div class="panel panel-default">
       <div class="panel-heading">
-<h1>New Character</h2>
-
-<%= form_for @character do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %><br>
- 
-  <%= f.label :user_id %>
-  <%= f.text_field :user_id %><br>
+      <div id="the_slider">
+<h1>New Character<%=@character.attack %></h2>
+<p><%= @character.attack %></p>
+<%= form_for @character do |create| %>
   
-  <%= f.label :party_id %>
-  <%= f.text_field :party_id %><br>
+  <%= create.label :name %>
+  <%= create.text_field :name %>
+  <%= create.label :location %>
+  <%= create.text_field :location %>
+  <%= create.hidden_field :attack %>
+    <%= range_field_tag(:sliderRangeRails) %>
 
-  <%= f.label :attack %>
-  <%= f.text_field :attack %><br>
+    <%= create.label :health %>
+  <%= create.hidden_field :health %>
+    <%= range_field_tag(:sliderRangeRails) %>
 
-  <%= f.label :health %>
-  <%= f.text_field :health %><br>
+    <%= create.label :XP %>
+  <%= create.hidden_field :XP %>
+    <%= range_field_tag(:sliderRangeRails) %>
 
-  <%= f.label :XP %>
-  <%= f.text_field :XP %><br>
+    <%= create.label :defense %>
+  <%= create.hidden_field :defense %>
+    <%= range_field_tag(:sliderRangeRails) %>
 
-  <%= f.label :defense %>
-  <%= f.text_field :defense %><br>
-
-  <%= f.label :max_health %>
-  <%= f.text_field :max_health %><br>
-
-<%= f.submit %>
+    <%= create.label :max_health %>
+  <%= create.hidden_field :max_health %>
+    <%= range_field_tag(:sliderRangeRails) %>
+<%= create.submit %>
 <% end %>
       </div>
     </div>
   </div>
 </div>
-
-
+</div>
