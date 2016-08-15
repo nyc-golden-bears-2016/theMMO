@@ -4,6 +4,18 @@ current_background.onload = function(){
   console.log("background loaded");
 }
 
+var seamless_grass = new Image();
+seamless_grass.src = '<%= asset_path("seamless_grass.jpg") %>'
+seamless_grass.onload = function(){
+  console.log("seamless_grass loaded");
+}
+
+var seamless_stone = new Image();
+seamless_stone.src = '<%= asset_path("seamless_stone.jpg") %>'
+seamless_stone.onload = function(){
+  console.log("seamless_stone loaded");
+}
+
 var beach_battle = new Image();
 beach_battle.src = '<%= asset_path("lake_beach.jpg") %>'
 beach_battle.onload = function(){
@@ -20,6 +32,18 @@ var slime_attack01 = new Image();
 slime_attack01.src = '<%= asset_path("slime_attack01.png") %>'
 slime_attack01.onload = function(){
   console.log("slime_attack01 loaded");
+}
+
+var bat_stand01 = new Image();
+bat_stand01.src = '<%= asset_path("bat_stand01.png") %>'
+bat_stand01.onload = function(){
+  console.log("bat_stand01 loaded");
+}
+
+var bat_attack01 = new Image();
+bat_attack01.src = '<%= asset_path("bat_attack01.png") %>'
+bat_attack01.onload = function(){
+  console.log("bat_attack01 loaded");
 }
 
 var slash01 = new Image();

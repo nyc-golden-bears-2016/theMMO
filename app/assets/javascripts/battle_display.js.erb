@@ -8,9 +8,10 @@ var battleDisplay = function(player, enemies){
   var dataset_1_max = [];
   var dataset_2 = [];
   var dataset_2_max = [];
+  var dataset_2_test = [];
 
 	var DISPLAY_WIDTH = 780;
-	var DISPLAY_HEIGHT = 85;
+	var DISPLAY_HEIGHT = 100;
   var BAR_HEIGHT = 20;
 
   dataset_1.push(player.health);
@@ -19,26 +20,38 @@ var battleDisplay = function(player, enemies){
   enemies.forEach(function(enemy){
     dataset_2.push(enemy.health);
     dataset_2_max.push(enemy.maxHealth);
+    dataset_2_test.push({health: enemy.health,
+    											name: enemy.name});
   });
 
 	var svg_1 = d3.select("body")
 								.append("svg")
-								.attr({width:DISPLAY_WIDTH/2, height:DISPLAY_HEIGHT})
+								.attr({
+									id: "player",
+									width:DISPLAY_WIDTH/2, 
+									height:DISPLAY_HEIGHT})
 								.style({
-									"background-color": "rgba(192,192,192,0.5)",
+									"border": "3px solid rgba(192,192,192,0.8)",
+									"border-radius": "3px",
+									"background-color": "rgba(192,192,192,0.4)",
 									"z-index": "1",
 									"position": "absolute",
-									"left": "20",
+									"left": "10",
 									"top": "20"});
 
   var svg_2 = d3.select("body")
   							.append("svg")
-  							.attr({width:DISPLAY_WIDTH/2, height:DISPLAY_HEIGHT})
+  							.attr({
+  								id: "enemy",
+  								width:DISPLAY_WIDTH/2,
+  								height:DISPLAY_HEIGHT})
   							.style({
-  								"background-color": "rgba(192,192,192,0.5)",
+									"border": "3px solid rgba(192,192,192,0.8)",
+									"border-radius": "3px",
+									"background-color": "rgba(192,192,192,0.4)",
   								"z-index": "1",
   								"position": "absolute",
-  								"left": "420",
+  								"left": "410",
   								"top": "20"});
 
   var xScale_1 = d3.scale.linear()
@@ -64,6 +77,19 @@ var battleDisplay = function(player, enemies){
         fill: "red"
     });
 
+	svg_1.selectAll("text")
+		.data(dataset_1)
+    .enter()
+    .append("text")
+    .attr({
+        x:  function(d) { return ( xScale_1(d) - 30 ); },
+        y: function(d, i) { return ( i * ( BAR_HEIGHT + space1 ) + space1 + 16); },
+        width: function(d) { return ( xScale_1(d) > 0 ? xScale_1(d) : 0 ); }})
+    .style({
+
+    		"font-color": "white"
+    })
+    .html("test");
 
   var numData2 = dataset_2.length;
   var space2 = ( DISPLAY_HEIGHT - BAR_HEIGHT * numData2 ) / ( numData2 + 1 );
@@ -79,4 +105,14 @@ var battleDisplay = function(player, enemies){
         height: BAR_HEIGHT,
         fill: "blue"
     });
+
+  svg_2.selectAll("text")
+    .data(dataset_2_test)
+    .enter()
+    .append("text")
+    .attr({
+        x: function(d) { return (DISPLAY_WIDTH/2 - xScale_2(d.health)); },
+        y: function(d, i) { return ( i * ( BAR_HEIGHT + space2 ) + space2 + 16); },
+        width: function(d) { return ( xScale_2(d.heatlh) > 0 ? xScale_2(d.heatlh) : 0 ); }})
+    .html(function(d) {return d.name});
 }

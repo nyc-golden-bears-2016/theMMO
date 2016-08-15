@@ -2,3 +2,8 @@ canvas {
   border: 5px solid black;
   border-radius: 3px;
 }
+
+text {
+	color: white;
+	fill:#F5F1E9;
+}

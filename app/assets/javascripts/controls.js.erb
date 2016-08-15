@@ -42,11 +42,14 @@ var processInputBuffer = function(){
           };
         };
       };
+    } else if( (keys_pressed.indexOf(32) != -1) && (keys_pressed_checker.indexOf(32) === -1) ) {
+      keys_pressed_checker.push(32);
+      clearMessage = true;
     };
   } else { // Field controls
-      if (keys_pressed.indexOf(79) != -1) {
-        inBattle = true; // TODO: remove later
-      } else if (keys_pressed.indexOf(16) != -1) {
+    var currentPositionX = your_char.pos_x;
+    var currentPositionY = your_char.pos_y;
+      if (keys_pressed.indexOf(16) != -1) {
         if (keys_pressed.indexOf(38) != -1) {
           your_char.pos_y--;
         };
@@ -73,6 +76,9 @@ var processInputBuffer = function(){
           your_char.pos_x+= your_char.speed;
         };
       };
+      distanceTraveled += Math.abs(your_char.pos_x - currentPositionX);
+      distanceTraveled += Math.abs(your_char.pos_y - currentPositionY);
+      checkEncounter();
     }
 };
 
@@ -103,14 +109,41 @@ var allowInput = function() {
 };
 
 
+function getTextWidth(text, font) {
+  // re-use canvas object for better performance
+  var canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement("canvas"));
+  var context = canvas.getContext("2d");
+  context.font = font;
+  var metrics = context.measureText(text);
+  return metrics.width;
+}
+
+var Menu = function Menu(){
+  this.x = 0;
+  this.y = 0;
+  this.width = 0;
+}
+
+var playerMenu = new Menu;
+var otherMenu = new Menu; 
 
 var clickBuffer = function(x, y){
   var canvas = document.getElementById('game_screen');
   var context = canvas.getContext('2d');
   if (clicked.indexOf("yourself") != -1 ) {
-    context.drawImage(slime_stand01, clickLocation[0], clickLocation[1])
+    context.fillStyle = "white";
+    context.fillRect(clickLocation[0]-15, clickLocation[1]-30, 150, 40);
+    context.fillStyle = "black";
+    context.font = "15px Arial";
+    context.fillText("I am " + your_character_name + "!", clickLocation[0], clickLocation[1]);
+    // context.drawImage("slime_stand01", clickLocation[0], clickLocation[1])
   } else if (clicked.indexOf("other") != -1 ) {
-    context.drawImage(slime_attack01, clickLocation[0], clickLocation[1])
+    // context.drawImage(slime_attack01, clickLocation[0], clickLocation[1])
+    context.fillStyle = "white";
+    context.fillRect(clickLocation[0]-15, clickLocation[1]-30, 150, 40);
+    context.fillStyle = "black";
+    context.font = "15px Arial";
+    context.fillText("Join party with " + clicked[1] + "!", clickLocation[0], clickLocation[1]);
   }
 }
 
@@ -126,18 +159,35 @@ var allowClick = function() {
     clickLocation = [];
     clickLocation.push(x);
     clickLocation.push(y);
+    if (yourMenu === true || otherPlayerMenu === true) {
+      if ( (otherPlayerMenu === true) && (x >= otherMenu.x && x <= otherMenu.x+otherMenu.width) && (y >= otherMenu.y && y <= otherMenu.y+15) ) {
+        //TODO: JOIN PARTY LOGIC HERE
+      } else if ( (yourMenu === true) && (x >= playerMenu.x && x <= playerMenu.x+playerMenu.width) && (y >= playerMenu.y && y <= playerMenu.y+15) ) {
+        console.log("WORKED");
+      }
+      clicked = [];
+      otherMenu = false;
+      yourMenu = false;
     // click your_char
-    if((global_x >= your_char.pos_x && global_x <= your_char.pos_x + 25) && (global_y >= your_char.pos_y && global_y <= your_char.pos_y + 25)) {
+    } else if((global_x >= your_char.pos_x && global_x <= your_char.pos_x + 25) && (global_y >= your_char.pos_y && global_y <= your_char.pos_y + 25)) {
       console.log("clicked yourself")
       clicked.push("yourself");
-      your_menu = true;
+      yourMenu = true;
+      playerMenu.x = clickLocation[0];
+      playerMenu.y = clickLocation[1];
+      playerMenu.width = getTextWidth("I am " + your_character_name + "!", "15px Arial");
+      // click other chars
     } else if(checkOther(global_x, global_y) != false) {
       console.log("CLICK OTHER PLAYER");
       otherPlayerMenu = true;
       clicked.push("other");
+      clicked.push(checkOther(global_x, global_y));
+      otherMenu.x = clickLocation[0]
+      otherMenu.y = clickLocation[1]
+      otherMenu.width = getTextWidth("Join party with " + clicked[1] + "!", "15px Arial");
     } else {
       clicked = [];
-      your_menu = false;
+      yourMenu = false;
       otherPlayerMenu = false;
     }
   }, false);
@@ -148,8 +198,9 @@ var checkOther = function(x, y) {
     otherPlayerX = otherPlayers[playerNames[i]].pos_x;
     otherPlayerY = otherPlayers[playerNames[i]].pos_y;
     if ((x >= otherPlayerX && x<= otherPlayerX +25 ) && (y >= otherPlayerY && y<= otherPlayerY +25)) {
-      return otherPlayers[playerNames[i]];
+      // return otherPlayers[playerNames[i]];
+      return playerNames[i];
     };
-    return false;
   };
+  return false;
 }

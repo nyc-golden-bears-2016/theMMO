@@ -45,7 +45,15 @@ var drawField = function(){
   for(var x = (SCREEN_TILES_WIDTH); x >= 0; x--) {
     for(var y = (SCREEN_TILES_HEIGHT); y >= 0; y--) {
       // TODO: this should be refactored so that it only draws within a radius of the player
-      context.drawImage(current_background, (SCREEN_WIDTH * x) - backgroundScrollX, (SCREEN_HEIGHT * y) - backgroundScrollY, SCREEN_WIDTH, SCREEN_HEIGHT);
+      for (var i = 0; i < 4; i++) {
+        for (var n = 0; n < 4; n++) {
+          if(n === 2) {
+            context.drawImage(seamless_stone, ( (SCREEN_WIDTH * x) + (200 * i) ) - backgroundScrollX, ( (SCREEN_HEIGHT * y) + (150 * n) ) - backgroundScrollY);
+          } else {
+            context.drawImage(seamless_grass, ( (SCREEN_WIDTH * x) + (200 * i) ) - backgroundScrollX, ( (SCREEN_HEIGHT * y) + (150 * n) ) - backgroundScrollY);
+          };
+        };
+      };
     };
   };
 
@@ -66,14 +74,16 @@ var drawBattle = function(){
 
   var totalEnemyWidth = 0;
 
-  refreshBattleDisplay();
-  battleDisplay(your_char, currentEnemies);
+  if(inBattle === true) {
+    refreshBattleDisplay();
+    battleDisplay(your_char, currentEnemies);
+  }
 
   currentEnemies.forEach(function(enemy){
     totalEnemyWidth += enemy.width;
   });
 
-  var drawPositionX = (SCREEN_WIDTH / 2) - (totalEnemyWidth / 2);
+  var drawPositionX = Math.floor( (SCREEN_WIDTH / 2) - (totalEnemyWidth / 2) );
   var previousEnemiesWidths = [];
   var offset = 0;
 
@@ -90,13 +100,13 @@ var drawBattle = function(){
         context.drawImage(selection_arrow, enemy.pos_x - 45, enemy.pos_y - 60);
       }
     }
-    var slashesThisFrame = slashes.slice(0);
-    for (var i = 0; i < slashesThisFrame.length; i++) {
-      context.drawImage(slashesThisFrame[i].drawSlash(), slashesThisFrame[i].pos_x, slashesThisFrame[i].pos_y);
-    };
     previousEnemiesWidths.push(enemy.width);
     offset = 0;
   });
+  var slashesThisFrame = slashes.slice(0);
+  for (var i = 0; i < slashesThisFrame.length; i++) {
+    context.drawImage(slashesThisFrame[i].drawSlash(), slashesThisFrame[i].pos_x, slashesThisFrame[i].pos_y);
+  };
 }
 
 var drawGame = function(){
