@@ -20,11 +20,20 @@ var setUpWebsocket = function(scheme){
       };
       otherPlayers[data.username].pos_x = data.pos_x;
       otherPlayers[data.username].pos_y = data.pos_y;
+      if (data.partyMembers.indexOf(your_character_name) !== -1) {
+        for (var i = data.partyMembers.length - 1; i >= 0; i--) {
+          if(partyMembers.indexOf(data.partyMembers[i]) === -1) {
+            partyMembers.push(data.partyMembers[i]);
+          };
+        };
+        if(partyMembers.indexOf(data.username) === -1) {
+          partyMembers.push(data.username);
+        };
+      }
       if (data.requestPartyWith === your_character_name){
         // if received party request
         if (confirm(data.username + ' requests to party with you')===true) {
-          console.log("PARTY INITIATE");
-          console.log(data.username);
+          partyMembers.push(data.username);
         }
       } else if (data.requestTradeWith === your_character_name){
         if (confirm(data.username + ' requests to trade with you')===true) {
@@ -38,9 +47,9 @@ var setUpWebsocket = function(scheme){
 var updateCharacters = function(){
   if(wSocket.readyState === 1) {
     if(partyMembers.length < 1) {  // no party members
-      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith}) );
+      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers}) );
     } else { // in party
-      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith}) );
+      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers}) );
     }
     otherPlayertoPartyWith = "";
     otherPlayertoTradeWith = "";
