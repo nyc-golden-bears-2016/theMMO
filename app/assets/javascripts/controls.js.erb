@@ -118,35 +118,6 @@ function getTextWidth(text, font) {
   return metrics.width;
 }
 
-var Menu = function Menu(){
-  this.x = 0;
-  this.y = 0;
-  this.width = 0;
-}
-
-var playerMenu = new Menu;
-var otherMenu = new Menu; 
-
-var clickBuffer = function(x, y){
-  var canvas = document.getElementById('game_screen');
-  var context = canvas.getContext('2d');
-  if (clicked.indexOf("yourself") != -1 ) {
-    context.fillStyle = "white";
-    context.fillRect(clickLocation[0]-15, clickLocation[1]-30, 150, 40);
-    context.fillStyle = "black";
-    context.font = "15px Arial";
-    context.fillText("I am " + your_character_name + "!", clickLocation[0], clickLocation[1]);
-    // context.drawImage("slime_stand01", clickLocation[0], clickLocation[1])
-  } else if (clicked.indexOf("other") != -1 ) {
-    // context.drawImage(slime_attack01, clickLocation[0], clickLocation[1])
-    context.fillStyle = "white";
-    context.fillRect(clickLocation[0]-15, clickLocation[1]-30, 150, 40);
-    context.fillStyle = "black";
-    context.font = "15px Arial";
-    context.fillText("Join party with " + clicked[1] + "!", clickLocation[0], clickLocation[1]);
-  }
-}
-
 var allowClick = function() {
   //click listener
   document.getElementById('game_screen').addEventListener('click', function(e) {
@@ -159,32 +130,35 @@ var allowClick = function() {
     clickLocation = [];
     clickLocation.push(x);
     clickLocation.push(y);
+    // menu clicking logic
     if (yourMenu === true || otherPlayerMenu === true) {
-      if ( (otherPlayerMenu === true) && (x >= otherMenu.x && x <= otherMenu.x+otherMenu.width) && (y >= otherMenu.y && y <= otherMenu.y+15) ) {
-        //TODO: JOIN PARTY LOGIC HERE
-      } else if ( (yourMenu === true) && (x >= playerMenu.x && x <= playerMenu.x+playerMenu.width) && (y >= playerMenu.y && y <= playerMenu.y+15) ) {
-        console.log("WORKED");
-      }
+      // if ( (otherPlayerMenu === true) && (x >= otherMenu.x && x <= otherMenu.x+otherMenu.width) && (y >= otherMenu.y && y <= otherMenu.y+15) ) {
+      //   //TODO: JOIN PARTY LOGIC HERE
+      // } else if ( (yourMenu === true) && (x >= playerMenu.x && x <= playerMenu.x+playerMenu.width) && (y >= playerMenu.y && y <= playerMenu.y+15) ) {
+      //   console.log("WORKED");
+      // }
       clicked = [];
-      otherMenu = false;
+      otherPlayerMenu = false;
       yourMenu = false;
+      $(".player-menu").remove();
+      $(".other-player-menu").remove();
     // click your_char
     } else if((global_x >= your_char.pos_x && global_x <= your_char.pos_x + 25) && (global_y >= your_char.pos_y && global_y <= your_char.pos_y + 25)) {
       console.log("clicked yourself")
       clicked.push("yourself");
       yourMenu = true;
-      playerMenu.x = clickLocation[0];
-      playerMenu.y = clickLocation[1];
-      playerMenu.width = getTextWidth("I am " + your_character_name + "!", "15px Arial");
+      var width = getTextWidth("I am " + your_character_name + "!", "18px Arial");
+      var menu = '<div class="player-menu" style="padding:7px;position:absolute;background-color:white;top:' + (your_char.pos_y - backgroundScrollY).toString() + 'px;left:' + (your_char.pos_x - backgroundScrollX).toString() + 'px;width:'+ width.toString() +'px;height:30px;">I am '+ your_character_name +'!</div>';
+      $("body").prepend(menu);
       // click other chars
     } else if(checkOther(global_x, global_y) != false) {
       console.log("CLICK OTHER PLAYER");
       otherPlayerMenu = true;
       clicked.push("other");
       clicked.push(checkOther(global_x, global_y));
-      otherMenu.x = clickLocation[0]
-      otherMenu.y = clickLocation[1]
-      otherMenu.width = getTextWidth("Join party with " + clicked[1] + "!", "15px Arial");
+      var width = getTextWidth('Join party with ' + clicked[1] + '!', "18px Arial");
+      var menu = '<div class="player-menu" style="padding:7px;position:absolute;background-color:white;top:' + (clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:75px;"><button style="margin-bottom:3px;">Join party with '+ clicked[1] +'!</button><br><button>Trade with '+ clicked[1] +'!</button></div>';
+      $("body").prepend(menu);
     } else {
       clicked = [];
       yourMenu = false;
@@ -198,7 +172,6 @@ var checkOther = function(x, y) {
     otherPlayerX = otherPlayers[playerNames[i]].pos_x;
     otherPlayerY = otherPlayers[playerNames[i]].pos_y;
     if ((x >= otherPlayerX && x<= otherPlayerX +25 ) && (y >= otherPlayerY && y<= otherPlayerY +25)) {
-      // return otherPlayers[playerNames[i]];
       return playerNames[i];
     };
   };
