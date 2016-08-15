@@ -157,7 +157,7 @@ var allowClick = function() {
       clicked.push("other");
       clicked.push(checkOther(global_x, global_y));
       var width = getTextWidth('Join party with ' + clicked[1] + '!', "18px Arial");
-      var menu = '<div class="player-menu" style="padding:7px;position:absolute;background-color:white;top:' + (clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:75px;"><button style="margin-bottom:3px;">Join party with '+ clicked[1] +'!</button><br><button>Trade with '+ clicked[1] +'!</button></div>';
+      var menu = '<div class="player-menu" style="padding:7px;position:absolute;background-color:white;top:' + (clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:75px;"><button id="party" style="margin-bottom:3px;">Join party with '+ clicked[1] +'!</button><br><button id="trade">Trade with '+ clicked[1] +'!</button></div>';
       $("body").prepend(menu);
     } else {
       clicked = [];
@@ -177,3 +177,10 @@ var checkOther = function(x, y) {
   };
   return false;
 }
+
+$( document ).ready(function() {
+  $("body").on("click", "#party", function(e){
+    e.preventDefault;
+    otherPlayertoPartyWith = clicked[1]
+  });
+});

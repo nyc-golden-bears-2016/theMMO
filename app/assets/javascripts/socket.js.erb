@@ -20,13 +20,22 @@ var setUpWebsocket = function(scheme){
       };
       otherPlayers[data.username].pos_x = data.pos_x;
       otherPlayers[data.username].pos_y = data.pos_y;
+      if (data.requestPartyWith === your_character_name){
+        // if received party request
+        confirm(data.username + ' requests to party with you');
+      }
     };
   };
 };
 
 var updateCharacters = function(){
   if(wSocket.readyState === 1) {
-    wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name}) );
+    if(partyMembers.length < 1) {  // no party members
+      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith}) );
+    } else { // in party
+      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith}) );
+    }
+    otherPlayertoPartyWith = "";
   };
 };
 
