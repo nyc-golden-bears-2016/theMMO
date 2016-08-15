@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require ./d3.min.js
 //= require ./image_loader.js.erb
 //= require ./battle_display.js.erb
@@ -23,3 +24,23 @@
 //= require ./socket.js.erb
 //= require ./battle.js.erb
 //= require_tree .
+    var slider = $("#the_slider").slider({
+        range: true,
+        min: 200,
+        max: 500,
+        values: [250, 450],
+        slide: function(event, ui) {
+            $("#character_attack").val(ui.values[0]);
+            $("#character_health").val(ui.values[0]);
+            $("#character_XP").val(ui.values[0]);
+            $("#character_defense").val(ui.values[0]);
+            $("#character_max_health").val(ui.values[0]);
+        }
+    });
+    $("#character_attack").val(slider.slider("values")[0]);
+    $("#character_XP").val(ui.values[0]);
+    $("#character_attack").val(ui.values[0]);
+    $("#character_defense").val(ui.values[0]);
+    $("#character_max_health").val(ui.values[0]);
+}
+ 

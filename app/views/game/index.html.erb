@@ -1,16 +1,21 @@
-</style>
-<div class="col-md-8 col-md-offset-2">
+<%= video_tag "landscape.webm", id:"video-background", autoplay: true, loop: true %>
+  </style>
+ <div class="thick-green-border">
+ <div class="col-md-8 col-md-offset-2">
   <div class="row">
     <div class="panel panel-default">
       <div class="panel-heading">
     <h1>WELCOME TO BOSS TRIANGLES</h1>
       <div id="homepage_links"
       <% if user_signed_in? && current_user.characters %><br>
-        <%= link_to('Create Character', new_character_path) %> <br>
+        <blink><%= link_to('Create Character', new_character_path) %></blink> <br>
         <%= link_to('Start Game', game_path)%> <br>
-      <% end %>
+        <%else%>
+        <p>PLEASE SIGNUP/LOGIN!!</p> <br>  
+          <% end %>
+          <%= link_to('How to play')%>   
       </div>
       </div>
-    </div>
-  </div>
+    </div>    
+  </div>  
 </div>

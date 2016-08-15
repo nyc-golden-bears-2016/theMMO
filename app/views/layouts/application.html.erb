@@ -3,9 +3,10 @@
   <head>
     <title>The MMO</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>  
+    <link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light|Passion+One' rel='stylesheet' type='text/css'>
   </head>
  <body>
   	<nav class="navbar navbar-default">
@@ -27,6 +28,9 @@
         			<li>
         			<%= link_to('Login', new_user_session_path)%>
         			</li>
+        			<li>
+  					<%= link_to "Sign Up", new_user_registration_path %>
+					</li>
         		</ul>
         			<%end%>
 		</div>
