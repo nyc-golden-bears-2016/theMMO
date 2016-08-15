@@ -24,7 +24,7 @@ var setUpWebsocket = function(scheme){
         // if received party request
         if (confirm(data.username + ' requests to party with you')===true) {
           console.log("PARTY INITIATE");
-          console.log(data.username)
+          console.log(data.username);
         }
       } else if (data.requestTradeWith === your_character_name){
         if (confirm(data.username + ' requests to trade with you')===true) {

@@ -148,15 +148,8 @@ var allowClick = function() {
     clickLocation = [];
     clickLocation.push(x);
     clickLocation.push(y);
-    // menu clicking logic
-    if (yourMenu === true || otherPlayerMenu === true) {
-      clicked = [];
-      otherPlayerMenu = false;
-      yourMenu = false;
-      $(".player-menu").remove();
-      $(".other-player-menu").remove();
-    // click your_char
-    } else if((global_x >= your_char.pos_x && global_x <= your_char.pos_x + 35) && (global_y >= your_char.pos_y && global_y <= your_char.pos_y + 75)) {
+    // click yourself
+    if((global_x >= your_char.pos_x && global_x <= your_char.pos_x + 35) && (global_y >= your_char.pos_y && global_y <= your_char.pos_y + 75)) {
       console.log("clicked yourself")
       clicked.push("yourself");
       yourMenu = true;
@@ -170,12 +163,12 @@ var allowClick = function() {
       clicked.push("other");
       clicked.push(checkOther(global_x, global_y));
       var width = getTextWidth('Join party with ' + clicked[1] + '!', "18px Arial");
-      var menu = '<div class="player-menu" style="padding:7px;position:absolute;background-color:white;top:' + (60 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:75px;"><button id="party" style="margin-bottom:3px;">Join party with '+ clicked[1] +'!</button><br><button id="trade">Trade with '+ clicked[1] +'!</button></div>';
+      var menu = '<div class="other-player-menu" style="padding:7px;position:absolute;background-color:white;top:' + (60 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:75px;"><button id="party" style="margin-bottom:3px;">Join party with '+ clicked[1] +'!</button><br><button id="trade">Trade with '+ clicked[1] +'!</button></div>';
       $("body").prepend(menu);
     } else {
       clicked = [];
-      yourMenu = false;
-      otherPlayerMenu = false;
+      $(".player-menu").remove();
+      $(".other-player-menu").remove();
     }
   }, false);
 }
@@ -195,9 +188,11 @@ $( document ).ready(function() {
   $("body").on("click", "#party", function(e){
     e.preventDefault;
     otherPlayertoPartyWith = clicked[1];
+    $(".other-player-menu").remove();
   });
   $("body").on("click", "#trade", function(e){
     e.preventDefault;
     otherPlayertoTradeWith = clicked[1];
+    $(".other-player-menu").remove();
   });
 });
