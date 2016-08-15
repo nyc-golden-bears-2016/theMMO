@@ -38,7 +38,7 @@ var drawOtherCharacter = function(character, context){
     }
     context.drawImage(knight_west[character.animationFrame], (character.pos_x - backgroundScrollX), (character.pos_y - backgroundScrollY));
   }
-  if( (character.pos_X - backgroundScrollX) < (backgroundScrollX + SCREEN_WIDTH) && (character.pos_y - backgroundScrollY) < (backgroundScrollY + SCREEN_HEIGHT) ) {
+  if( (character.pos_x - backgroundScrollX) < (backgroundScrollX + SCREEN_WIDTH) && (character.pos_y - backgroundScrollY) < (backgroundScrollY + SCREEN_HEIGHT) ) {
     $("body").prepend('<div class="player-names" style="position:absolute;background-color:white;top:' + (character.pos_y - backgroundScrollY - 10) + 'px;left:' + (character.pos_x - backgroundScrollX + 20) + 'px;width:100px;height:30px;">' + character.name + '</div>');
   };
 };
