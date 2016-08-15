@@ -109,6 +109,10 @@ GEM
     orm_adapter (0.5.0)
     pg (0.18.4)
     pkg-config (1.1.7)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     puma (3.6.0)
     rack (2.0.1)
     rack-test (0.6.3)
@@ -152,6 +156,7 @@ GEM
     simple_form (3.2.1)
       actionpack (> 4, < 5.1)
       activemodel (> 4, < 5.1)
+    slop (3.6.0)
     spring (1.7.2)
     spring-watcher-listen (2.0.0)
       listen (>= 2.7, < 4.0)
@@ -198,6 +203,7 @@ DEPENDENCIES
   jquery-ui-rails
   listen (~> 3.0.5)
   pg (~> 0.18)
+  pry
   puma (~> 3.0)
   rails (~> 5.0.0)
   sass-rails (~> 5.0)
