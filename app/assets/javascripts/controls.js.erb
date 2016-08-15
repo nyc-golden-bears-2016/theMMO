@@ -18,6 +18,7 @@ var processInputBuffer = function(){
       if(your_char.enemyTarget) {
         slashes.push(new Slash(your_char.enemyTarget));
         your_char.attackEnemy(your_char.enemyTarget);
+        slashPos = currentEnemies.indexOf(your_char.enemyTarget);
       };
     } else if( (keys_pressed_checker.indexOf(65) === -1 && keys_pressed_checker.indexOf(37) === -1) && ((keys_pressed.indexOf(65) != -1) || (keys_pressed.indexOf(37) != -1)) ) {
       keys_pressed_checker.push(65);
@@ -146,34 +147,21 @@ function getTextWidth(text, font) {
 var allowClick = function() {
   //click listener
   document.getElementById('game_screen').addEventListener('click', function(e) {
-    global_x = e.pageX + backgroundScrollX - 5 - $('#game_screen').offset().left;
-    global_y = e.pageY + backgroundScrollY - 5 - $('#game_screen').offset().top;
+    global_x = e.pageX + backgroundScrollX - 20 - $('#game_screen').offset().left;
+    global_y = e.pageY + backgroundScrollY - 12 - $('#game_screen').offset().top //- $('.navbar').offset().top;
     // x and y relative to canvas
-    var x = e.pageX - 5 - $('#game_screen').offset().left;
-    var y = e.pageY - 5 - $('#game_screen').offset().top;
+    var x = e.pageX - 20 - $('#game_screen').offset().left
+    var y = e.pageY - 12 - $('#game_screen').offset().top //- $('.navbar').offset().top;
     console.log(global_x, global_y);
     clickLocation = [];
     clickLocation.push(x);
     clickLocation.push(y);
-    // menu clicking logic
-    if (yourMenu === true || otherPlayerMenu === true) {
-      // if ( (otherPlayerMenu === true) && (x >= otherMenu.x && x <= otherMenu.x+otherMenu.width) && (y >= otherMenu.y && y <= otherMenu.y+15) ) {
-      //   //TODO: JOIN PARTY LOGIC HERE
-      // } else if ( (yourMenu === true) && (x >= playerMenu.x && x <= playerMenu.x+playerMenu.width) && (y >= playerMenu.y && y <= playerMenu.y+15) ) {
-      //   console.log("WORKED");
-      // }
-      clicked = [];
-      otherPlayerMenu = false;
-      yourMenu = false;
-      $(".player-menu").remove();
-      $(".other-player-menu").remove();
-    // click your_char
-    } else if((global_x >= your_char.pos_x && global_x <= your_char.pos_x + 25) && (global_y >= your_char.pos_y && global_y <= your_char.pos_y + 25)) {
+    // click yourself
+    if((global_x >= your_char.pos_x && global_x <= your_char.pos_x + 35) && (global_y >= your_char.pos_y && global_y <= your_char.pos_y + 75)) {
       console.log("clicked yourself")
       clicked.push("yourself");
-      yourMenu = true;
       var width = getTextWidth("I am " + your_character_name + "!", "18px Arial");
-      var menu = '<div class="player-menu" style="padding:7px;position:absolute;background-color:white;top:' + (your_char.pos_y - backgroundScrollY).toString() + 'px;left:' + (your_char.pos_x - backgroundScrollX).toString() + 'px;width:'+ width.toString() +'px;height:30px;">I am '+ your_character_name +'!</div>';
+      var menu = '<div class="player-menu" style="padding:7px;position:absolute;background-color:white;top:' + (75 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:30px;">I am '+ your_character_name +'!</div>';
       $("body").prepend(menu);
       // click other chars
     } else if(checkOther(global_x, global_y) != false) {
@@ -182,12 +170,12 @@ var allowClick = function() {
       clicked.push("other");
       clicked.push(checkOther(global_x, global_y));
       var width = getTextWidth('Join party with ' + clicked[1] + '!', "18px Arial");
-      var menu = '<div class="player-menu" style="padding:7px;position:absolute;background-color:white;top:' + (clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:75px;"><button id="party" style="margin-bottom:3px;">Join party with '+ clicked[1] +'!</button><br><button id="trade">Trade with '+ clicked[1] +'!</button></div>';
+      var menu = '<div class="other-player-menu" style="padding:7px;position:absolute;background-color:white;top:' + (60 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:75px;"><button id="party" style="margin-bottom:3px;">Join party with '+ clicked[1] +'!</button><br><button id="trade">Trade with '+ clicked[1] +'!</button></div>';
       $("body").prepend(menu);
     } else {
       clicked = [];
-      yourMenu = false;
-      otherPlayerMenu = false;
+      $(".player-menu").remove();
+      $(".other-player-menu").remove();
     }
   }, false);
 }
@@ -196,7 +184,7 @@ var checkOther = function(x, y) {
   for (var i = playerNames.length - 1; i >= 0; i--) {
     otherPlayerX = otherPlayers[playerNames[i]].pos_x;
     otherPlayerY = otherPlayers[playerNames[i]].pos_y;
-    if ((x >= otherPlayerX && x<= otherPlayerX +25 ) && (y >= otherPlayerY && y<= otherPlayerY +25)) {
+    if ((x >= otherPlayerX && x<= otherPlayerX + 35 ) && (y >= otherPlayerY && y<= otherPlayerY +75)) {
       return playerNames[i];
     };
   };
@@ -207,9 +195,11 @@ $( document ).ready(function() {
   $("body").on("click", "#party", function(e){
     e.preventDefault;
     otherPlayertoPartyWith = clicked[1];
+    $(".other-player-menu").remove();
   });
   $("body").on("click", "#trade", function(e){
     e.preventDefault;
     otherPlayertoTradeWith = clicked[1];
+    $(".other-player-menu").remove();
   });
 });
