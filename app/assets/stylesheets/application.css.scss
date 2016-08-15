@@ -9,7 +9,10 @@
  * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope. *
-  *= require jquery-ui
+
+ *= require jquery-ui
+ *= require ./battle_message.css
+ *= require ./game.css
  */
 
 @import "bootstrap-sprockets";
@@ -77,11 +80,11 @@ textarea {
 #video-background {
 /*  making the video fullscreen  */
   position: fixed;
-  right: 0; 
+  right: 0;
   bottom: 0;
-  min-width: 100%; 
+  min-width: 100%;
   min-height: 100%;
-  width: auto; 
+  width: auto;
   height: auto;
   z-index: -100;
 }
