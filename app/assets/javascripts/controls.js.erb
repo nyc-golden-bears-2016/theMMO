@@ -181,6 +181,10 @@ var checkOther = function(x, y) {
 $( document ).ready(function() {
   $("body").on("click", "#party", function(e){
     e.preventDefault;
-    otherPlayertoPartyWith = clicked[1]
+    otherPlayertoPartyWith = clicked[1];
+  });
+  $("body").on("click", "#trade", function(e){
+    e.preventDefault;
+    otherPlayertoTradeWith = clicked[1];
   });
 });
