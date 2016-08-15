@@ -10,7 +10,7 @@ var setUpWebsocket = function(scheme){
     if (data.logout === true) {
       var deleteIndex = playerNames.indexOf(data.username);
       playerNames.splice(deleteIndex, 1);
-    } else {
+    } else if(data.username !== your_character_name) {
 
       // if username is not found, add it to existing users
       if (playerNames.indexOf(data.username) === -1) {

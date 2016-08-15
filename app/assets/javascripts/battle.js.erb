@@ -3,6 +3,7 @@ var prepareBattle = function(){
   slashes = [];
   battleOver = false;
   inBattle = true;
+  your_char.recoveryTime = 0;
   messagesLoaded = false;
   var numberOfEnemies = Math.floor( (Math.random() * 4) + 1);
   for (var i = numberOfEnemies; i > 0; i--) {
@@ -21,12 +22,14 @@ var prepareTeamBattle = function(enemies){
   slashes = [];
   battleOver = false;
   inBattle = true;
+  your_char.recoveryTime = 0;
   messagesLoaded = false;
   your_char.changeTarget(currentEnemies[0]);
 }
 
 var proceedBattle = function() {
   if (inBattle === true) {
+    your_char.recoveryTime--;
     $(".player-names").remove();
     if(battleOver === true) {
       if(messagesLoaded === false) {
