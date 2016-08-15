@@ -10,6 +10,7 @@ var Character = function Character(){
   this.xp = 0;
   this.defense = 1;
   this.enemyTarget = 0;
+  this.inventory = [];
 };
 
 Character.prototype.attackEnemy = function(enemy) {

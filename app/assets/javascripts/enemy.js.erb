@@ -2,6 +2,8 @@ console.log("ENEMY PAGE LOADING")
 var currentEnemies = [];
 var Enemy = function Enemy() {
   this.name = "missing no.";
+  this.item = "unknown";
+  this.dropRate = 0; // a number from 0 to 1 specifying the percentage that the item will drop
   this.pos_x = 0;
   this.pos_y = 300;
   this.width = 0;
@@ -21,6 +23,8 @@ var enemyMake = function(type) {
   if (type === "slime") {
     var enemy = new Enemy;
     enemy.name = "slime";
+    enemy.item = "potion";
+    enemy.dropRate = 0.2;
     enemy.width = 174;
     enemy.height = 131;
     enemy.attack = 4 + Math.floor(Math.random() * 4);
@@ -33,6 +37,8 @@ var enemyMake = function(type) {
     var enemy = new Enemy;
     enemy.name = "bat";
     enemy.width = 159;
+    enemy.item = "vampire fang";
+    enemy.dropRate = 0.5;
     enemy.height = 129;
     enemy.attack = 10 + Math.floor(Math.random() * 10);
     enemy.defense = 4 + Math.floor(Math.random() * 4);

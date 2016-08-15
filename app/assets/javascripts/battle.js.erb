@@ -3,6 +3,7 @@ var prepareBattle = function(){
   slashes = [];
   battleOver = false;
   inBattle = true;
+  messagesLoaded = false;
   var numberOfEnemies = Math.floor( (Math.random() * 4) + 1);
   for (var i = numberOfEnemies; i > 0; i--) {
     var typeOfEnemy = Math.floor( (Math.random() * 2) + 1);
@@ -18,12 +19,37 @@ var prepareBattle = function(){
 var proceedBattle = function() {
   if (inBattle === true) {
     if(battleOver === true) {
-      // TODO: put battle ending logic here
-      refreshBattleDisplay();
       distanceTraveled = 0;
-
-
-      inBattle = false;
+      if(messagesLoaded === false) {
+        victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + SCREEN_HEIGHT / 4 + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;">YOU WIN!!</div>');
+        for (var i = currentEnemies.length - 1; i >= 0; i--) {
+          if(Math.random() < currentEnemies[i].dropRate) {
+            your_char.inventory.push(currentEnemies[i].item);
+            $.ajax({
+              url: "/items",
+              method: "POST",
+              data: {item_name: currentEnemies[i].item}
+            })
+            var currentInventory = your_char.inventory.filter(function(item) {
+              return item === currentEnemies[i].item;
+            });
+            victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + SCREEN_HEIGHT / 4 + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;">Obtained ' + currentEnemies[i].item + '!<br>Now hold: ' + currentInventory.length + '</div>')
+          };
+        };
+        victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + SCREEN_HEIGHT / 4 + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;"></div>')
+        messagesLoaded = true;
+        $("body").prepend(victoryMessages.shift());
+      }
+      if(victoryMessages.length >= 1 && clearMessage === true) {
+        $(".battle-message").remove();
+        $("body").prepend(victoryMessages.shift());
+        clearMessage = false;
+      }
+      if(victoryMessages.length < 1) {
+        $(".battle-message").remove();
+        refreshBattleDisplay();
+        inBattle = false;
+      }
       return;
     }
     currentBattleFrame++;
