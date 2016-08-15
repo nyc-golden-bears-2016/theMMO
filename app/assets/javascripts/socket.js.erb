@@ -43,13 +43,29 @@ var setUpWebsocket = function(scheme){
         }
       }
       // party battles
-      if (data.partyMembers.indexOf(your_character_name) !== -1 && data.currentEnemies.length > 0 && inBattle === false){
+      if (data.partyMembers.indexOf(your_character_name) !== -1 && data.currentEnemies.length > 0 && inBattle === false && battleOver === true){
         var teamBattleEnemies = [];
         for (var i = data.currentEnemies.length - 1; i >= 0; i--) {
           teamBattleEnemies.push(enemyMake(data.currentEnemies[i].name));
         };
-        prepareTeamBattle(teamBattleEnemies);
+        currentEnemies = teamBattleEnemies;
+        prepareTeamBattle(currentEnemies);
       };
+
+      // syncs enemy health between members in party
+      if (data.inBattle === true && data.partyMembers.indexOf(your_character_name) !== -1){
+        for (var i = data.currentEnemies.length - 1; i >= 0; i--) {
+          if(data.currentEnemies[i].health < currentEnemies[i].health) {
+            currentEnemies[i].health = data.currentEnemies[i].health;
+          }
+        };
+      }
+      if (data.partyMembers.indexOf(your_character_name) !== -1 && data.battleOver === true) {
+        for (var i = currentEnemies.length - 1; i >= 0; i--) {
+          currentEnemies[i].health = 0;
+        };
+      }
+
     };
   };
 };
@@ -59,7 +75,7 @@ var updateCharacters = function(){
     if(partyMembers.length < 1) {  // no party members
       wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers}) );
     } else { // in party
-      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, currentEnemies: currentEnemies}) );
+      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, currentEnemies: currentEnemies, inBattle: inBattle, battleOver: battleOver}) );
     }
     otherPlayertoPartyWith = "";
     otherPlayertoTradeWith = "";
