@@ -16,10 +16,10 @@
 //= require ./image_loader.js.erb
 //= require ./battle_display.js.erb
 //= require ./character.js.erb
+//= require ./game.js.erb
 //= require ./enemy.js.erb
 //= require ./controls.js.erb
 //= require ./graphics.js.erb
-//= require ./game.js.erb
 //= require ./socket.js.erb
 //= require ./battle.js.erb
 //= require_tree .

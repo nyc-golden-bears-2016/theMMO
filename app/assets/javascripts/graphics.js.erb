@@ -1,22 +1,90 @@
 console.log("GRAPHICS PAGE LOADING")
 // other players
 var drawOtherCharacter = function(character, context){
-  context.beginPath();
-  context.moveTo( (character.pos_x - backgroundScrollX), (character.pos_y - backgroundScrollY));
-  context.lineTo( (character.pos_x - backgroundScrollX) + 25, (character.pos_y - backgroundScrollY) + 25);
-  context.lineTo( (character.pos_x - backgroundScrollX) + 25, (character.pos_y - backgroundScrollY) - 25);
-  context.fill();
+  if(character.direction === "south") {
+    if(character.framesPassed > 7) {
+      character.animationFrame++;
+      character.framesPassed = 0;
+      if(character.animationFrame >= knight_south.length) {
+        character.animationFrame = 0;
+      }
+    }
+    context.drawImage(knight_south[character.animationFrame], (character.pos_x - backgroundScrollX), (character.pos_y - backgroundScrollY));
+  } else if(character.direction === "north") {
+    if(character.framesPassed > 7) {
+      character.animationFrame++;
+      character.framesPassed = 0;
+      if(character.animationFrame >= knight_north.length) {
+        character.animationFrame = 0;
+      }
+    }
+    context.drawImage(knight_north[character.animationFrame], (character.pos_x - backgroundScrollX), (character.pos_y - backgroundScrollY));
+  } else if(character.direction === "east") {
+    if(character.framesPassed > 7) {
+      character.animationFrame++;
+      character.framesPassed = 0;
+      if(character.animationFrame >= knight_east.length) {
+        character.animationFrame = 0;
+      }
+    }
+    context.drawImage(knight_east[character.animationFrame], (character.pos_x - backgroundScrollX), (character.pos_y - backgroundScrollY));
+  } else if(character.direction === "west") {
+    if(character.framesPassed > 7) {
+      character.animationFrame++;
+      character.framesPassed = 0;
+      if(character.animationFrame >= knight_west.length) {
+        character.animationFrame = 0;
+      }
+    }
+    context.drawImage(knight_west[character.animationFrame], (character.pos_x - backgroundScrollX), (character.pos_y - backgroundScrollY));
+  }
+  if( (character.pos_x - backgroundScrollX) < (backgroundScrollX + SCREEN_WIDTH) && (character.pos_y - backgroundScrollY) < (backgroundScrollY + SCREEN_HEIGHT) ) {
+    $("body").prepend('<div class="player-names" style="position:absolute;background-color:white;top:' + (character.pos_y - backgroundScrollY - 10) + 'px;left:' + (character.pos_x - backgroundScrollX + 20) + 'px;width:100px;height:30px;">' + character.name + '</div>');
+  };
 };
 
 //draw your own character locally, relative to canvas
 var drawPlayer = function(context){
   var adjusted_pos_x = your_char.pos_x - backgroundScrollX;
   var adjusted_pos_y = your_char.pos_y - backgroundScrollY;
-  context.beginPath();
-  context.moveTo(adjusted_pos_x, adjusted_pos_y);
-  context.lineTo(adjusted_pos_x + 25, adjusted_pos_y + 25);
-  context.lineTo(adjusted_pos_x + 25, adjusted_pos_y - 25);
-  context.fill();
+  if(your_char.direction === "south") {
+    if(your_char.framesPassed > 7) {
+      your_char.animationFrame++;
+      your_char.framesPassed = 0;
+      if(your_char.animationFrame >= knight_south.length) {
+        your_char.animationFrame = 0;
+      }
+    }
+    context.drawImage(knight_south[your_char.animationFrame], adjusted_pos_x, adjusted_pos_y);
+  } else if(your_char.direction === "north") {
+    if(your_char.framesPassed > 7) {
+      your_char.animationFrame++;
+      your_char.framesPassed = 0;
+      if(your_char.animationFrame >= knight_north.length) {
+        your_char.animationFrame = 0;
+      }
+    }
+    context.drawImage(knight_north[your_char.animationFrame], adjusted_pos_x, adjusted_pos_y);
+  } else if(your_char.direction === "east") {
+    if(your_char.framesPassed > 7) {
+      your_char.animationFrame++;
+      your_char.framesPassed = 0;
+      if(your_char.animationFrame >= knight_east.length) {
+        your_char.animationFrame = 0;
+      }
+    }
+    context.drawImage(knight_east[your_char.animationFrame], adjusted_pos_x, adjusted_pos_y);
+  } else if(your_char.direction === "west") {
+    if(your_char.framesPassed > 7) {
+      your_char.animationFrame++;
+      your_char.framesPassed = 0;
+      if(your_char.animationFrame >= knight_west.length) {
+        your_char.animationFrame = 0;
+      }
+    }
+    context.drawImage(knight_west[your_char.animationFrame], adjusted_pos_x, adjusted_pos_y);
+  }
+  your_char.framesPassed++;
 };
 
 var drawField = function(){
@@ -58,6 +126,7 @@ var drawField = function(){
   };
 
   context.fillStyle = "#7FFFFF";
+  $(".player-names").remove();
   for (var i = playerNames.length - 1; i >= 0; i--) {
     // TODO: remove aftershadow
     drawOtherCharacter(otherPlayers[playerNames[i]], context);
