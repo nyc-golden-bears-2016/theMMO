@@ -18,6 +18,7 @@ var processInputBuffer = function(){
       if(your_char.enemyTarget) {
         slashes.push(new Slash(your_char.enemyTarget));
         your_char.attackEnemy(your_char.enemyTarget);
+        slashPos = currentEnemies.indexOf(your_char.enemyTarget);
       };
     } else if( (keys_pressed_checker.indexOf(65) === -1 && keys_pressed_checker.indexOf(37) === -1) && ((keys_pressed.indexOf(65) != -1) || (keys_pressed.indexOf(37) != -1)) ) {
       keys_pressed_checker.push(65);

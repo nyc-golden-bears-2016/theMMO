@@ -60,12 +60,16 @@ var setUpWebsocket = function(scheme){
           }
         };
       }
-      if (data.partyMembers.indexOf(your_character_name) !== -1 && data.battleOver === true) {
-        for (var i = currentEnemies.length - 1; i >= 0; i--) {
-          currentEnemies[i].health = 0;
-        };
+      // if (data.partyMembers.indexOf(your_character_name) !== -1 && data.battleOver === true) {
+      //   for (var i = currentEnemies.length - 1; i >= 0; i--) {
+      //     currentEnemies[i].health = 0;
+      //   };
+      // }
+      if (data.partyMembers.indexOf(your_character_name) !== -1 && data.slashPos !== -1 && inBattle === true && battleOver === false) {
+        console.log(data.slashPos);
+        console.log(currentEnemies[data.slashPos]);
+        slashes.push(new Slash(currentEnemies[data.slashPos]));
       }
-
     };
   };
 };
@@ -75,8 +79,9 @@ var updateCharacters = function(){
     if(partyMembers.length < 1) {  // no party members
       wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers}) );
     } else { // in party
-      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, currentEnemies: currentEnemies, inBattle: inBattle, battleOver: battleOver}) );
+      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, currentEnemies: currentEnemies, inBattle: inBattle, battleOver: battleOver, slashPos: slashPos}) );
     }
+    slashPos = -1;
     otherPlayertoPartyWith = "";
     otherPlayertoTradeWith = "";
   };
