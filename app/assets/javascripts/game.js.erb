@@ -41,5 +41,6 @@ your_char = new Character;
 var checkEncounter = function() {
   if(Math.random() * distanceTraveled > 600) {
     prepareBattle();
+    distanceTraveled = 0;
   }
 }
