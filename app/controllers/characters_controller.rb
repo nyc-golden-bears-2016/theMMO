@@ -1,7 +1,7 @@
 class CharactersController < ApplicationController
   before_action :check_character, only: :game
   before_action :set_character_name, only: :game
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :instructions]
 
   def new
     @character = current_user.characters.build
@@ -20,6 +20,12 @@ class CharactersController < ApplicationController
 
   def game
 
+  end
+
+  def instructions
+  end
+
+  def about
   end
 
   private

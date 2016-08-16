@@ -30,7 +30,7 @@ var Character = function Character(name){
 };
 
 Character.prototype.attackEnemy = function(enemy) {
-  enemy.health -= this.attack
+  enemy.health -= this.attack;
 }
 
 Character.prototype.changeTarget = function(enemy) {
@@ -46,3 +46,7 @@ Character.prototype.faceDirection = function(direction) {
     this.direction = direction;
   }
 }
+
+
+
+  

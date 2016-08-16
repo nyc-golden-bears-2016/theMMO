@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   root "game#index"
 
   get "/game" => 'characters#game'
+  get "instructions"=> 'characters#instructions'
+   get "about" => 'characters#about'
   resources :characters, only: [:create, :game, :new]
   resources :items, only: [:create]
 end

@@ -20,6 +20,8 @@ var prepareBattle = function(){
 }
 
 var prepareTeamBattle = function(enemies){
+  $(".player-menu").remove();
+  $(".other-player-menu").remove();
   currentEnemies = enemies;
   slashes = [];
   battleOver = false;
@@ -53,6 +55,7 @@ var proceedBattle = function() {
         victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + SCREEN_HEIGHT / 4 + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;"></div>')
         messagesLoaded = true;
         $("body").prepend(victoryMessages.shift());
+        currentEnemies = [];
       }
       if(victoryMessages.length >= 1 && clearMessage === true) {
         $(".battle-message").remove();

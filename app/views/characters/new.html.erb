@@ -11,25 +11,27 @@
   <%= create.label :name %>
   <%= create.text_field :name %>
   <%= create.label :location %>
-  <%= create.text_field :location %>
+  <%= create.text_field :location %><br>
+  
+  <%= create.label :attack %>
   <%= create.hidden_field :attack %>
-    <%= range_field_tag(:sliderRangeRails) %>
+  <%= create.range_field :attack, :min=>0, :max=>200, :value=>2,  :class=>"slide", :id=>"slider1"%>
 
     <%= create.label :health %>
   <%= create.hidden_field :health %>
-    <%= range_field_tag(:sliderRangeRails) %>
+   <%= create.range_field :health, :min=>0, :max=>200, :class=>"slide", :id=>"slider1"%>
 
     <%= create.label :XP %>
   <%= create.hidden_field :XP %>
-    <%= range_field_tag(:sliderRangeRails) %>
+    <%= create.range_field :XP, :min=>0, :max=>200, :class=>"slide", :id=>"slider1"%>
 
     <%= create.label :defense %>
   <%= create.hidden_field :defense %>
-    <%= range_field_tag(:sliderRangeRails) %>
+   <%= create.range_field :defense, :min=>0, :max=>200, :class=>"slide", :id=>"slider1"%>
 
     <%= create.label :max_health %>
   <%= create.hidden_field :max_health %>
-    <%= range_field_tag(:sliderRangeRails) %>
+   <%= create.range_field :max_health, :min=>0, :max=>200, :class=>"slide", :id=>"slider1"%>
 <%= create.submit %>
 <% end %>
       </div>
@@ -37,3 +39,4 @@
   </div>
 </div>
 </div>
+
