@@ -1,8 +1,6 @@
 <!-- <div style="position:absolute;width:300px;height:200px;left:0;top:20px;background-color:red;z-index:1"> This is the menu
   </div> -->
 <canvas style="z-index:-1" id="game_screen" width="800" height="600"></canvas>
-<%= audio_tag("oldburg10render.mp3", id:"field-music") %>
-<%= audio_tag("steelsword.wav", id:"slash-sound") %>
 
 <!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
 <!-- <script src="../../assets/javascripts/d3.js"></script> -->
@@ -19,7 +17,8 @@
     setAutoLogout(); //logout when user exits browser or tab
     allowInput(); // key listeners to keyboard
     allowClick(); // click listener
-    setInterval(function(){$("#field-music").trigger('play');},FRAME_RATE);
+    fieldMusic.play();
+    setInterval(fieldMusicLoop, 900);
 
 
     // Main logic

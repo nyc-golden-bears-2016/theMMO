@@ -1,0 +1,9 @@
+console.log("AUDIO LOADER PAGE LOADING");
+var fieldMusic = new Audio('<%= asset_path("steelsword.wav")%>');
+
+
+var fieldMusicLoop = function(){
+  if(fieldMusic.currentTime > 300) {
+    fieldMusic.currentTime = 0;
+  }
+}
