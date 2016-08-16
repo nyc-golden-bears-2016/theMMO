@@ -97,19 +97,32 @@ var setUpWebsocket = function(scheme){
       }
       // syncs player and enemy health between players in PVP
       // checks to see if you were hurt
-      if (data.inBattle === true && playerOpponent === data.username) {
-        console.log("checking your health");
-          if(your_char.health > data.yourInfo.health && recentlyRecovered < 1) {
-            your_char.health = data.yourInfo.health;
-            currentEnemies[0].setPose("attacking");
-          }
-      }
-      // checks to see if opponent recovered
-      if (data.inBattle === true && data.playerOpponent === data.username) {
-          if(currentEnemies[0].health < data.opponentInfo.health) {
-            currentEnemies[0].health = data.opponentInfo.health;
-          }
-      }
+      // Harrison's attempt at pvp
+      //// if (data.inBattle === true && playerOpponent === data.username) {
+      ////   console.log("checking your health");
+      ////     if(your_char.health > data.yourInfo.health && recentlyRecovered < 1) {
+      ////       your_char.health = data.yourInfo.health;
+      ////       currentEnemies[0].setPose("attacking");
+      ////     }
+      //// }
+      //// // checks to see if opponent recovered
+      //// if (data.inBattle === true && data.playerOpponent === data.username) {
+      ////     if(currentEnemies[0].health < data.opponentInfo.health) {
+      ////       currentEnemies[0].health = data.opponentInfo.health;
+      ////     }
+      //// }
+
+      // Lloyd's attempt at pvp
+      // if (data.inBattle === true && playerOpponent === data.username) {
+      //   if (data.usePotion === true) {
+      //     currentEnemies[0].health = data.opponentInfo.health;
+      //   } else {
+      //     if(your_char.health > data.yourInfo.health) {
+      //       your_char.health = data.yourInfo.health;
+      //       currentEnemies[0].setPose("attacking");
+      //     }
+      //   }
+      // }
     };
     recentlyRecovered = Math.max(recentlyRecovered - 1, 0);
   };
@@ -118,13 +131,14 @@ var setUpWebsocket = function(scheme){
 var updateCharacters = function(){
   if(wSocket.readyState === 1) {
     if(partyMembers.length < 1) {  // no party members
-      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, playerOpponent: playerOpponent, opponentInfo: your_char, yourInfo: currentEnemies[0], direction: your_char.direction}) );
+      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, playerOpponent: playerOpponent, opponentInfo: your_char, yourInfo: currentEnemies[0], inBattle: inBattle, usePotion: usePotion, direction: your_char.direction}) );
     } else { // in party
-      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, currentEnemies: currentEnemies, inBattle: inBattle, battleOver: battleOver, slashPos: slashPos, leaveParty: leaveParty, playerOpponent: playerOpponent, direction: your_char.direction}) );
+      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, currentEnemies: currentEnemies, inBattle: inBattle, usePotion: usePotion, battleOver: battleOver, slashPos: slashPos, leaveParty: leaveParty, playerOpponent: playerOpponent, direction: your_char.direction}) );
     }
     slashPos = -1;
     otherPlayertoPartyWith = "";
     otherPlayertoTradeWith = "";
+    usePotion = false;
     if (partyMembers.length === 0){leaveParty = false;}
     if (leaveParty === true || partyMembers.length === 1){partyMembers = [];}
   };
