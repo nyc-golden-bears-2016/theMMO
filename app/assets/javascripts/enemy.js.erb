@@ -1,6 +1,6 @@
 console.log("ENEMY PAGE LOADING")
-var currentEnemies = [];
 var Enemy = function Enemy() {
+  this.xp = 0;
   this.name = "missing no.";
   this.item = "unknown";
   this.dropRate = 0; // a number from 0 to 1 specifying the percentage that the item will drop
@@ -22,6 +22,7 @@ var Enemy = function Enemy() {
 var enemyMake = function(type) {
   var enemy = new Enemy;
   if (type === "slime") {
+    enemy.xp = 1;
     enemy.name = "slime";
     enemy.item = "potion";
     enemy.dropRate = 0.2;
@@ -34,6 +35,7 @@ var enemyMake = function(type) {
     enemy.sprites = {stand: slime_stand01,
                     attack: slime_attack01};
   } else if (type === "bat") {
+    enemy.xp = 2;
     enemy.name = "bat";
     enemy.width = 159;
     enemy.item = "vampire fang";
@@ -47,6 +49,7 @@ var enemyMake = function(type) {
                     attack: bat_attack01};
   } else if (type === "rat") {
     var enemy = new Enemy;
+    enemy.xp = 20;
     enemy.name = "rat";
     enemy.width = 250;
     enemy.item = "subway pizza";
@@ -60,6 +63,7 @@ var enemyMake = function(type) {
                     attack: rat_attack01};
   } else if (type === "bee") {
     var enemy = new Enemy;
+    enemy.xp = 20;
     enemy.name = "bee";
     enemy.width = 250;
     enemy.item = "subway pizza";
@@ -109,6 +113,8 @@ Enemy.prototype.setPose = function(pose) {
 }
 
 Enemy.prototype.attackPlayer = function(player) {
+  bloodMarks.push(new Blood);
+  new Audio('<%= asset_path("hit-arg3.wav")%>').play();
   player.health -= this.attack;
 }
 

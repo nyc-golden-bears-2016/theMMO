@@ -22,6 +22,7 @@ var Character = function Character(name){
   this.max_health = 100;
   this.attack = 10;
   this.xp = 0;
+  this.level = 1;
   this.defense = 1;
   this.enemyTarget = 0;
 

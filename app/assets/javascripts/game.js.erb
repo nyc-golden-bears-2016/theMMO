@@ -25,26 +25,32 @@ var otherPlayers = {};
 var playerNames = [];
 var inBattle = false;
 var currentBattleFrame = 0;
+var bloodMarks = [];
 var slashes = [];
 var slashPos = -1;
 var battleOver = true;
 var playerOpponent = ""; //holds character name of pvp opponent
-var recentlyRecovered = 0; // is set to 3 responses to wait before recieving health info to ensure that opponent recieved recovery info
+// var recentlyRecovered = 0; // is set to 3 responses to wait before recieving health info to ensure that opponent recieved recovery info
 // distanceTraveled is used to determine the random encounter ratio and is reset every battle
 var distanceTraveled = 0;
 var victoryMessages = [];
 var messagesLoaded = false;
 var clearMessage = false;
+var currentEnemies = [];
+var battleId = ""; //
 
 var otherPlayertoPartyWith = "";
 var partyMembers = [];
 var otherPlayertoTradeWith = "";
 var leaveParty = false;
 
+//PVP
+var usePotion = false;
+
 your_char = new Character;
 
 var checkEncounter = function() {
-  if(Math.random() * distanceTraveled > 600) {
+  if(Math.random() * distanceTraveled > (2000 * (Math.max(partyMembers.length, 1)) ) ) {
     prepareBattle();
     distanceTraveled = 0;
   }
