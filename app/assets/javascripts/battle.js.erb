@@ -1,6 +1,7 @@
 var prepareBattle = function(){
   currentEnemies = [];
   slashes = [];
+  bloodMarks = [];
   battleOver = false;
   inBattle = true;
   your_char.recoveryTime = 0;
@@ -26,6 +27,7 @@ var prepareTeamBattle = function(enemies){
   $(".other-player-menu").remove();
   currentEnemies = enemies;
   slashes = [];
+  bloodMarks = [];
   battleOver = false;
   inBattle = true;
   your_char.recoveryTime = 0;
