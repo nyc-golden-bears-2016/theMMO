@@ -7,13 +7,15 @@ var prepareBattle = function(){
   messagesLoaded = false;
   var numberOfEnemies = Math.floor( (Math.random() * 4) + 1);
   for (var i = numberOfEnemies; i > 0; i--) {
-    var typeOfEnemy = Math.floor( (Math.random() * 3) + 1);
+    var typeOfEnemy = Math.floor( (Math.random() * 4) + 1);
     if (typeOfEnemy === 1) {
       currentEnemies.push(enemyMake("bat"));
     } else if (typeOfEnemy === 2) {
       currentEnemies.push(enemyMake("slime"));
     } else if (typeOfEnemy === 3) {
       currentEnemies.push(enemyMake("rat"));
+    } else if (typeOfEnemy === 4) {
+      currentEnemies.push(enemyMake("bee"));
     }
   };
   your_char.changeTarget(currentEnemies[0]);
