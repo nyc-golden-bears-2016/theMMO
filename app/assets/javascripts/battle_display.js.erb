@@ -86,10 +86,9 @@ var battleDisplay = function(player, enemies){
         y: function(d, i) { return ( i * ( BAR_HEIGHT + space1 ) + space1 + 16); },
         width: function(d) { return ( xScale_1(d) > 0 ? xScale_1(d) : 0 ); }})
     .style({
-
     		"font-color": "white"
-    })
-    .html("test");
+            })
+    .html(player.name);
 
   var numData2 = dataset_2.length;
   var space2 = ( DISPLAY_HEIGHT - BAR_HEIGHT * numData2 ) / ( numData2 + 1 );
