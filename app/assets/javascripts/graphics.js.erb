@@ -1,4 +1,26 @@
 console.log("GRAPHICS PAGE LOADING")
+
+var theField =[["X","X","X","X",  "X","X","X","X",  "X","X","X","X",  "X","X","X","X"],
+               ["X","X","X","X",  "X","X","X","X",  "X","X","X","X",  "X","X","X","X"],
+               ["X","X","X","N",  "N","N","N","N",  "N","N","N","N",  "X","X","X","X"],
+               ["X","X","X","X",  "X","X","X","X",  "X","X","X","N",  "X","X","X","X"],
+
+               ["X","X","X","X",  "X","X","X","X",  "X","X","X","N",  "X","X","X","X"],
+               ["X","X","X","X",  "X","N","X","N",  "X","N","X","N",  "X","X","X","X"],
+               ["X","X","X","X",  "X","X","X","X",  "X","X","X","N",  "X","X","X","X"],
+               ["X","X","X","X",  "X","N","X","N",  "X","N","X","N",  "X","X","X","X"],
+
+               ["X","X","X","X",  "X","N","X","N",  "N","N","N","N",  "X","X","X","X"],
+               ["X","X","X","X",  "X","X","X","N",  "X","X","X","X",  "X","X","X","X"],
+               ["X","X","X","X",  "X","N","X","N",  "X","X","X","X",  "X","X","X","X"],
+               ["X","X","X","X",  "X","N","X","N",  "X","X","X","X",  "X","X","X","X"],
+
+               ["X","X","X","X",  "X","X","X","N",  "N","N","N","N",  "X","X","X","X"],
+               ["X","X","X","X",  "X","X","X","X",  "X","X","X","N",  "X","X","X","X"],
+               ["X","X","X","X",  "X","X","X","X",  "X","X","X","N",  "X","X","X","X"],
+               ["X","X","X","X",  "X","X","X","X",  "X","X","X","N",  "X","X","X","X"]];
+
+
 // other players
 var drawOtherCharacter = function(character, context){
   if(character.direction === "south") {
@@ -112,17 +134,13 @@ var drawField = function(){
   var canvas = document.getElementById('game_screen');
   var context = canvas.getContext('2d');
   // context.clearRect(0, 0, canvas.width, canvas.height);
-  for(var x = (SCREEN_TILES_WIDTH); x >= 0; x--) {
-    for(var y = (SCREEN_TILES_HEIGHT); y >= 0; y--) {
+  for(var y = 0; y < theField.length; y++) {
+    for(var x = 0; x < theField[y].length; x++) {
       // TODO: this should be refactored so that it only draws within a radius of the player
-      for (var i = 0; i < 4; i++) {
-        for (var n = 0; n < 4; n++) {
-          if(n === 2) {
-            context.drawImage(seamless_stone, ( (SCREEN_WIDTH * x) + (200 * i) ) - backgroundScrollX, ( (SCREEN_HEIGHT * y) + (150 * n) ) - backgroundScrollY);
-          } else {
-            context.drawImage(seamless_grass, ( (SCREEN_WIDTH * x) + (200 * i) ) - backgroundScrollX, ( (SCREEN_HEIGHT * y) + (150 * n) ) - backgroundScrollY);
-          };
-        };
+      if( theField[y][x] === "N" ) {
+        context.drawImage(seamless_stone, ( (SCREEN_WIDTH / 4) * x ) - backgroundScrollX, ( (SCREEN_HEIGHT / 4) * y ) - backgroundScrollY);
+      } else {
+        context.drawImage(seamless_grass, ( (SCREEN_WIDTH / 4) * x ) - backgroundScrollX, ( (SCREEN_HEIGHT / 4) * y ) - backgroundScrollY);
       };
     };
   };
