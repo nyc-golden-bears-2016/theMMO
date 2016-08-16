@@ -1,3 +1,4 @@
+
 console.log("CHARACTER PAGE LOADING")
 
 var knight_north = [knight_north01, knight_north02, knight_north01, knight_north03];
@@ -47,6 +48,3 @@ Character.prototype.faceDirection = function(direction) {
   }
 }
 
-
-
-  

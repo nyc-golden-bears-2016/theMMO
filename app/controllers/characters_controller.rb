@@ -1,7 +1,7 @@
 class CharactersController < ApplicationController
   before_action :check_character, only: :game
   before_action :set_character_name, only: :game
-  before_action :authenticate_user!, except: [:index, :show, :instructions]
+  before_action :authenticate_user!, except: [:index, :show, :instructions, :about]
 
   def new
     @character = current_user.characters.build
