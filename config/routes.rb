@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   get "instructions"=> 'characters#instructions'
    get "about" => 'characters#about'
   resources :characters, only: [:create, :game, :new]
+  put "characters/update" => "characters#update"
   resources :items, only: [:create]
 end

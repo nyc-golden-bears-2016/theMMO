@@ -15,6 +15,7 @@
 //= require jquery-ui
 //= require ./d3.min.js
 //= require ./image_loader.js.erb
+//= require ./audio_loader.js.erb
 //= require ./battle_display.js.erb
 //= require ./character.js.erb
 //= require ./game.js.erb
@@ -24,4 +25,5 @@
 //= require ./socket.js.erb
 //= require ./battle.js.erb
 //= require_tree .
+
 

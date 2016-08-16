@@ -1,0 +1,14 @@
+console.log("AUDIO LOADER PAGE LOADING");
+var fieldMusic = new Audio('<%= asset_path("oldburg10render.mp3")%>');
+
+
+var fieldMusicLoop = function(){
+  if(fieldMusic.currentTime > 300) {
+    fieldMusic.currentTime = 0;
+  }
+  if(fieldMusic.volume !== 0.6 && fieldMusic.currentTime > 75) {
+    fieldMusic.volume = 0.6;
+  } else if(fieldMusic.currentTime < 75 && fieldMusic.volume !== 0.8) {
+    fieldMusic.volume = 0.8;
+  }
+}

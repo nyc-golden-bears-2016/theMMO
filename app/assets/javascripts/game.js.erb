@@ -28,6 +28,8 @@ var currentBattleFrame = 0;
 var slashes = [];
 var slashPos = -1;
 var battleOver = true;
+var playerOpponent = ""; //holds character name of pvp opponent
+var recentlyRecovered = 0; // is set to 3 responses to wait before recieving health info to ensure that opponent recieved recovery info
 // distanceTraveled is used to determine the random encounter ratio and is reset every battle
 var distanceTraveled = 0;
 var victoryMessages = [];
@@ -37,6 +39,7 @@ var clearMessage = false;
 var otherPlayertoPartyWith = "";
 var partyMembers = [];
 var otherPlayertoTradeWith = "";
+var leaveParty = false;
 
 your_char = new Character;
 
@@ -45,4 +48,14 @@ var checkEncounter = function() {
     prepareBattle();
     distanceTraveled = 0;
   }
+}
+
+var setAutoSave = function() {
+  setInterval(function(){
+    $.ajax({
+      url: "/characters/update",
+      method: "PUT",
+      data: {pos_x: your_char.pos_x, pos_y: your_char.pos_y}
+    });
+  }, 5000);
 }

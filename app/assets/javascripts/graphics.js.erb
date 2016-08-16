@@ -39,8 +39,10 @@ var drawOtherCharacter = function(character, context){
     context.drawImage(knight_west[character.animationFrame], (character.pos_x - backgroundScrollX), (character.pos_y - backgroundScrollY));
   }
   if( (character.pos_x - backgroundScrollX) < (backgroundScrollX + SCREEN_WIDTH) && (character.pos_y - backgroundScrollY) < (backgroundScrollY + SCREEN_HEIGHT) ) {
-    $("body").prepend('<div class="player-names" style="position:absolute;background-color:white;top:' + (character.pos_y - backgroundScrollY - 10) + 'px;left:' + (character.pos_x - backgroundScrollX + 20) + 'px;width:100px;height:30px;">' + character.name + '</div>');
+    $("body").prepend('<div class="player-names" style="padding-top:5px;text-align:center;position:absolute;background-color:white;top:' + (character.pos_y - backgroundScrollY + 40).toString() + 'px;left:' + (character.pos_x - backgroundScrollX - 10).toString() + 'px;width:100px;height:30px;">' + character.name + '</div>');
   };
+  character.framesPassed++;
+  character.turnedThisFrame = false;
 };
 
 //draw your own character locally, relative to canvas
@@ -190,6 +192,7 @@ var setCanvasDrawingUpdate = function(){
 };
 
 var Slash = function Slash(enemy) {
+  new Audio('<%= asset_path("steelsword.wav")%>').play();
   this.currentFrame = 0;
   this.sprites = [slash01, slash02, slash03, slash04, slash05, slash06];
   this.currentSprite = -1;
