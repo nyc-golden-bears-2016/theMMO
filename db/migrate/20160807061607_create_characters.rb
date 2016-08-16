@@ -12,8 +12,8 @@ class CreateCharacters < ActiveRecord::Migration[5.0]
       t.integer :defense
       t.integer :max_health
 
-
       t.timestamps null: false
     end
   end
 end
+ d
