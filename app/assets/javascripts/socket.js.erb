@@ -20,6 +20,10 @@ var setUpWebsocket = function(scheme){
       };
       otherPlayers[data.username].pos_x = data.pos_x;
       otherPlayers[data.username].pos_y = data.pos_y;
+      if(otherPlayers[data.username].direction !== data.direction) {
+        otherPlayers[data.username].faceDirection(data.direction);
+        your_char.turnedThisFrame = true;
+      }
       // party logic
       // leave party
       if (data.leaveParty == true && partyMembers.indexOf(data.username) !== -1){

@@ -18,6 +18,15 @@ class CharactersController < ApplicationController
     redirect_to "/"
   end
 
+  def update
+    params.permit(:pos_x)
+    params.permit(:pos_y)
+    your_char = Character.find_by(id: session[:character_id])
+    your_char.pos_x = params[:pos_x]
+    your_char.pos_x = params[:pos_y]
+    your_char.save
+  end
+
   def game
 
   end
