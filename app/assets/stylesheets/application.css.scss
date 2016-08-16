@@ -28,21 +28,23 @@ body {
   width: auto;
   height: auto;
 }
-
-h1, h2, h3, h4, h5,  {
-	font-weight: 100;
+ h1, h2, h3, h4, h5 {
+	font-weight: 1000;
 	text-align: center;
 	font-family: 'Shadows Into Light', cursive;
-	color:#008066;
+	color:#1aa3ff;
 }
+
 
 h6{
 text-align: center;
-font-size: 200%;
-text-align: center;
+font-size: 175%;
+position: absolute;
 font-family: 'Shadows Into Light', cursive;
-font-weight: bold;
-color:  #008066 !important;
+font-weight: 375%;
+color:  #1aa3ff !important;
+right: 1px;
+
 }
 
 /*p{color:  #008066 !important;
@@ -57,21 +59,24 @@ font-weight: 200;
 font-family: 'Passion One', cursive;
 font-size: 175%;}
 
-#homepage_links{text-align: center;
+#homepage_links{
+text-align: center;
 font-weight: bold;
-font-size: 200%;}
+font-size: 200%;
+position: absolute;
+left: 90px}
 
 #wood{
-  position: absolute;
+position: absolute;
 left: 80px;
 top: 60px;}
 
 .homescreentext{
   position: absolute;
-left: 250px;
-top: 100px;}
-
-.panel-heading{background-color: #ffdf80 !important; }
+  left: 250px;
+  top: 100px;}
+/*
+.panel-heading{background-color: #ffdf80 !important; }*/
 .panel-body{background-color:  #99ff99 !important; }
 
 label {
@@ -82,6 +87,7 @@ label {
     font-family: 'Passion One', cursive;
 }
 
+.charinput{text-align: center}
 textarea {
 	min-height: 250px;
 }

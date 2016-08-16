@@ -17,7 +17,8 @@ ActiveRecord::Schema.define(version: 20160814213103) do
 
   create_table "characters", force: :cascade do |t|
     t.string   "name"
-    t.string   "location"
+    t.integer  "pos_x"
+    t.integer  "pos_y"
     t.integer  "user_id"
     t.integer  "party_id"
     t.integer  "attack"

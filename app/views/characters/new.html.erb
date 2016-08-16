@@ -1,18 +1,25 @@
-
-<div class="col-md-4 col-md-offset-1">
+<%= video_tag "landscape.webm", id:"video-background", autoplay: true, loop: true %>
+<br>
+<br>
+<br>
+ <h1>CREATE CHARACTER</h1>
+<br>
+<br>
+<br>
+<br>
+<div class="col-md-4 col-md-offset-2">
   <div class="row">
     <div class="panel panel-default">
       <div class="panel-heading">
       <div id="the_slider">
-<h1>New Character<%=@character.attack %></h2>
+<h1>Character name<%=@character.attack %></h2>
 <p><%= @character.attack %></p>
 <%= form_for @character do |create| %>
-  
+  <div class="charinput">
   <%= create.label :name %>
   <%= create.text_field :name %>
-  <%= create.label :location %>
-  <%= create.text_field :location %><br>
-  <h2>Select Attributes</h2>
+ </div>
+  <h2>Character attributes</h2>
   <%= create.label :attack %>
   <%= create.hidden_field :attack %>
   <%= create.range_field :attack, :min=>0, :max=>200, :value=>2,  :class=>"slide", :id=>"slider1"%>
