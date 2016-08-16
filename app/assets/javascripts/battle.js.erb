@@ -61,6 +61,7 @@ var proceedBattle = function() {
           your_char.xp += currentEnemies[i].xp;
           totalxp += currentEnemies[i].xp;
         };
+        calculateLevel();
         victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + SCREEN_HEIGHT / 4 + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;">Gained '+ totalxp +' xp points!</div>')
         victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + SCREEN_HEIGHT / 4 + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;"></div>')
         messagesLoaded = true;
@@ -106,3 +107,20 @@ var proceedBattle = function() {
 }
 
 setInterval(proceedBattle, FRAME_RATE);
+
+var calculateLevel = function() {
+  level = Math.floor(Math.sqrt(your_char.xp));
+  if (your_char.level < level) {
+    for (var i = 0; i < (level - your_char.level); i++) {
+      increaseAttributes();
+    };
+    your_char.level = level;
+  }
+}
+
+var increaseAttributes = function(){
+  your_char.max_health += 100;
+  your_char.health = your_char.max_health;
+  your_char.attack += 100;
+  your_char.defense += 100;
+}
