@@ -45,6 +45,7 @@ var processInputBuffer = function(){
       };
     } else if( (keys_pressed.indexOf(49) != -1) && (keys_pressed_checker.indexOf(49) === -1) ) {
       keys_pressed_checker.push(49);
+      usePotion = true;
       if(your_char.recoveryTime <= 0 && your_char.inventory.indexOf("potion") !== -1) {
         your_char.inventory.splice(your_char.inventory.indexOf("potion"), 1);
         your_char.health = Math.min(your_char.health + your_char.max_health * 0.2, your_char.max_health);
@@ -162,6 +163,7 @@ var allowClick = function() {
     $(".player-menu").remove();
     $(".other-player-menu").remove();
     clicked = [];
+    if (inBattle === true) {console.log("you're in a battle"); return false}
     // click yourself
     if((global_x >= your_char.pos_x && global_x <= your_char.pos_x + 35) && (global_y >= your_char.pos_y && global_y <= your_char.pos_y + 75)) {
       console.log("clicked yourself")
@@ -183,7 +185,8 @@ var allowClick = function() {
       clicked.push("other");
       clicked.push(checkOther(global_x, global_y));
       var width = getTextWidth('Join party with ' + clicked[1] + '!', "18px Arial");
-      var menu = '<div class="other-player-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (60 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:75px;"><button id="party" style="margin-bottom:3px;">Join party with '+ clicked[1] +'!</button><br><button id="trade">Trade with '+ clicked[1] +'!</button><br><button id="pvp">Fight '+ clicked[1] +'!</button></div>';
+      // var menu = '<div class="other-player-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (60 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:75px;"><button id="party" style="margin-bottom:3px;">Join party with '+ clicked[1] +'!</button><br><button id="trade">Trade with '+ clicked[1] +'!</button><br><button id="pvp">Fight '+ clicked[1] +'!</button></div>';
+      var menu = '<div class="other-player-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (60 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:75px;"><button id="party" style="margin-bottom:3px;">Join party with '+ clicked[1] +'!</button><br><button id="trade">Trade with '+ clicked[1] +'!</button></div>';
       $("body").prepend(menu);
     }
   }, false);
