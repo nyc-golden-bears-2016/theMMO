@@ -44,6 +44,7 @@ var proceedBattle = function() {
       playerOpponent = "";
       if(messagesLoaded === false) {
         victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + SCREEN_HEIGHT / 4 + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;">YOU WIN!!</div>');
+        totalxp = 0;
         for (var i = currentEnemies.length - 1; i >= 0; i--) {
           if(Math.random() < currentEnemies[i].dropRate) {
             your_char.inventory.push(currentEnemies[i].item);
@@ -57,7 +58,10 @@ var proceedBattle = function() {
             });
             victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + SCREEN_HEIGHT / 4 + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;">Obtained ' + currentEnemies[i].item + '!<br>Now hold: ' + currentInventory.length + '</div>')
           };
+          your_char.xp += currentEnemies[i].xp;
+          totalxp += currentEnemies[i].xp;
         };
+        victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + SCREEN_HEIGHT / 4 + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;">Gained '+ totalxp +' xp points!</div>')
         victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + SCREEN_HEIGHT / 4 + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;"></div>')
         messagesLoaded = true;
         $("body").prepend(victoryMessages.shift());
