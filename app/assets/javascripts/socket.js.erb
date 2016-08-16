@@ -116,7 +116,7 @@ var updateCharacters = function(){
     if(partyMembers.length < 1) {  // no party members
       wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, playerOpponent: playerOpponent, opponentInfo: your_char, yourInfo: currentEnemies[0], direction: your_char.direction}) );
     } else { // in party
-      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, currentEnemies: currentEnemies, inBattle: inBattle, battleOver: battleOver, slashPos: slashPos, leaveParty: leaveParty, playerOpponent: playerOpponent, , direction: your_char.direction}) );
+      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, currentEnemies: currentEnemies, inBattle: inBattle, battleOver: battleOver, slashPos: slashPos, leaveParty: leaveParty, playerOpponent: playerOpponent, direction: your_char.direction}) );
     }
     slashPos = -1;
     otherPlayertoPartyWith = "";
