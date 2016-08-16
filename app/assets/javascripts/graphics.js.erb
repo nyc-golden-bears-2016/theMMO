@@ -178,6 +178,10 @@ var drawBattle = function(){
   for (var i = 0; i < slashesThisFrame.length; i++) {
     context.drawImage(slashesThisFrame[i].drawSlash(), slashesThisFrame[i].pos_x, slashesThisFrame[i].pos_y);
   };
+  var bloodThisFrame = bloodMarks.slice(0);
+  for (var i = 0; i < bloodThisFrame.length; i++) {
+    context.drawImage(bloodThisFrame[i].drawBlood(), bloodThisFrame[i].pos_x, bloodThisFrame[i].pos_y);
+  };
 }
 
 var drawGame = function(){
@@ -212,4 +216,20 @@ Slash.prototype.drawSlash = function(){
     slashes.splice(index, 1);
   }
   return this.sprites[this.currentSprite];
+}
+
+
+var Blood = function Blood() {
+  this.pos_x = Math.floor(Math.random() * (SCREEN_WIDTH - 180));
+  this.pos_y = Math.floor(Math.random() * (SCREEN_HEIGHT - 250));
+  this.currentFrame = 0;
+}
+
+Blood.prototype.drawBlood = function(){
+  this.currentFrame++;
+  if (this.currentFrame >= 25) {
+    var index = bloodMarks.indexOf(this);
+    bloodMarks.splice(index, 1);
+  }
+  return blood_effect;
 }
