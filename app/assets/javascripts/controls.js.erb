@@ -160,12 +160,17 @@ var allowClick = function() {
     clickLocation.push(y);
     $(".player-menu").remove();
     $(".other-player-menu").remove();
+    clicked = [];
     // click yourself
     if((global_x >= your_char.pos_x && global_x <= your_char.pos_x + 35) && (global_y >= your_char.pos_y && global_y <= your_char.pos_y + 75)) {
       console.log("clicked yourself")
       clicked.push("yourself");
       var width = getTextWidth("I am " + your_character_name + "!", "18px Arial");
-      var menu = '<div class="player-menu" style="padding:7px;position:absolute;background-color:white;top:' + (75 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:30px;">I am '+ your_character_name +'!</div>';
+      if (partyMembers.length < 1) {
+        var menu = '<div class="player-menu" style="padding:7px;position:absolute;background-color:white;top:' + (75 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:30px;">I am '+ your_character_name +'!</div>';
+      } else if (partyMembers.length > 0){
+        var menu = '<div class="player-menu" style="padding:7px;position:absolute;background-color:white;top:' + (75 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:30px;"><p>I am '+ your_character_name +'!</p><button id="leave-party">Leave Party</button></div>';
+      }
       $("body").prepend(menu);
       // click other chars
     } else if(checkOther(global_x, global_y) != false) {
