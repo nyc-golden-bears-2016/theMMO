@@ -1,6 +1,8 @@
 var prepareBattle = function(){
+  battleId = Math.floor(Math.random() * 1000000);
   currentEnemies = [];
   slashes = [];
+  bloodMarks = [];
   battleOver = false;
   inBattle = true;
   your_char.recoveryTime = 0;
@@ -14,8 +16,14 @@ var prepareBattle = function(){
       currentEnemies.push(enemyMake("slime"));
     } else if (typeOfEnemy === 3) {
       currentEnemies.push(enemyMake("rat"));
+      if(i >= 3) {
+        break;
+      }
     } else if (typeOfEnemy === 4) {
       currentEnemies.push(enemyMake("bee"));
+      if(i >= 3) {
+        break;
+      }
     }
   };
   your_char.changeTarget(currentEnemies[0]);
@@ -26,6 +34,7 @@ var prepareTeamBattle = function(enemies){
   $(".other-player-menu").remove();
   currentEnemies = enemies;
   slashes = [];
+  bloodMarks = [];
   battleOver = false;
   inBattle = true;
   your_char.recoveryTime = 0;

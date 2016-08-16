@@ -1,5 +1,4 @@
 console.log("ENEMY PAGE LOADING")
-var currentEnemies = [];
 var Enemy = function Enemy() {
   this.name = "missing no.";
   this.item = "unknown";
@@ -109,6 +108,8 @@ Enemy.prototype.setPose = function(pose) {
 }
 
 Enemy.prototype.attackPlayer = function(player) {
+  bloodMarks.push(new Blood);
+  new Audio('<%= asset_path("hit-arg3.wav")%>').play();
   player.health -= this.attack;
 }
 
