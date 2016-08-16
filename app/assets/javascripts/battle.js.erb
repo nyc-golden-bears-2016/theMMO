@@ -18,6 +18,8 @@ var prepareBattle = function(){
 }
 
 var prepareTeamBattle = function(enemies){
+  $(".player-menu").remove();
+  $(".other-player-menu").remove();
   currentEnemies = enemies;
   slashes = [];
   battleOver = false;
