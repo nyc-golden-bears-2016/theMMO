@@ -21,7 +21,15 @@ var setUpWebsocket = function(scheme){
       otherPlayers[data.username].pos_x = data.pos_x;
       otherPlayers[data.username].pos_y = data.pos_y;
       // party logic
-      if (data.partyMembers.indexOf(your_character_name) !== -1) {
+      // leave party
+      if (data.leaveParty == true && partyMembers.indexOf(data.username) !== -1){
+        var index = partyMembers.indexOf(data.username);
+        if (index > -1) {
+          partyMembers.splice(index, 1);
+        }
+      }
+      // auto add to party you are in
+      if (data.partyMembers.indexOf(your_character_name) !== -1 && data.leaveParty == false) {
         for (var i = data.partyMembers.length - 1; i >= 0; i--) {
           if(partyMembers.indexOf(data.partyMembers[i]) === -1) {
             partyMembers.push(data.partyMembers[i]);
@@ -65,11 +73,13 @@ var setUpWebsocket = function(scheme){
       //     currentEnemies[i].health = 0;
       //   };
       // }
+      // see slashes(attacks) from other players in your party
       if (data.partyMembers.indexOf(your_character_name) !== -1 && data.slashPos !== -1 && inBattle === true && battleOver === false) {
         console.log(data.slashPos);
         console.log(currentEnemies[data.slashPos]);
         slashes.push(new Slash(currentEnemies[data.slashPos]));
       }
+
     };
   };
 };
@@ -79,11 +89,13 @@ var updateCharacters = function(){
     if(partyMembers.length < 1) {  // no party members
       wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers}) );
     } else { // in party
-      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, currentEnemies: currentEnemies, inBattle: inBattle, battleOver: battleOver, slashPos: slashPos}) );
+      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, currentEnemies: currentEnemies, inBattle: inBattle, battleOver: battleOver, slashPos: slashPos, leaveParty: leaveParty}) );
     }
     slashPos = -1;
     otherPlayertoPartyWith = "";
     otherPlayertoTradeWith = "";
+    if (partyMembers.length === 0){leaveParty = false;}
+    if (leaveParty === true || partyMembers.length === 1){partyMembers = [];}
   };
 };
 
