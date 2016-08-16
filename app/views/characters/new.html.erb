@@ -1,18 +1,25 @@
-
-<div class="col-md-4 col-md-offset-4">
+<%= video_tag "landscape.webm", id:"video-background", autoplay: true, loop: true %>
+<br>
+<br>
+<br>
+ <h1>CREATE CHARACTER</h1>
+<br>
+<br>
+<br>
+<br>
+<div class="col-md-4 col-md-offset-2">
   <div class="row">
     <div class="panel panel-default">
       <div class="panel-heading">
       <div id="the_slider">
-<h1>New Character<%=@character.attack %></h2>
+<h1>Character name<%=@character.attack %></h2>
 <p><%= @character.attack %></p>
 <%= form_for @character do |create| %>
-  
+  <div class="charinput">
   <%= create.label :name %>
   <%= create.text_field :name %>
-  <%= create.label :location %>
-  <%= create.text_field :location %><br>
-  
+ </div>
+  <h2>Character attributes</h2>
   <%= create.label :attack %>
   <%= create.hidden_field :attack %>
   <%= create.range_field :attack, :min=>0, :max=>200, :value=>2,  :class=>"slide", :id=>"slider1"%>
@@ -20,10 +27,6 @@
     <%= create.label :health %>
   <%= create.hidden_field :health %>
    <%= create.range_field :health, :min=>0, :max=>200, :class=>"slide", :id=>"slider1"%>
-
-    <%= create.label :XP %>
-  <%= create.hidden_field :XP %>
-    <%= create.range_field :XP, :min=>0, :max=>200, :class=>"slide", :id=>"slider1"%>
 
     <%= create.label :defense %>
   <%= create.hidden_field :defense %>
@@ -34,9 +37,13 @@
    <%= create.range_field :max_health, :min=>0, :max=>200, :class=>"slide", :id=>"slider1"%>
 <%= create.submit %>
 <% end %>
+
       </div>
     </div>
   </div>
 </div>
+</div>
+<div class="text-center col-md-5 col-md-offset-4.4">
+<%=image_tag("knight_south01.png", height: 400, width: 300)%>
 </div>
 
