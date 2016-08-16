@@ -17,6 +17,9 @@
     setAutoLogout(); //logout when user exits browser or tab
     allowInput(); // key listeners to keyboard
     allowClick(); // click listener
+    fieldMusic.play();
+    setInterval(fieldMusicLoop, 900);
+
 
     // Main logic
     setCharacterUpdate('<%= @character_name %>'); // passes player position and player identity data to the server
