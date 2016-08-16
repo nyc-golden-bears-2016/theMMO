@@ -45,6 +45,32 @@ var enemyMake = function(type) {
     enemy.maxHealth = 35 + Math.floor(Math.random() * 35);
     enemy.sprites = {stand: bat_stand01,
                     attack: bat_attack01};
+  } else if (type === "rat") {
+    var enemy = new Enemy;
+    enemy.name = "rat";
+    enemy.width = 250;
+    enemy.item = "subway pizza";
+    enemy.dropRate = 1.0;
+    enemy.height = 200;
+    enemy.attack = 2 + Math.floor(Math.random() * 10);
+    enemy.defense = 6 + Math.floor(Math.random() * 6);
+    enemy.attackSpeed = 50 + Math.floor(Math.random() * 25);
+    enemy.maxHealth = 200 + Math.floor(Math.random() * 50);
+    enemy.sprites = {stand: rat_stand01,
+                    attack: rat_attack01};
+  } else if (type === "bee") {
+    var enemy = new Enemy;
+    enemy.name = "bee";
+    enemy.width = 250;
+    enemy.item = "subway pizza";
+    enemy.dropRate = 1.0;
+    enemy.height = 250;
+    enemy.attack = 2 + Math.floor(Math.random() * 10);
+    enemy.defense = 6 + Math.floor(Math.random() * 6);
+    enemy.attackSpeed = 50 + Math.floor(Math.random() * 25);
+    enemy.maxHealth = 300 + Math.floor(Math.random() * 50);
+    enemy.sprites = {stand: bee_stand01,
+                    attack: bee_attack01};
   } else if (type === "player") {
     enemy.width = 70;
     enemy.height = 100;
