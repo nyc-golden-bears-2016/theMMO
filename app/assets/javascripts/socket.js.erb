@@ -80,16 +80,43 @@ var setUpWebsocket = function(scheme){
         slashes.push(new Slash(currentEnemies[data.slashPos]));
       }
 
+      // PVP logic
+      if (data.playerOpponent.indexOf(your_character_name) !== -1 && inBattle === false) {
+        leaveParty = true;
+        playerOpponent = data.username;
+        var opponent = enemyMake("player");
+        opponent.attack = data.opponentInfo.attack;
+        opponent.defense = data.opponentInfo.defense;
+        opponent.health = data.opponentInfo.health;
+        opponent.maxHealth = data.opponentInfo.max_health;
+        prepareTeamBattle([opponent]);
+      }
+      // syncs player and enemy health between players in PVP
+      // checks to see if you were hurt
+      if (data.inBattle === true && playerOpponent === data.username) {
+        console.log("checking your health");
+          if(your_char.health > data.yourInfo.health && recentlyRecovered < 1) {
+            your_char.health = data.yourInfo.health;
+            currentEnemies[0].setPose("attacking");
+          }
+      }
+      // checks to see if opponent recovered
+      if (data.inBattle === true && data.playerOpponent === data.username) {
+          if(currentEnemies[0].health < data.opponentInfo.health) {
+            currentEnemies[0].health = data.opponentInfo.health;
+          }
+      }
     };
+    recentlyRecovered = Math.max(recentlyRecovered - 1, 0);
   };
 };
 
 var updateCharacters = function(){
   if(wSocket.readyState === 1) {
     if(partyMembers.length < 1) {  // no party members
-      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers}) );
+      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, playerOpponent: playerOpponent, opponentInfo: your_char, yourInfo: currentEnemies[0], direction: your_char.direction}) );
     } else { // in party
-      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, currentEnemies: currentEnemies, inBattle: inBattle, battleOver: battleOver, slashPos: slashPos, leaveParty: leaveParty}) );
+      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, currentEnemies: currentEnemies, inBattle: inBattle, battleOver: battleOver, slashPos: slashPos, leaveParty: leaveParty, playerOpponent: playerOpponent, , direction: your_char.direction}) );
     }
     slashPos = -1;
     otherPlayertoPartyWith = "";

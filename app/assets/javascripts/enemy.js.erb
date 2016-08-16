@@ -10,7 +10,7 @@ var Enemy = function Enemy() {
   this.height = 0;
   this.attack = 0;
   this.defense = 0;
-  this.speed = 0;
+  this.attackSpeed = 0;
   this.health = 0;
   this.maxHealth = 0;
   this.pose = "";
@@ -20,8 +20,8 @@ var Enemy = function Enemy() {
 }
 
 var enemyMake = function(type) {
+  var enemy = new Enemy;
   if (type === "slime") {
-    var enemy = new Enemy;
     enemy.name = "slime";
     enemy.item = "potion";
     enemy.dropRate = 0.2;
@@ -34,7 +34,6 @@ var enemyMake = function(type) {
     enemy.sprites = {stand: slime_stand01,
                     attack: slime_attack01};
   } else if (type === "bat") {
-    var enemy = new Enemy;
     enemy.name = "bat";
     enemy.width = 159;
     enemy.item = "vampire fang";
@@ -46,6 +45,12 @@ var enemyMake = function(type) {
     enemy.maxHealth = 35 + Math.floor(Math.random() * 35);
     enemy.sprites = {stand: bat_stand01,
                     attack: bat_attack01};
+  } else if (type === "player") {
+    enemy.width = 70;
+    enemy.height = 100;
+    enemy.name = "player";
+    enemy.sprites = {stand: knight_south01,
+                    attack: knight_south02};
   }
   enemy.pose = "standing";
   enemy.health = enemy.maxHealth;

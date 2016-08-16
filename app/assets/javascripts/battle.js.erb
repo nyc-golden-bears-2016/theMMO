@@ -34,6 +34,7 @@ var proceedBattle = function() {
     your_char.recoveryTime--;
     $(".player-names").remove();
     if(battleOver === true) {
+      playerOpponent = "";
       if(messagesLoaded === false) {
         victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + SCREEN_HEIGHT / 4 + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;">YOU WIN!!</div>');
         for (var i = currentEnemies.length - 1; i >= 0; i--) {
@@ -82,7 +83,7 @@ var proceedBattle = function() {
       }
     }
     for (var i = currentEnemies.length - 1; i >= 0; i--) {
-      if(currentBattleFrame % (255 - currentEnemies[i].attackSpeed) === 0) {
+      if(currentEnemies[i].name != "player" && currentBattleFrame % (255 - currentEnemies[i].attackSpeed) === 0) {
         if(currentEnemies[i].pose === "standing") {
           currentEnemies[i].attackPlayer(your_char);
           currentEnemies[i].setPose("attacking");
