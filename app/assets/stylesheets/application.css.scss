@@ -21,7 +21,13 @@
 body {
 	background: #f7f8E5;
 }
-
+.character{
+  display: block;
+  max-width:230px;
+  max-height:95px;
+  width: auto;
+  height: auto;
+}
 
 h1, h2, h3, h4, h5,  {
 	font-weight: 100;
@@ -46,7 +52,7 @@ text-align: center;
 font-family: 'Passion One', cursive!important;
 }
 */
-a{color: #777; 
+a{color: #00ff00; 
 font-weight: 200;
 font-family: 'Passion One', cursive;
 font-size: 175%;}
@@ -55,11 +61,15 @@ font-size: 175%;}
 font-weight: bold;
 font-size: 200%;}
 
+#wood{
+  position: absolute;
+left: 80px;
+top: 60px;}
 
-.navbar-default {
-  background-color:  #99ff99;
-
-	}
+.homescreentext{
+  position: absolute;
+left: 250px;
+top: 100px;}
 
 .panel-heading{background-color: #ffdf80 !important; }
 .panel-body{background-color:  #99ff99 !important; }

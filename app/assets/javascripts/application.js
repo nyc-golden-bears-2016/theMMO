@@ -25,4 +25,3 @@
 //= require ./battle.js.erb
 //= require_tree .
 
-  
