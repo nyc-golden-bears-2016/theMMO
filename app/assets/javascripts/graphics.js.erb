@@ -41,6 +41,8 @@ var drawOtherCharacter = function(character, context){
   if( (character.pos_x - backgroundScrollX) < (backgroundScrollX + SCREEN_WIDTH) && (character.pos_y - backgroundScrollY) < (backgroundScrollY + SCREEN_HEIGHT) ) {
     $("body").prepend('<div class="player-names" style="padding-top:5px;text-align:center;position:absolute;background-color:white;top:' + (character.pos_y - backgroundScrollY + 40).toString() + 'px;left:' + (character.pos_x - backgroundScrollX - 10).toString() + 'px;width:100px;height:30px;">' + character.name + '</div>');
   };
+  character.framesPassed++;
+  character.turnedThisFrame = false;
 };
 
 //draw your own character locally, relative to canvas

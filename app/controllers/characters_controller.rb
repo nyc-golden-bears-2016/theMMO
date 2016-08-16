@@ -1,7 +1,7 @@
 class CharactersController < ApplicationController
   before_action :check_character, only: :game
   before_action :set_character_name, only: :game
-  before_action :authenticate_user!, except: [:index, :show, :instructions]
+  before_action :authenticate_user!, except: [:index, :show, :instructions, :about]
 
   def new
     @character = current_user.characters.build
@@ -16,6 +16,15 @@ class CharactersController < ApplicationController
       flash[:notice] = @character.errors.full_messages.join("\n")
     end
     redirect_to "/"
+  end
+
+  def update
+    params.permit(:pos_x)
+    params.permit(:pos_y)
+    your_char = Character.find_by(id: session[:character_id])
+    your_char.pos_x = params[:pos_x]
+    your_char.pos_x = params[:pos_y]
+    your_char.save
   end
 
   def game

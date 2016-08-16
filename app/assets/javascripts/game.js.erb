@@ -52,3 +52,13 @@ var checkEncounter = function() {
     distanceTraveled = 0;
   }
 }
+
+var setAutoSave = function() {
+  setInterval(function(){
+    $.ajax({
+      url: "/characters/update",
+      method: "PUT",
+      data: {pos_x: your_char.pos_x, pos_y: your_char.pos_y}
+    });
+  }, 5000);
+}
