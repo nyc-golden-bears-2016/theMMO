@@ -42,6 +42,7 @@ var informationWindow = function(player, party) {
 
 	$.each(itemInventory,
 		function(item, quantity) {
+			$('p').remove();
 			content = item + ": " + quantity
 			$('<p style="margin-bottom:0px;"></p>')
 				.append(content)
