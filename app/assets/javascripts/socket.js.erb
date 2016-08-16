@@ -55,7 +55,8 @@ var setUpWebsocket = function(scheme){
         }
       }
       // party battles
-      if (data.partyMembers.indexOf(your_character_name) !== -1 && data.currentEnemies.length > 0 && inBattle === false && battleOver === true){
+      if (data.partyMembers.indexOf(your_character_name) !== -1 && data.currentEnemies.length > 0 && inBattle === false && battleOver === true && data.battleId !== battleId){
+        battleId = data.battleId;
         var teamBattleEnemies = [];
         for (var i = data.currentEnemies.length - 1; i >= 0; i--) {
           teamBattleEnemies.push(enemyMake(data.currentEnemies[i].name));
@@ -85,16 +86,16 @@ var setUpWebsocket = function(scheme){
       }
 
       // PVP logic
-      if (data.playerOpponent.indexOf(your_character_name) !== -1 && inBattle === false) {
-        leaveParty = true;
-        playerOpponent = data.username;
-        var opponent = enemyMake("player");
-        opponent.attack = data.opponentInfo.attack;
-        opponent.defense = data.opponentInfo.defense;
-        opponent.health = data.opponentInfo.health;
-        opponent.maxHealth = data.opponentInfo.max_health;
-        prepareTeamBattle([opponent]);
-      }
+      // if (data.playerOpponent.indexOf(your_character_name) !== -1 && inBattle === false) {
+      //   leaveParty = true;
+      //   playerOpponent = data.username;
+      //   var opponent = enemyMake("player");
+      //   opponent.attack = data.opponentInfo.attack;
+      //   opponent.defense = data.opponentInfo.defense;
+      //   opponent.health = data.opponentInfo.health;
+      //   opponent.maxHealth = data.opponentInfo.max_health;
+      //   prepareTeamBattle([opponent]);
+      // }
       // syncs player and enemy health between players in PVP
       // checks to see if you were hurt
       // Harrison's attempt at pvp
@@ -124,16 +125,21 @@ var setUpWebsocket = function(scheme){
       //   }
       // }
     };
-    recentlyRecovered = Math.max(recentlyRecovered - 1, 0);
+    // recentlyRecovered = Math.max(recentlyRecovered - 1, 0);
   };
 };
 
 var updateCharacters = function(){
   if(wSocket.readyState === 1) {
+    // if(partyMembers.length < 1) {  // no party members
+    //   wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, playerOpponent: playerOpponent, opponentInfo: your_char, yourInfo: currentEnemies[0], inBattle: inBattle, usePotion: usePotion, direction: your_char.direction}) );
+    // } else { // in party
+    //   wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, currentEnemies: currentEnemies, inBattle: inBattle, usePotion: usePotion, battleOver: battleOver, slashPos: slashPos, leaveParty: leaveParty, playerOpponent: playerOpponent, direction: your_char.direction}) );
+    // }
     if(partyMembers.length < 1) {  // no party members
-      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, playerOpponent: playerOpponent, opponentInfo: your_char, yourInfo: currentEnemies[0], inBattle: inBattle, usePotion: usePotion, direction: your_char.direction}) );
+      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, inBattle: inBattle, direction: your_char.direction}) );
     } else { // in party
-      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, currentEnemies: currentEnemies, inBattle: inBattle, usePotion: usePotion, battleOver: battleOver, slashPos: slashPos, leaveParty: leaveParty, playerOpponent: playerOpponent, direction: your_char.direction}) );
+      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, currentEnemies: currentEnemies, inBattle: inBattle, battleOver: battleOver, slashPos: slashPos, leaveParty: leaveParty, direction: your_char.direction, battleId: battleId}) );
     }
     slashPos = -1;
     otherPlayertoPartyWith = "";
