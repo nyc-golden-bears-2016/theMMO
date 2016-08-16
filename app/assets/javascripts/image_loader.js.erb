@@ -4,6 +4,12 @@ current_background.onload = function(){
   console.log("background loaded");
 }
 
+var blood_effect = new Image();
+blood_effect.src = '<%= asset_path("blood_effect.jpg") %>'
+blood_effect.onload = function(){
+  console.log("blood_effect loaded");
+}
+
 var seamless_grass = new Image();
 seamless_grass.src = '<%= asset_path("seamless_grass.jpg") %>'
 seamless_grass.onload = function(){
