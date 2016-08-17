@@ -119,7 +119,6 @@ function removeMenus(){
 
 var allowInput = function() {
   $(document).keydown(function(e){
-    e.preventDefault();
     removeMenus();
     if(keys_pressed.indexOf(e.which) === -1) {
       keys_pressed.push(e.which);
@@ -127,7 +126,6 @@ var allowInput = function() {
     console.log(keys_pressed);
   });
   $(document).keyup(function(e){
-    e.preventDefault();
     keys_pressed = keys_pressed.filter(function(keycode){
       return keycode != e.which;
     });
@@ -257,4 +255,13 @@ $( document ).ready(function() {
   //   leaveParty = true;
   //   $(".player-menu").remove();
   // });
+  $("#chat-box").on("click", "#chat-submit", function(e){
+    e.preventDefault;
+    chatMessage = $("input").val();
+    $("#chat-message-list").append('<li class="message">'+ your_character_name+": " + chatMessage + "</li>");
+    $("input").val('');
+    document.getElementById( 'bottom' ).scrollIntoView();
+
+  });
+
 });
