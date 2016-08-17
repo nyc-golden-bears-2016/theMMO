@@ -111,11 +111,16 @@ var processInputBuffer = function(){
     }
 };
 
+function removeMenus(){
+  $(".player-menu").remove();
+  $(".other-player-menu").remove();
+  $(".npc-menu").remove();
+}
+
 var allowInput = function() {
   $(document).keydown(function(e){
     e.preventDefault();
-    $(".player-menu").remove();
-    $(".other-player-menu").remove();
+    removeMenus();
     if(keys_pressed.indexOf(e.which) === -1) {
       keys_pressed.push(e.which);
     };
@@ -160,8 +165,7 @@ var allowClick = function() {
     clickLocation = [];
     clickLocation.push(x);
     clickLocation.push(y);
-    $(".player-menu").remove();
-    $(".other-player-menu").remove();
+    removeMenus();
     clicked = [];
     if (inBattle === true) {console.log("you're in a battle"); return false}
     // click yourself
@@ -188,6 +192,15 @@ var allowClick = function() {
       // var menu = '<div class="other-player-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (60 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:75px;"><button id="party" style="margin-bottom:3px;">Join party with '+ clicked[1] +'!</button><br><button id="trade">Trade with '+ clicked[1] +'!</button><br><button id="pvp">Fight '+ clicked[1] +'!</button></div>';
       var menu = '<div class="other-player-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (60 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:75px;"><button id="party" style="margin-bottom:3px;">Join party with '+ clicked[1] +'!</button><br><button id="trade">Trade with '+ clicked[1] +'!</button></div>';
       $("body").prepend(menu);
+
+      // click NPC
+    } else if(checkNpc(global_x, global_y) != false) {
+      console.log("CLICK NPC");
+      clicked.push("NPC");
+      clicked.push(checkNpc(global_x, global_y));
+      var width = getTextWidth('I am A' + clicked[1] + ' !', "18px Arial");
+      var menu = '<div class="npc-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (60 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:75px;">I am ' + clicked[1] +' !<button id="boss-battle" style="margin-bottom:3px;">Fight '+ clicked[1] +'!</button></div>';
+      $("body").prepend(menu);
     }
   }, false);
 }
@@ -203,24 +216,40 @@ var checkOther = function(x, y) {
   return false;
 }
 
+var checkNpc = function(x, y) {
+  for (var i = npcs.length - 1; i >= 0; i--) {
+    npcX = npcs[i].pos_x;
+    npcY = npcs[i].pos_y;
+    if ((x >= npcX && x<= npcX + npcs[i].width ) && (y >= npcY && y<= npcY + npcs[i].height)) {
+      return npcs[i].name;
+    };
+  };
+  return false;
+}
+
 $( document ).ready(function() {
   $("body").on("click", "#party", function(e){
     e.preventDefault;
     if (partyMembers.indexOf(clicked[1]) === -1 ) {
       otherPlayertoPartyWith = clicked[1];
     }
-    $(".other-player-menu").remove();
+    removeMenus();
   });
   $("body").on("click", "#trade", function(e){
     e.preventDefault;
     otherPlayertoTradeWith = clicked[1];
-    $(".other-player-menu").remove();
+    removeMenus();
   });
   $("body").on("click", "#leave-party", function(e){
     e.preventDefault;
     leaveParty = true;
     partyMembers = [];
-    $(".player-menu").remove();
+    removeMenus();
+  });
+  $("body").on("click", "#boss-battle", function(e){
+    e.preventDefault;
+    prepareBossBattle(clicked[1]);
+    removeMenus();
   });
   // $("body").on("click", "#pvp", function(e){
   //   e.preventDefault;

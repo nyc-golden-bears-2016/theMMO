@@ -42,8 +42,7 @@ var prepareBattle = function(){
 }
 
 var prepareTeamBattle = function(enemies){
-  $(".player-menu").remove();
-  $(".other-player-menu").remove();
+  removeMenus();
   currentEnemies = enemies;
   slashes = [];
   bloodMarks = [];
@@ -51,6 +50,24 @@ var prepareTeamBattle = function(enemies){
   inBattle = true;
   your_char.recoveryTime = 0;
   messagesLoaded = false;
+  your_char.changeTarget(currentEnemies[0]);
+}
+
+var prepareBossBattle = function(boss){
+  removeMenus();
+  slashes = [];
+  bloodMarks = [];
+  battleOver = false;
+  inBattle = true;
+  your_char.recoveryTime = 0;
+  messagesLoaded = false;
+  bosses = [];
+  if (boss === "trogdor") {
+    bosses.push(enemyMake("trogdor"));
+  } //else if (boss === "bossname") {
+  //   bosses.push(enemyMake("bossname"));
+  // }
+  currentEnemies = bosses;
   your_char.changeTarget(currentEnemies[0]);
 }
 
