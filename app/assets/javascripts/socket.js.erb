@@ -150,15 +150,8 @@ var updateCharacters = function(){
   };
 };
 
-var setCharacterUpdate = function(character_name, character_pos_x, character_pos_y, character_attack, character_health, character_XP, character_defense, character_max_health) {
-    your_char.name = character_name;
-    your_char.pos_x = character_pos_x;
-    your_char.pos_y = character_pos_y;
-    your_char.attack = character_attack;
-    your_char.health = character_health;
-    your_char.XP = character_XP;
-    your_char.defense = character_defense;
-    your_char.max_health = character_max_health;
+var setCharacterUpdate = function(character_name) {
+    your_character_name = character_name;
     setInterval(updateCharacters, FRAME_RATE/1.5);
 };
 
