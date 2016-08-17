@@ -175,6 +175,7 @@ function removeMenus(){
   $(".player-menu").remove();
   $(".other-player-menu").remove();
   $(".npc-menu").remove();
+  $(".item-menu").remove();
 }
 
 var allowInput = function() {
@@ -248,7 +249,7 @@ var allowClick = function() {
       clicked.push(checkOther(global_x, global_y));
       var width = getTextWidth('Join party with ' + clicked[1] + '!', "18px Arial");
       // var menu = '<div class="other-player-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (60 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:75px;"><button id="party" style="margin-bottom:3px;">Join party with '+ clicked[1] +'!</button><br><button id="trade">Trade with '+ clicked[1] +'!</button><br><button id="pvp">Fight '+ clicked[1] +'!</button></div>';
-      var menu = '<div class="other-player-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (60 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:75px;"><button id="party" style="margin-bottom:3px;">Join party with '+ clicked[1] +'!</button><br><button id="trade">Trade with '+ clicked[1] +'!</button></div>';
+      var menu = '<div class="other-player-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (60 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:75px;"><button id="party" style="margin-bottom:3px;">Join party with '+ clicked[1] +'!</button><br><button id="trade">Give item to '+ clicked[1] +'!</button></div>';
       $("body").prepend(menu);
 
       // click NPC
@@ -295,8 +296,18 @@ $( document ).ready(function() {
   });
   $("body").on("click", "#trade", function(e){
     e.preventDefault;
-    otherPlayertoTradeWith = clicked[1];
+    preparingToTradeWith = clicked[1];
     removeMenus();
+    var individualItems = [];
+    $.each(your_char.inventory, function(i, item){
+      if($.inArray(item, individualItems) === -1) individualItems.push(item);
+    });
+    var itemList = "";
+    for (var i = individualItems.length - 1; i >= 0; i--) {
+      itemList += '<li><a class="item-in-menu">' + individualItems[i] + '</a></li>';
+    };
+    var menu = '<div class="item-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (SCREEN_HEIGHT / 2.5).toString() + 'px;left:' + (SCREEN_WIDTH / 2.5).toString() + 'px;">Your Items:<ul>' + itemList + '</ul></div>';
+    $("body").prepend(menu);
   });
   $("body").on("click", "#leave-party", function(e){
     e.preventDefault;
@@ -307,6 +318,12 @@ $( document ).ready(function() {
   $("body").on("click", "#boss-battle", function(e){
     e.preventDefault;
     prepareBossBattle(clicked[1]);
+    removeMenus();
+  });
+  $("body").on("click", ".item-in-menu", function(e){
+    e.preventDefault;
+    otherPlayertoTradeWith = preparingToTradeWith;
+    itemToGive = this.text;
     removeMenus();
   });
   // $("body").on("click", "#pvp", function(e){
