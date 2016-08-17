@@ -1,3 +1,19 @@
+var determineNumberOfEnemies = function() {
+  if(your_char.pos_x > SCREEN_WIDTH * 3 && your_char.pos_y  > SCREEN_HEIGHT * 2) {
+    return Math.floor( (Math.random() * 3) + 1)
+  } else {
+    return Math.floor( (Math.random() * 4) + 1)
+  }
+}
+
+var determineEnemyType = function() {
+  if(your_char.pos_x > SCREEN_WIDTH * 3 && your_char.pos_y  > SCREEN_HEIGHT * 2) {
+    return Math.floor( (Math.random() * 3) + 2);
+  } else {
+    return Math.floor( (Math.random() * 2) + 1);
+  }
+}
+
 var prepareBattle = function(){
   battleId = Math.floor(Math.random() * 1000000);
   currentEnemies = [];
@@ -7,23 +23,19 @@ var prepareBattle = function(){
   inBattle = true;
   your_char.recoveryTime = 0;
   messagesLoaded = false;
-  var numberOfEnemies = Math.floor( (Math.random() * 4) + 1);
+  var numberOfEnemies = determineNumberOfEnemies();
   for (var i = numberOfEnemies; i > 0; i--) {
-    var typeOfEnemy = Math.floor( (Math.random() * 4) + 1);
+    var typeOfEnemy = determineEnemyType();
     if (typeOfEnemy === 1) {
-      currentEnemies.push(enemyMake("bat"));
-    } else if (typeOfEnemy === 2) {
       currentEnemies.push(enemyMake("slime"));
+    } else if (typeOfEnemy === 2) {
+      currentEnemies.push(enemyMake("bat"));
     } else if (typeOfEnemy === 3) {
-      currentEnemies.push(enemyMake("rat"));
-      if(i >= 3) {
-        break;
-      }
-    } else if (typeOfEnemy === 4) {
       currentEnemies.push(enemyMake("bee"));
-      if(i >= 3) {
-        break;
-      }
+    } else if (typeOfEnemy === 4) {
+      currentEnemies.push(enemyMake("rat"));
+    } else {
+      currentEnemies.push(enemyMake("missing no."));
     }
   };
   your_char.changeTarget(currentEnemies[0]);
@@ -105,7 +117,6 @@ var proceedBattle = function() {
         if(currentEnemies[i].pose === "standing") {
           currentEnemies[i].attackPlayer(your_char);
           currentEnemies[i].setPose("attacking");
-          console.log(your_char.health);
         }
       }
     };
