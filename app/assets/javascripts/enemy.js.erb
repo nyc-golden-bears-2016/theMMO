@@ -75,6 +75,22 @@ var enemyMake = function(type) {
     enemy.maxHealth = 300 + Math.floor(Math.random() * 50);
     enemy.sprites = {stand: bee_stand01,
                     attack: bee_attack01};
+
+  // BOSSES
+  } else if (type === "trogdor") {
+    enemy.pos_y = 150;
+    enemy.xp = 1000;
+    enemy.name = "trogdor";
+    enemy.width = 442;
+    enemy.item = "Trogdor's Head";
+    enemy.dropRate = 0.5;
+    enemy.height = 448;
+    enemy.attack = 100 + Math.floor(Math.random() * 100);
+    enemy.defense = 50 + Math.floor(Math.random() * 4);
+    enemy.attackSpeed = 175 + Math.floor(Math.random() * 75);
+    enemy.maxHealth = 2500 + Math.floor(Math.random() * 500);
+    enemy.sprites = {stand: trogdor_stand01,
+                    attack: trogdor_attack01};
   } else if (type === "player") {
     enemy.width = 70;
     enemy.height = 100;
