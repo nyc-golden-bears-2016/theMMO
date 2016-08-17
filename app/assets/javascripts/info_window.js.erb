@@ -4,13 +4,19 @@ var refreshInformationWindow = function(){
 
 var informationWindow = function(player, party) {
 
-//player, health, experience
-	if (player.name == null){
-		player.name = "John Doe";
-	};
+//player, level
+	// if (player.name == null){
+	// 	player.name = "John Doe";
+	// };
 
 	$("#playerName > .value").text(player.name);
-	$("#health > .value").text(player.health);
+	$("#level > .value").text(player.level);
+
+//health
+	var health = player.health + " / " + player.max_health
+	$("#health > .value").text(health);
+
+//experience
 	$("#experience > .value").text(player.xp);
 
 //party
@@ -29,7 +35,6 @@ var informationWindow = function(player, party) {
 	};
 
 //items
-	var dummyInventory = ["potion", "pizza", "potion", "potion", "potion", "pizza", "honey"];
 	var itemInventory = {};
 
 	your_char.inventory.forEach(function(item){
@@ -50,7 +55,5 @@ var informationWindow = function(player, party) {
 				.appendTo('#items > .value');
 		}
 	);
-
-	// setInterval(console.log(itemInventory), 5000)
 };
 
