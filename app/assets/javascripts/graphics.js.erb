@@ -159,6 +159,11 @@ var drawField = function(){
   context.fillStyle = "#FF00FF";
   drawPlayer(context);
 
+  var itemsThisFrame = itemDisplays.slice(0);
+  for (var i = 0; i < itemsThisFrame.length; i++) {
+    context.drawImage(itemsThisFrame[i].drawItem(), (SCREEN_WIDTH / 2) - (itemsThisFrame[i].width / 2), 250, itemsThisFrame[i].width, itemsThisFrame[i].height );
+  };
+
 };
 
 var drawBattle = function(){
