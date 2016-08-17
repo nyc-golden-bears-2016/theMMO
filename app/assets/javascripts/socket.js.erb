@@ -85,6 +85,13 @@ var setUpWebsocket = function(scheme){
         slashes.push(new Slash(currentEnemies[data.slashPos]));
       }
 
+      //chatMessage
+      if (data.chatMessage !== "") {
+        $("#chat-message-list").append('<li class="message">' + data.username + ": " + data.chatMessage + "</li>");
+        document.getElementById( 'bottom' ).scrollIntoView();
+      }
+
+
       // PVP logic
       // if (data.playerOpponent.indexOf(your_character_name) !== -1 && inBattle === false) {
       //   leaveParty = true;
@@ -137,13 +144,14 @@ var updateCharacters = function(){
     //   wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, currentEnemies: currentEnemies, inBattle: inBattle, usePotion: usePotion, battleOver: battleOver, slashPos: slashPos, leaveParty: leaveParty, playerOpponent: playerOpponent, direction: your_char.direction}) );
     // }
     if(partyMembers.length < 1) {  // no party members
-      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, inBattle: inBattle, direction: your_char.direction}) );
+      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, inBattle: inBattle, direction: your_char.direction, chatMessage: chatMessage}) );
     } else { // in party
-      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, currentEnemies: currentEnemies, inBattle: inBattle, battleOver: battleOver, slashPos: slashPos, leaveParty: leaveParty, direction: your_char.direction, battleId: battleId}) );
+      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, currentEnemies: currentEnemies, inBattle: inBattle, battleOver: battleOver, slashPos: slashPos, leaveParty: leaveParty, direction: your_char.direction, battleId: battleId, chatMessage: chatMessage}) );
     }
     slashPos = -1;
     otherPlayertoPartyWith = "";
     otherPlayertoTradeWith = "";
+    chatMessage = "";
     usePotion = false;
     if (partyMembers.length === 0){leaveParty = false;}
     if (leaveParty === true || partyMembers.length === 1){partyMembers = [];}
