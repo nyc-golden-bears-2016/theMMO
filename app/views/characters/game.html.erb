@@ -23,7 +23,7 @@
 
 
     // Main logic
-    setCharacterUpdate('<%= @character.name %>', <%= @character.pos_x %>, <%= @character.pos_y %>, <%= @character.attack %>, <%= @character.health %>, <%= @character.XP %>, <%= @character.defense %>, <%= @character.max_health %>); // passes player position and player identity data to the server
+    setCharacterUpdate('<%= @character.name %>', <%= @character.pos_x %>, <%= @character.pos_y %>, <%= @character.attack %>, <%= @character.health %>, <%= @character.XP %>, <%= @character.defense %>, <%= @character.max_health %>, <%= @character.level %> ); // passes player position and player identity data to the server
     <% @character.items.each do |item| %>
       your_char.inventory.push('<%= item.name %>');
     <% end %>
