@@ -18,7 +18,7 @@
  </div>
   <h2>Character attributes</h2>
   <%= create.label :attack %>  <span id="range">0</span>
-  <%= create.hidden_field :attack %>  
+  <%= create.hidden_field :attack %>
   <%= create.range_field :attack, :min=>0, :max=>100, :value=>0,  :class=>"slide", :id=>"slider1", :onchange=> "showValue(this.value)"%>
     <%= create.label :health %>  <span id="range1">0</span>
   <%= create.hidden_field :health %>
@@ -43,15 +43,6 @@
 <br>
 <div class="text-center col-md-5 col-md-offset-4.4">
 <%=image_tag("knight_south01.png", height: 400, width: 300)%>
-<div class="col-md-5 ">
-<div class="panel-heading">
-<%@character1.each do |character|%>
-  <h7><%=character.name%><h7>
-  <%= form_for character, method: :patch do |f| %>
-    <%= f.hidden_field :id, :value => character.id %>
-    <%= f.submit "Select Character" %>
-  <% end %>
-<% end %>
 </div>
 </div>
 </div>

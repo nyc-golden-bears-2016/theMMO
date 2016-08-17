@@ -29,6 +29,27 @@ class CharactersController < ApplicationController
     redirect_to "/"
   end
 
+  def auto_save
+    character = Character.find_by(id: session[:character_id])
+    params.permit(:pos_x)
+    params.permit(:pos_y)
+    params.permit(:max_health)
+    params.permit(:attack)
+    params.permit(:xp)
+    params.permit(:level)
+    params.permit(:defense)
+    params.permit(:health)
+    character.pos_x = params[:pos_x].to_i
+    character.pos_y = params[:pos_y].to_i
+    character.max_health = params[:max_health].to_i
+    character.attack = params[:attack].to_i
+    character.XP = params[:xp].to_i
+    character.level = params[:level].to_i
+    character.defense = params[:defense].to_i
+    character.health = params[:health].to_i
+    character.save
+  end
+
   def edit
   end
 
