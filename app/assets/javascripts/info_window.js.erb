@@ -1,0 +1,56 @@
+var refreshInformationWindow = function(){
+  	$("#information_window").remove();
+};
+
+var informationWindow = function(player, party) {
+
+//player, health, experience
+	if (player.name == null){
+		player.name = "John Doe";
+	};
+
+	$("#playerName > .value").text(player.name);
+	$("#health > .value").text(player.health);
+	$("#experience > .value").text(player.xp);
+
+//party
+// var party = [{name: "Lloyd the Man"}, {name: "MagicPatrick"}, {name: "BossTriangle"}, {name: "太樹"}];
+	if (party == ""){
+		$("#partyMembers").remove();
+	} else {
+			$('p').remove();
+			$.each(party,
+		    function(index, member) {
+		      $('<p style="margin-bottom:0px;"></p>')
+		        .append(member.name)
+		        .appendTo('#partyMembers > .value');
+		    }
+		  );
+	};
+
+//items
+	var dummyInventory = ["potion", "pizza", "potion", "potion", "potion", "pizza", "honey"];
+	var itemInventory = {};
+
+	your_char.inventory.forEach(function(item){
+		if(isNaN(itemInventory[item]) === true){
+			itemInventory[item] = 1;		
+		} else {
+			itemInventory[item] ++;
+		}
+	});
+
+　	$('p').remove();
+	$.each(itemInventory,
+		function(item, quantity) {
+			// $('p').remove();
+			content = item + ": " + quantity
+			$('<p style="margin-bottom:0px;"></p>')
+				.append(content)
+				.appendTo('#items > .value');
+		}
+	);
+
+	setInterval(console.log(itemInventory), 5000)
+};
+
