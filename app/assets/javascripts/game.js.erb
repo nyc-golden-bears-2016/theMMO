@@ -59,9 +59,9 @@ var checkEncounter = function() {
 var setAutoSave = function() {
   setInterval(function(){
     $.ajax({
-      url: "/characters/update",
-      method: "PUT",
-      data: {pos_x: your_char.pos_x, pos_y: your_char.pos_y}
+      url: "/characters/auto_save",
+      method: "PATCH",
+      data: {pos_x: your_char.pos_x, pos_y: your_char.pos_y, max_health: your_char.max_health, attack: your_char.attack, xp: your_char.xp, level: your_char.level, defense: your_char.defense, health: your_char.health}
     });
   }, 5000);
 }

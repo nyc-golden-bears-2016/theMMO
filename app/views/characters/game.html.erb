@@ -23,8 +23,8 @@
 
 
     // Main logic
-    setCharacterUpdate('<%= @character_name %>'); // passes player position and player identity data to the server
-    setCanvasDrawingUpdate(); //redraws canvas 30 fps
+    setCharacterUpdate('<%= @character.name %>', <%= @character.pos_x %>, <%= @character.pos_y %>, <%= @character.attack %>, <%= @character.health %>, <%= @character.XP %>, <%= @character.defense %>, <%= @character.max_health %>); // passes player position and player identity data to the server
+    setCanvasDrawingUpdate(); //redraws canvas 30 fps5
     setAutoSave();
   });
 </script>

@@ -17,17 +17,18 @@ ActiveRecord::Schema.define(version: 20160814213103) do
 
   create_table "characters", force: :cascade do |t|
     t.string   "name"
-    t.integer  "pos_x"
-    t.integer  "pos_y"
-    t.integer  "user_id"
-    t.integer  "party_id"
-    t.integer  "attack"
-    t.integer  "health"
-    t.integer  "XP"
-    t.integer  "defense"
-    t.integer  "max_health"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "pos_x",      default: 0
+    t.integer  "pos_y",      default: 0
+    t.integer  "level",      default: 1
+    t.integer  "user_id",    default: 0
+    t.integer  "party_id",   default: 0
+    t.integer  "attack",     default: 0
+    t.integer  "health",     default: 0
+    t.integer  "XP",         default: 0
+    t.integer  "defense",    default: 0
+    t.integer  "max_health", default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "items", force: :cascade do |t|

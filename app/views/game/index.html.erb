@@ -1,17 +1,18 @@
 <%= video_tag "landscape.webm", id:"video-background", autoplay: true, loop: true %>
- <div class="parent">
+<div class="parent">
  <div class="col-md-9 col-md-offset-2">
   <div class="row">
-  <%=image_tag "newwood.png", id: "wood", height: 400, width: 800 %>
-    <div class="homescreentext">
-    <h1>WELCOME TO BOSS TRIANGLES</h1>
+  <%=image_tag "newwood.png", id: "wood", height: 450, width: 800 %>
+  <div class="homescreentext">
+    <h6 class="font-effect-fire-animation">WELCOME TO BOSS TRIANGLES</h6>
       <div id="homepage_links"%>
         <%= link_to('How to play', instructions_path)%> 
       <% if user_signed_in? && current_user.characters %><br>
-        <blink><%= link_to('Create Character', new_character_path) %></blink> <br>
+        <%= link_to('Select Character', select_path) %><br>
+        <%= link_to('Create Character', new_character_path) %><br>
         <%= link_to('Start Game', game_path)%> <br>
         <%else%>
-        <h6>PLEASE SIGNUP/LOGIN!!</h6> <br>  
+        <h6 class="font-effect-fire-animation">PLEASE SIGNUP/LOGIN!!</h6> <br>  
           <% end %> 
           </div> 
       </div>
