@@ -75,6 +75,24 @@ var prepareBossBattle = function(boss){
 var proceedBattle = function() {
   // Do any frame
 
+  // DEATH LOGIC
+  if(your_char.health < 1) {
+    alert("you ded");
+    your_char.max_health = Math.floor(your_char.max_health / 2);
+    your_char.attack = Math.floor(your_char.attack / 2);
+    your_char.defense = Math.floor(your_char.defense / 2);
+    your_char.pos_x = 483;
+    your_char.pos_y = 2016;
+    inBattle = false;
+    battleOver = true;
+    your_char.health = your_char.max_health;
+    $.ajax({
+      url: "/characters/auto_save",
+      method: "PATCH",
+      data: {pos_x: your_char.pos_x, pos_y: your_char.pos_y, max_health: your_char.max_health, attack: your_char.attack, xp: your_char.xp, level: your_char.level, defense: your_char.defense, health: your_char.health}
+    });
+  }
+
   // ITEM EFFECTS (Cooldowns)
   your_char.recoveryTime--;
   your_char.processStatusEffects();
