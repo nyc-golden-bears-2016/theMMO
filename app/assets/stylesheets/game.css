@@ -9,6 +9,38 @@ text {
 	fill:#F5F1E9;
 }
 
+.message{
+  padding: 0px;
+  margin-left: -20px;
+}
+
+#chat-display{
+  background-color: white;
+  border: 5px solid red;
+  overflow:hidden;
+  overflow-y:scroll;
+
+  width: 800px;
+  height: 150px;
+}
+
+#chat-box{
+  border: 5px solid #00ff00;
+  border-radius: 3px;
+
+  color: #996633;
+  font-weight: 200;
+  font-family: 'Passion One', cursive;
+  font-size: 150%;
+
+  position: absolute;
+  width: 810px;
+  height: 200px;
+  left: 0px;
+  top: 660px;
+  background-color: #ffcc66;
+  z-index: 1;
+}
 
 #information_window{
   border: 5px solid #00ff00;
@@ -29,7 +61,7 @@ text {
 }
 
 #information_window .field {
-	padding-left: 5px;	
+	padding-left: 5px;
 }
 
 #information_window .value {
