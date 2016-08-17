@@ -43,7 +43,8 @@ var processInputBuffer = function(){
           };
         };
       };
-    } else if( (keys_pressed.indexOf(49) != -1) && (keys_pressed_checker.indexOf(49) === -1) ) {
+    } // potion use
+    else if( (keys_pressed.indexOf(49) != -1) && (keys_pressed_checker.indexOf(49) === -1) ) {
       keys_pressed_checker.push(49);
       usePotion = true;
       if(your_char.recoveryTime <= 0 && your_char.inventory.indexOf("potion") !== -1) {
@@ -51,6 +52,7 @@ var processInputBuffer = function(){
         your_char.health = Math.min(your_char.health + your_char.max_health * 0.2, your_char.max_health);
         your_char.recoveryTime += 90;
         recentlyRecovered = 3;
+        itemDisplays.push(new Item("potion"));
       };
     } else if( (keys_pressed.indexOf(32) != -1) && (keys_pressed_checker.indexOf(32) === -1) ) {
       keys_pressed_checker.push(32);

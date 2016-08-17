@@ -164,6 +164,7 @@ var setCharacterUpdate = function(character_name, character_pos_x, character_pos
 };
 
 var logout = function() {
+  console.log("logout");
   wSocket.send( JSON.stringify({logout: true, username: your_character_name}) );
 };
 
