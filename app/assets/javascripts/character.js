@@ -49,6 +49,40 @@ Character.prototype.faceDirection = function(direction) {
     this.direction = direction;
   }
 }
+
+Character.prototype.processStatusEffects = function() {
+  var curEffects = this.statusEffects.slice(0);
+  for (var i = curEffects.length - 1; i >= 0; i--) {
+    if(curEffects[i].framesPassed > curEffects[i].duration) {
+      curEffects[i].deactivate();
+      this.statusEffects.splice(this.statusEffects.indexOf(curEffects[i]), 1);
+    }
+  };
+  for (var i = this.statusEffects.length - 1; i >= 0; i--) {
+    this.statusEffects[i].framesPassed++;
+  };
+}
+
+var StatusEffect = function StatusEffect(name) {
+  this.name = name;
+  this.duration = 0;
+  this.framesPassed = 0;
+  if(name === "honey grahams") {
+    this.duration = 300;
+  } else if(name === "subway pizza") {
+    this.duration = 120;
+  }
+}
+
+StatusEffect.prototype.deactivate = function() {
+  if(this.name === "honey grahams") {
+    your_char.speed -= 4;
+  } else if(this.name === "subway pizza") {
+    your_char.attack -= Math.floor(your_char.attack * 0.2);
+  };
+}
+
+
 function showValue(newValue)
 {
   document.getElementById("range").innerHTML=newValue;

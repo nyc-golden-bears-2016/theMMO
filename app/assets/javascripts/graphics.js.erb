@@ -234,7 +234,7 @@ var Slash = function Slash(enemy) {
   this.currentFrame = 0;
   this.sprites = [slash01, slash02, slash03, slash04, slash05, slash06];
   this.currentSprite = -1;
-  this.pos_x = (enemy.pos_x - 60) + Math.floor(Math.random() * (100)) || 0;
+  this.pos_x = (enemy.pos_x - 60) + Math.floor(Math.random() * (enemy.width/1.5)) || 0;
   this.pos_y = (enemy.pos_y - 125) + Math.floor(Math.random() * (100)) || 0;
 }
 
