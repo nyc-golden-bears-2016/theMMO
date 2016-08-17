@@ -54,7 +54,19 @@ var processInputBuffer = function(){
         recentlyRecovered = 3;
         itemDisplays.push(new Item("potion"));
       };
-    } else if( (keys_pressed.indexOf(32) != -1) && (keys_pressed_checker.indexOf(32) === -1) ) {
+    }
+    else if( (keys_pressed.indexOf(50) != -1) && (keys_pressed_checker.indexOf(50) === -1) ) {
+      keys_pressed_checker.push(50);
+      usePotion = true;
+      if(your_char.recoveryTime <= 0 && your_char.inventory.indexOf("potion") !== -1) {
+        your_char.inventory.splice(your_char.inventory.indexOf("subway pizza"), 1);
+        your_char.attack += 3;
+        your_char.recoveryTime += 300;
+        recentlyRecovered = 3;
+        itemDisplays.push(new Item("subway pizza"));
+      };
+    }
+    else if( (keys_pressed.indexOf(32) != -1) && (keys_pressed_checker.indexOf(32) === -1) ) {
       keys_pressed_checker.push(32);
       if(battleOver === true) {
         clearMessage = true;
