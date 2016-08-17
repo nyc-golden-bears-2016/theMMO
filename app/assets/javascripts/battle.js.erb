@@ -55,6 +55,7 @@ var prepareTeamBattle = function(enemies){
 
 var prepareBossBattle = function(boss){
   removeMenus();
+  battleId = Math.floor(Math.random() * 1000000);
   slashes = [];
   bloodMarks = [];
   battleOver = false;
