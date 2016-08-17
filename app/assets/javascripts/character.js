@@ -48,4 +48,25 @@ Character.prototype.faceDirection = function(direction) {
     this.direction = direction;
   }
 }
+function showValue(newValue)
+{
+  document.getElementById("range").innerHTML=newValue;
+}
 
+function showValue1(newValue1)
+{
+  document.getElementById("range1").innerHTML=newValue1;
+  
+}
+
+function showValue2(newValue2)
+{
+  document.getElementById("range2").innerHTML=newValue2;
+  
+}
+
+function showValue3(newValue3)
+{
+  document.getElementById("range3").innerHTML=newValue3;
+  
+}

@@ -1,7 +1,4 @@
 <%= video_tag "landscape.webm", id:"video-background", autoplay: true, loop: true %>
-<br>
-<br>
-<br>
  <h1>CREATE CHARACTER</h1>
 <br>
 <br>
@@ -20,21 +17,20 @@
   <%= create.text_field :name %>
  </div>
   <h2>Character attributes</h2>
-  <%= create.label :attack %>
-  <%= create.hidden_field :attack %>
-  <%= create.range_field :attack, :min=>0, :max=>200, :value=>2,  :class=>"slide", :id=>"slider1"%>
-
-    <%= create.label :health %>
+  <%= create.label :attack %>  <span id="range">0</span>
+  <%= create.hidden_field :attack %>  
+  <%= create.range_field :attack, :min=>0, :max=>100, :value=>0,  :class=>"slide", :id=>"slider1", :onchange=> "showValue(this.value)"%>
+    <%= create.label :health %>  <span id="range1">0</span>
   <%= create.hidden_field :health %>
-   <%= create.range_field :health, :min=>0, :max=>200, :class=>"slide", :id=>"slider1"%>
+   <%= create.range_field :health, :min=>0, :max=>100, :value=>0, :class=>"slide", :id=>"slider1", :onchange=> "showValue1(this.value)"%>
 
-    <%= create.label :defense %>
+    <%= create.label :defense %>  <span id="range2">0</span>
   <%= create.hidden_field :defense %>
-   <%= create.range_field :defense, :min=>0, :max=>200, :class=>"slide", :id=>"slider1"%>
+   <%= create.range_field :defense, :min=>0, :max=>100, :value=>0, :class=>"slide", :id=>"slider1", :onchange=> "showValue2(this.value)"%>
 
-    <%= create.label :max_health %>
+    <%= create.label :max_health %>  <span id="range3">0</span>
   <%= create.hidden_field :max_health %>
-   <%= create.range_field :max_health, :min=>0, :max=>200, :class=>"slide", :id=>"slider1"%>
+   <%= create.range_field :max_health, :min=>0, :max=>100, :value=>0, :class=>"slide", :id=>"slider1", :onchange=> "showValue3(this.value)"%>
 <%= create.submit %>
 <% end %>
 
@@ -43,7 +39,21 @@
   </div>
 </div>
 </div>
+<br>
+<br>
 <div class="text-center col-md-5 col-md-offset-4.4">
 <%=image_tag("knight_south01.png", height: 400, width: 300)%>
+<div class="col-md-5 ">
+<div class="panel-heading">
+<%@character1.each do |character|%>
+  <h7><%=character.name%><h7>
+  <%= form_for character, method: :patch do |f| %>
+    <%= f.hidden_field :id, :value => character.id %>
+    <%= f.submit "Select Character" %>
+  <% end %>
+<% end %>
 </div>
+</div>
+</div>
+
 
