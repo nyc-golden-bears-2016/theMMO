@@ -73,8 +73,9 @@ var prepareBossBattle = function(boss){
 }
 
 var proceedBattle = function() {
+  your_char.recoveryTime--;
+  your_char.processStatusEffects();
   if (inBattle === true) {
-    your_char.recoveryTime--;
     $(".player-names").remove();
     if(battleOver === true) {
       playerOpponent = "";
