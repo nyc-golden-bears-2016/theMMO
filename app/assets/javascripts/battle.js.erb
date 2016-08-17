@@ -138,6 +138,15 @@ var proceedBattle = function() {
         }
       }
     };
+
+    //BOSS DIFFERENT SPRITES
+    //TROGDOR
+    if(currentEnemies[0].name === "trogdor") {
+      if(currentEnemies[0].health < (currentEnemies[0].maxHealth * 0.4) ){
+        currentEnemies[0].sprites = {stand: trogdor_red_hot_stand01,
+                    attack: trogdor_red_hot_attack01};
+      }
+    }
   }
 }
 
