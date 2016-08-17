@@ -29,6 +29,7 @@ var Character = function Character(name){
   // cool down time before player can use an item again
   this.recoveryTime = 0;
   this.inventory = [];
+  this.statusEffects = [];
 };
 
 Character.prototype.attackEnemy = function(enemy) {
@@ -56,17 +57,17 @@ function showValue(newValue)
 function showValue1(newValue1)
 {
   document.getElementById("range1").innerHTML=newValue1;
-  
+
 }
 
 function showValue2(newValue2)
 {
   document.getElementById("range2").innerHTML=newValue2;
-  
+
 }
 
 function showValue3(newValue3)
 {
   document.getElementById("range3").innerHTML=newValue3;
-  
+
 }
