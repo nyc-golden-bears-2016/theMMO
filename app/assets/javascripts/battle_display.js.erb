@@ -36,8 +36,8 @@ var battleDisplay = function(player, enemies){
 									"background-color": "rgba(192,192,192,0.4)",
 									"z-index": "1",
 									"position": "absolute",
-									"left": "5",
-									"top": "80"});
+									"left": "10",
+									"top": "60"});
 
   var svg_2 = d3.select("body")
   							.append("svg")
@@ -51,8 +51,8 @@ var battleDisplay = function(player, enemies){
 									"background-color": "rgba(192,192,192,0.4)",
   								"z-index": "1",
   								"position": "absolute",
-  								"left": "405",
-  								"top": "80"});
+  								"left": "410",
+  								"top": "60"});
 
   var xScale_1 = d3.scale.linear()
                 .domain([0, d3.max(dataset_1_max)])
@@ -77,16 +77,19 @@ var battleDisplay = function(player, enemies){
         fill: "red"
     });
 
+
+  var playerNameOffset = player.name.length * 9.5;
+
 	svg_1.selectAll("text")
 		.data(dataset_1)
     .enter()
     .append("text")
     .attr({
-        x:  function(d) { return ( xScale_1(d) - 30 ); },
+        x: function(d) { return ( xScale_1(d) - playerNameOffset ); },
         y: function(d, i) { return ( i * ( BAR_HEIGHT + space1 ) + space1 + 16); },
         width: function(d) { return ( xScale_1(d) > 0 ? xScale_1(d) : 0 ); }})
     .style({
-    		"font-color": "white"
+    		"font-color": "blue"
             })
     .html(player.name);
 
