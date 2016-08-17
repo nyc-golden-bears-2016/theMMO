@@ -73,8 +73,32 @@ var prepareBossBattle = function(boss){
 }
 
 var proceedBattle = function() {
+  // Do any frame
+
+  // ITEM EFFECTS (Cooldowns)
   your_char.recoveryTime--;
   your_char.processStatusEffects();
+  // GIVING LOGIC
+  if(receivedItem !== "") {
+    your_char.inventory.push(receivedItem);
+    $.ajax({
+      url: "/items",
+      method: "POST",
+      data: {item_name: receivedItem}
+    })
+    receivedItem = "";
+  }
+  if(givenItem !== "") {
+    your_char.inventory.splice(your_char.inventory.indexOf(givenItem), 1)
+    $.ajax({
+      url: "/items/use",
+      method: "DELETE",
+      data: {item_name: givenItem}
+    });
+    givenItem = "";
+  }
+
+  // BATTLE LOGIC
   if (inBattle === true) {
     $(".player-names").remove();
     if(battleOver === true) {
