@@ -19,19 +19,19 @@ var informationWindow = function(player, party) {
 //experience
 	$("#experience > .value").text(player.xp);
 
+	$('p').remove();
+
 //party
-// var party = [{name: "Lloyd the Man"}, {name: "MagicPatrick"}, {name: "BossTriangle"}, {name: "太樹"}];
 	if (party == ""){
 		$("#partyMembers").remove();
 	} else {
-			$('p').remove();
-			$.each(party,
-		    function(index, member) {
-		      $('<p style="margin-bottom:0px;"></p>')
-		        .append(member.name)
-		        .appendTo('#partyMembers > .value');
-		    }
-		  );
+		$.each(party,
+		  function(index, member) {
+		    $('<p style="margin-bottom:0px;"></p>')
+		      .append(member)
+		      .appendTo('#partyMembers > .value');
+		  }
+		);
 	};
 
 //items
@@ -45,10 +45,8 @@ var informationWindow = function(player, party) {
 		}
 	});
 
-　	$('p').remove();
 	$.each(itemInventory,
 		function(item, quantity) {
-			// $('p').remove();
 			content = item + ": " + quantity
 			$('<p style="margin-bottom:0px;"></p>')
 				.append(content)
