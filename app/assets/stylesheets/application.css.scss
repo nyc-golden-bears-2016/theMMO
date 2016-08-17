@@ -17,6 +17,7 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "http://fonts.googleapis.com/css?family=Rancho&effect=fire-animation";
 
 body {
 	background: #f7f8E5;
@@ -28,56 +29,43 @@ body {
   width: auto;
   height: auto;
 }
- h1, h2, h3, h4, h5 {
+ h1, h2, h3, h4, h5{
 	font-weight: 1000;
 	text-align: center;
-	font-family: 'Shadows Into Light', cursive;
-	color:#1aa3ff;
+	font-family: Rancho;
+	color: #0039e6;
 }
 
 
 h6{
-text-align: center;
-font-size: 175%;
-position: absolute;
-font-family: 'Shadows Into Light', cursive;
-font-weight: 375%;
-color:  #1aa3ff !important;
-right: 1px;
-
+  font-family: Rancho;
+  font-size: 60px;
 }
+h7{font-family: 'Passion One', cursive;
+color: #0039e6;}
 
-/*p{color:  #008066 !important;
-font-weight: bold;
-font-size: 200%;
-text-align: center;
-font-family: 'Passion One', cursive!important;
-}
-*/
 a{color: #00ff00; 
 font-weight: 200;
 font-family: 'Passion One', cursive;
 font-size: 175%;}
 
 #homepage_links{
-text-align: center;
-font-weight: bold;
 font-size: 200%;
-position: absolute;
-left: 90px}
+}
 
 #wood{
 position: absolute;
-left: 80px;
-top: 60px;}
+left: 85px;
+top: 80px;}
 
 .homescreentext{
   position: absolute;
-  left: 250px;
-  top: 100px;}
+  text-align: center;
+  left: 150px;
+  top: 120px;}
 /*
 .panel-heading{background-color: #ffdf80 !important; }*/
-.panel-body{background-color:  #99ff99 !important; }
+/*.panel-body{background-color:  #99ff99 !important; }*/
 
 label {
     display: inline-block;
