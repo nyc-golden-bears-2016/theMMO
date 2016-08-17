@@ -1,0 +1,22 @@
+var Npc = function Npc(){
+  this.name = "";
+  this.pos_x = 0;
+  this.pos_y = 0;
+  this.width = 100;
+  this.height = 150;
+  this.sprite = rat_stand01;
+}
+
+var npcMake = function(name){
+  var npc = new Npc;
+  if (name === "trogdor"){
+    npc.name = "trogdor"
+    npc.pos_x = 3000;
+    npc.pos_y = 2000;
+    npc.sprite = trogdor_stand01;
+  }
+  return npc;
+}
+
+npcs.push(npcMake("trogdor"));
+
