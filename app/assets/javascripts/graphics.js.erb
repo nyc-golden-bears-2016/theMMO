@@ -159,6 +159,11 @@ var drawField = function(){
   context.fillStyle = "#FF00FF";
   drawPlayer(context);
 
+  var itemsThisFrame = itemDisplays.slice(0);
+  for (var i = 0; i < itemsThisFrame.length; i++) {
+    context.drawImage(itemsThisFrame[i].drawItem(), (SCREEN_WIDTH / 2) - (itemsThisFrame[i].width / 2), 250, itemsThisFrame[i].width, itemsThisFrame[i].height );
+  };
+
 };
 
 var drawBattle = function(){
@@ -201,6 +206,10 @@ var drawBattle = function(){
   for (var i = 0; i < slashesThisFrame.length; i++) {
     context.drawImage(slashesThisFrame[i].drawSlash(), slashesThisFrame[i].pos_x, slashesThisFrame[i].pos_y);
   };
+  var itemsThisFrame = itemDisplays.slice(0);
+  for (var i = 0; i < itemsThisFrame.length; i++) {
+    context.drawImage(itemsThisFrame[i].drawItem(), (SCREEN_WIDTH / 2) - (itemsThisFrame[i].width / 2), 250, itemsThisFrame[i].width, itemsThisFrame[i].height );
+  };
   var bloodThisFrame = bloodMarks.slice(0);
   for (var i = 0; i < bloodThisFrame.length; i++) {
     context.drawImage(bloodThisFrame[i].drawBlood(), bloodThisFrame[i].pos_x, bloodThisFrame[i].pos_y);
@@ -225,7 +234,7 @@ var Slash = function Slash(enemy) {
   this.currentFrame = 0;
   this.sprites = [slash01, slash02, slash03, slash04, slash05, slash06];
   this.currentSprite = -1;
-  this.pos_x = (enemy.pos_x - 60) + Math.floor(Math.random() * (100)) || 0;
+  this.pos_x = (enemy.pos_x - 60) + Math.floor(Math.random() * (enemy.width/1.5)) || 0;
   this.pos_y = (enemy.pos_y - 125) + Math.floor(Math.random() * (100)) || 0;
 }
 
@@ -257,4 +266,41 @@ Blood.prototype.drawBlood = function(){
     bloodMarks.splice(index, 1);
   }
   return blood_effect;
+}
+
+var Item = function Item(name) {
+  this.width = 250;
+  this.height = 250;
+  this.sprite = current_background;
+  if(name === "potion") {
+    this.sprite = potion;
+    this.width = 143;
+    this.height = 250;
+  } else if(name === "honey grahams") {
+    this.sprite = honey;
+    this.width = 250;
+    this.height = 360;
+  } else if(name === "subway pizza") {
+    this.sprite = pizza;
+    this.width = 200;
+    this.height = 244;
+  } else if(name === "vampire fang") {
+    this.sprite = vampire_fang;
+    this.width = 86;
+    this.height = 101;
+  };
+  this.shrinkRate = this.width * 0.05;
+  this.currentFrame = 0;
+}
+
+Item.prototype.drawItem = function(){
+  this.currentFrame++;
+  if (this.currentFrame >= 25) {
+    var index = itemDisplays.indexOf(this);
+    itemDisplays.splice(index, 1);
+  }
+  if(this.currentFrame > 5) {
+    this.width -= this.shrinkRate;
+  }
+  return this.sprite;
 }

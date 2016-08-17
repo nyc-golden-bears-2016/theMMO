@@ -28,6 +28,7 @@ var inBattle = false;
 var currentBattleFrame = 0;
 var bloodMarks = [];
 var slashes = [];
+var itemDisplays = [];
 var slashPos = -1;
 var battleOver = true;
 var playerOpponent = ""; //holds character name of pvp opponent
@@ -38,7 +39,7 @@ var victoryMessages = [];
 var messagesLoaded = false;
 var clearMessage = false;
 var currentEnemies = [];
-var battleId = ""; //
+var battleId = ""; // a unique id is assigned to every battle to prevent running into the same battle more than once while in a party
 
 var otherPlayertoPartyWith = "";
 var partyMembers = [];

@@ -14,4 +14,6 @@ Rails.application.routes.draw do
   resources :characters, only: [:create, :game, :new, :update, :edit]
 
   resources :items, only: [:create]
+
+  delete "/items/use" => 'items#use_item'
 end
