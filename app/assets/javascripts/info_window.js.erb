@@ -2,14 +2,14 @@ var refreshInformationWindow = function(){
   	$("#information_window").remove();
 };
 
+var frameCount = 0;
+
 var informationWindow = function(player, party) {
-
-//player, level
-	// if (player.name == null){
-	// 	player.name = "John Doe";
-	// };
-
+	frameCount++;
+//player
 	$("#playerName > .value").text(player.name);
+
+//level
 	$("#level > .value").text(player.level);
 
 //health
@@ -19,19 +19,19 @@ var informationWindow = function(player, party) {
 //experience
 	$("#experience > .value").text(player.xp);
 
+	$('p').remove();
+
 //party
-// var party = [{name: "Lloyd the Man"}, {name: "MagicPatrick"}, {name: "BossTriangle"}, {name: "太樹"}];
 	if (party == ""){
 		$("#partyMembers").remove();
 	} else {
-			$('p').remove();
-			$.each(party,
-		    function(index, member) {
-		      $('<p style="margin-bottom:0px;"></p>')
-		        .append(member.name)
-		        .appendTo('#partyMembers > .value');
-		    }
-		  );
+		$.each(party,
+		  function(index, member) {
+		    $('<p style="margin-bottom:0px;"></p>')
+		      .append(member)
+		      .appendTo('#partyMembers > .value');
+		  }
+		);
 	};
 
 //items
@@ -45,15 +45,45 @@ var informationWindow = function(player, party) {
 		}
 	});
 
-　	$('p').remove();
 	$.each(itemInventory,
 		function(item, quantity) {
-			// $('p').remove();
 			content = item + ": " + quantity
 			$('<p style="margin-bottom:0px;"></p>')
 				.append(content)
 				.appendTo('#items > .value');
 		}
 	);
-};
+//control
+	
+	var message = [];
 
+	if(inBattle === true){
+		message = ['Hit "B" to attack!', "Use arrow to change target"];	
+	}	else { 
+		message = ["Use arrow to move", "Click other character to interact"];
+	}
+  
+	if(frameCount > 90) { 
+		frameCount = 0;	
+	  if ( rotateCounter === 0 ) {
+	    rotateCounter = 1;
+	  } else {
+	    rotateCounter = 0;
+	  }
+	  content = message[rotateCounter];
+	  $("#control > .value").text(content);
+	}
+	//}
+
+		// setInterval(function(){
+		// 	$("#control > .value").text('Hit "B" to attack!!')}, 1000);
+
+		// setInterval(function(){
+		// 	$("#control > .value").text('Use arrow keys to change target')}, 1000);
+
+
+
+//interval
+
+
+};
