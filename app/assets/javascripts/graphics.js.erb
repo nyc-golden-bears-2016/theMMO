@@ -6,19 +6,19 @@ var theField =[["X","X","X","X",  "X","X","X","X",  "X","X","X","X",  "X","X","X
                ["X","X","X","X",  "X","X","X","X",  "X","X","X","N",  "X","X","X","X"],
 
                ["X","X","X","X",  "X","X","X","X",  "X","X","X","N",  "X","X","X","X"],
-               ["X","X","X","X",  "X","N","X","N",  "X","N","X","N",  "X","X","X","X"],
-               ["X","X","X","X",  "X","X","X","X",  "X","X","X","N",  "X","X","X","X"],
-               ["X","X","X","X",  "X","N","X","N",  "X","N","X","N",  "X","X","X","X"],
+               ["X","X","X","X",  "X","N","5","N",  "5","N","X","N",  "X","X","X","X"],
+               ["X","X","X","X",  "X","5","5","5",  "5","5","X","N",  "X","X","X","X"],
+               ["X","X","X","X",  "X","N","5","N",  "5","N","X","N",  "X","X","X","X"],
 
-               ["X","X","X","X",  "X","N","X","N",  "N","N","N","N",  "X","X","X","X"],
-               ["X","X","X","X",  "X","X","X","N",  "X","X","X","X",  "X","X","X","X"],
-               ["X","X","X","X",  "X","N","X","N",  "X","X","X","X",  "X","X","X","X"],
-               ["X","X","X","X",  "X","N","X","N",  "X","X","X","X",  "X","X","X","X"],
+               ["X","X","X","X",  "X","N","5","N",  "N","N","N","N",  "X","X","X","X"],
+               ["X","X","X","X",  "X","X","X","N",  "X","X","X","X",  "X","X","X","5"],
+               ["X","X","X","X",  "X","N","X","N",  "X","X","X","X",  "X","5","5","5"],
+               ["X","X","X","X",  "X","N","X","N",  "X","X","X","X",  "5","5","5","5"],
 
-               ["X","N","N","N",  "X","X","X","N",  "N","N","N","N",  "X","X","X","X"],
-               ["X","N","X","N",  "X","X","X","X",  "X","X","X","N",  "X","X","X","X"],
-               ["X","N","N","N",  "X","X","X","X",  "X","X","X","N",  "X","X","X","X"],
-               ["X","X","X","X",  "X","X","X","X",  "X","X","X","N",  "X","X","X","X"]];
+               ["X","N","N","N",  "X","X","X","N",  "N","N","N","N",  "5","5","5","5"],
+               ["X","N","5","N",  "X","X","X","X",  "X","5","5","N",  "5","5","5","5"],
+               ["X","N","N","N",  "X","X","X","X",  "X","5","5","N",  "5","5","5","5"],
+               ["X","X","X","X",  "X","X","X","X",  "X","5","5","N",  "5","5","5","5"]];
 
 
 // other players
@@ -60,8 +60,8 @@ var drawOtherCharacter = function(character, context){
     }
     context.drawImage(knight_west[character.animationFrame], (character.pos_x - backgroundScrollX), (character.pos_y - backgroundScrollY));
   }
-  if( (character.pos_x - backgroundScrollX) < (backgroundScrollX + SCREEN_WIDTH) && (character.pos_y - backgroundScrollY) < (backgroundScrollY + SCREEN_HEIGHT) ) {
-    $("body").prepend('<div class="player-names" style="padding-top:5px;text-align:center;position:absolute;background-color:white;top:' + (character.pos_y - backgroundScrollY + 40).toString() + 'px;left:' + (character.pos_x - backgroundScrollX - 10).toString() + 'px;width:100px;height:30px;">' + character.name + '</div>');
+  if( (character.pos_x > backgroundScrollX + 20) && character.pos_x < (backgroundScrollX + SCREEN_WIDTH - 30) && character.pos_y > (backgroundScrollY + 25) && character.pos_y < (backgroundScrollY + SCREEN_HEIGHT - 10) ) {
+    $("body").prepend('<div class="player-names" style="padding-top:5px;text-align:center;position:absolute;background-color:white;top:' + (character.pos_y - backgroundScrollY + 20).toString() + 'px;left:' + (character.pos_x - backgroundScrollX - 10).toString() + 'px;width:100px;height:30px;">' + character.name + '</div>');
   };
   character.framesPassed++;
   character.turnedThisFrame = false;
@@ -139,6 +139,8 @@ var drawField = function(){
       // TODO: this should be refactored so that it only draws within a radius of the player
       if( theField[y][x] === "N" ) {
         context.drawImage(seamless_stone, ( (SCREEN_WIDTH / 4) * x ) - backgroundScrollX, ( (SCREEN_HEIGHT / 4) * y ) - backgroundScrollY);
+      } else if( theField[y][x] === "5" ) {
+        context.drawImage(seamless_dirt, ( (SCREEN_WIDTH / 4) * x ) - backgroundScrollX, ( (SCREEN_HEIGHT / 4) * y ) - backgroundScrollY);
       } else {
         context.drawImage(seamless_grass, ( (SCREEN_WIDTH / 4) * x ) - backgroundScrollX, ( (SCREEN_HEIGHT / 4) * y ) - backgroundScrollY);
       };
@@ -152,8 +154,18 @@ var drawField = function(){
     drawOtherCharacter(otherPlayers[playerNames[i]], context);
   };
 
+  for (var i = npcs.length - 1; i >= 0; i--) {
+    context.drawImage(npcs[i].sprite, (npcs[i].pos_x - backgroundScrollX), (npcs[i].pos_y - backgroundScrollY), npcs[i].width, npcs[i].height);
+  };
+
   context.fillStyle = "#FF00FF";
   drawPlayer(context);
+
+  var itemsThisFrame = itemDisplays.slice(0);
+  for (var i = 0; i < itemsThisFrame.length; i++) {
+    context.drawImage(itemsThisFrame[i].drawItem(), (SCREEN_WIDTH / 2) - (itemsThisFrame[i].width / 2), 250, itemsThisFrame[i].width, itemsThisFrame[i].height );
+  };
+
 };
 
 var drawBattle = function(){
@@ -163,8 +175,8 @@ var drawBattle = function(){
 
   var totalEnemyWidth = 0;
 
-  if(inBattle === true) {
-    refreshBattleDisplay();
+  refreshBattleDisplay();
+  if(inBattle === true && deathScreenTime === 60) {
     battleDisplay(your_char, currentEnemies);
   }
 
@@ -196,10 +208,17 @@ var drawBattle = function(){
   for (var i = 0; i < slashesThisFrame.length; i++) {
     context.drawImage(slashesThisFrame[i].drawSlash(), slashesThisFrame[i].pos_x, slashesThisFrame[i].pos_y);
   };
+  var itemsThisFrame = itemDisplays.slice(0);
+  for (var i = 0; i < itemsThisFrame.length; i++) {
+    context.drawImage(itemsThisFrame[i].drawItem(), (SCREEN_WIDTH / 2) - (itemsThisFrame[i].width / 2), 250, itemsThisFrame[i].width, itemsThisFrame[i].height );
+  };
   var bloodThisFrame = bloodMarks.slice(0);
   for (var i = 0; i < bloodThisFrame.length; i++) {
     context.drawImage(bloodThisFrame[i].drawBlood(), bloodThisFrame[i].pos_x, bloodThisFrame[i].pos_y);
   };
+  if(your_char.health < 1 && bloodMarks.length < 1) {
+    context.drawImage(death_screen, 0, 0);
+  }
 }
 
 var drawGame = function(){
@@ -220,8 +239,8 @@ var Slash = function Slash(enemy) {
   this.currentFrame = 0;
   this.sprites = [slash01, slash02, slash03, slash04, slash05, slash06];
   this.currentSprite = -1;
-  this.pos_x = (enemy.pos_x - 60) + Math.floor(Math.random() * (100)) || 0;
-  this.pos_y = (enemy.pos_y - 125) + Math.floor(Math.random() * (100)) || 0;
+  this.pos_x = (enemy.pos_x - 60) + Math.floor(Math.random() * (enemy.width/1.5)) || 0;
+  this.pos_y = (enemy.pos_y - 125) + Math.floor(Math.random() * (enemy.height/1.5)) || 0;
 }
 
 Slash.prototype.drawSlash = function(){
@@ -252,4 +271,42 @@ Blood.prototype.drawBlood = function(){
     bloodMarks.splice(index, 1);
   }
   return blood_effect;
+}
+
+var Item = function Item(name) {
+  new Audio('<%= asset_path("Radiotune2.wav")%>').play();
+  this.width = 250;
+  this.height = 250;
+  this.sprite = current_background;
+  if(name === "potion") {
+    this.sprite = potion;
+    this.width = 143;
+    this.height = 250;
+  } else if(name === "honey grahams") {
+    this.sprite = honey;
+    this.width = 250;
+    this.height = 360;
+  } else if(name === "subway pizza") {
+    this.sprite = pizza;
+    this.width = 200;
+    this.height = 244;
+  } else if(name === "vampire fang") {
+    this.sprite = vampire_fang;
+    this.width = 86;
+    this.height = 101;
+  };
+  this.shrinkRate = this.width * 0.05;
+  this.currentFrame = 0;
+}
+
+Item.prototype.drawItem = function(){
+  this.currentFrame++;
+  if (this.currentFrame >= 25) {
+    var index = itemDisplays.indexOf(this);
+    itemDisplays.splice(index, 1);
+  }
+  if(this.currentFrame > 5) {
+    this.width -= this.shrinkRate;
+  }
+  return this.sprite;
 }

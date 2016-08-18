@@ -22,6 +22,7 @@
 //= require ./enemy.js.erb
 //= require ./controls.js.erb
 //= require ./info_window.js.erb
+//= require ./npc.js.erb
 //= require ./graphics.js.erb
 //= require ./socket.js.erb
 //= require ./battle.js.erb

@@ -14,6 +14,7 @@ class CharactersController < ApplicationController
       binding.pry
       flash[:notice] = "\"#{@character.name}\" has been successfully created."
       session[:character_id] = @character.id
+      3.times { @character.items << Item.new(name: "potion") }
     else
       flash[:notice] = @character.errors.full_messages.join("\n")
     end

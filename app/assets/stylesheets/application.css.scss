@@ -18,7 +18,7 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "http://fonts.googleapis.com/css?family=Rancho&effect=fire-animation";
+@import "https://fonts.googleapis.com/css?family=Rancho&effect=fire-animation";
 
 
 
@@ -57,12 +57,18 @@ h8 {
   font-family: Rancho;
 }
 
+
 h9{
   font-size: 20px;
   font-family: Rancho;
   color: #ff0000;
 
 }
+
+a{color: #00ff00;
+font-weight: 200;
+font-family: 'Passion One', cursive;
+font-size: 175%;}
 
 h10{
   font-size: 20px;

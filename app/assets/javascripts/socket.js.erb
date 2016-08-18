@@ -49,9 +49,15 @@ var setUpWebsocket = function(scheme){
           partyMembers.push(data.username);
         }
       // trade logic
-      } else if (data.requestTradeWith === your_character_name){
-        if (confirm(data.username + ' requests to trade with you')===true) {
-          console.log("TRADE INITIATE");
+      } else if (data.requestTradeWith === your_character_name && data.itemToGive === "confirm") {
+          console.log("HAYAKU!!!!");
+          givenItem = itemToGive;
+      }
+      else if (data.requestTradeWith === your_character_name){
+        if (confirm(data.username + ' requests to give you ' + data.itemToGive)===true) {
+          otherPlayertoTradeWith = data.username;
+          receivedItem = data.itemToGive;
+          itemToGive = "confirm";
         }
       }
       // party battles
@@ -84,6 +90,13 @@ var setUpWebsocket = function(scheme){
         console.log(currentEnemies[data.slashPos]);
         slashes.push(new Slash(currentEnemies[data.slashPos]));
       }
+
+      //chatMessage
+      if (data.chatMessage !== "") {
+        $("#chat-message-list").append('<li class="message">' + data.username + ": " + data.chatMessage + "</li>");
+        document.getElementById( 'bottom' ).scrollIntoView();
+      }
+
 
       // PVP logic
       // if (data.playerOpponent.indexOf(your_character_name) !== -1 && inBattle === false) {
@@ -137,20 +150,21 @@ var updateCharacters = function(){
     //   wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, currentEnemies: currentEnemies, inBattle: inBattle, usePotion: usePotion, battleOver: battleOver, slashPos: slashPos, leaveParty: leaveParty, playerOpponent: playerOpponent, direction: your_char.direction}) );
     // }
     if(partyMembers.length < 1) {  // no party members
-      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, inBattle: inBattle, direction: your_char.direction}) );
+      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, inBattle: inBattle, direction: your_char.direction, chatMessage: chatMessage, itemToGive: itemToGive}) );
     } else { // in party
-      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, currentEnemies: currentEnemies, inBattle: inBattle, battleOver: battleOver, slashPos: slashPos, leaveParty: leaveParty, direction: your_char.direction, battleId: battleId}) );
+      wSocket.send( JSON.stringify({logout: false, pos_x: your_char.pos_x, pos_y: your_char.pos_y, username: your_character_name, requestPartyWith: otherPlayertoPartyWith, requestTradeWith: otherPlayertoTradeWith, partyMembers: partyMembers, currentEnemies: currentEnemies, inBattle: inBattle, battleOver: battleOver, slashPos: slashPos, leaveParty: leaveParty, direction: your_char.direction, battleId: battleId, chatMessage: chatMessage, itemToGive: itemToGive}) );
     }
     slashPos = -1;
     otherPlayertoPartyWith = "";
     otherPlayertoTradeWith = "";
+    chatMessage = "";
     usePotion = false;
     if (partyMembers.length === 0){leaveParty = false;}
     if (leaveParty === true || partyMembers.length === 1){partyMembers = [];}
   };
 };
 
-var setCharacterUpdate = function(character_name, character_pos_x, character_pos_y, character_attack, character_health, character_XP, character_defense, character_max_health) {
+var setCharacterUpdate = function(character_name, character_pos_x, character_pos_y, character_attack, character_health, character_XP, character_defense, character_max_health, character_level) {
     your_character_name = character_name;
     your_char.name = character_name;
     your_char.pos_x = character_pos_x;
@@ -158,12 +172,14 @@ var setCharacterUpdate = function(character_name, character_pos_x, character_pos
     your_char.attack = character_attack;
     your_char.health = character_health;
     your_char.xp = character_XP;
+    your_char.level = character_level;
     your_char.defense = character_defense;
     your_char.max_health = character_max_health;
     setInterval(updateCharacters, FRAME_RATE/1.5);
 };
 
 var logout = function() {
+  console.log("logout");
   wSocket.send( JSON.stringify({logout: true, username: your_character_name}) );
 };
 

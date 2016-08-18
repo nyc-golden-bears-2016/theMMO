@@ -22,34 +22,34 @@ var Enemy = function Enemy() {
 var enemyMake = function(type) {
   var enemy = new Enemy;
   if (type === "slime") {
-    enemy.xp = 1;
+    enemy.xp = 5;
     enemy.name = "slime";
     enemy.item = "potion";
-    enemy.dropRate = 0.2;
+    enemy.dropRate = 0.5;
     enemy.width = 174;
     enemy.height = 131;
-    enemy.attack = 4 + Math.floor(Math.random() * 4);
-    enemy.defense = 4 + Math.floor(Math.random() * 4);
-    enemy.attackSpeed = 70 + Math.floor(Math.random() * 35);
-    enemy.maxHealth = 30 + Math.floor(Math.random() * 30);
+    enemy.attack = 25 + Math.floor(Math.random() * 25);
+    enemy.defense = 1 + Math.floor(Math.random() * 2);
+    enemy.attackSpeed = 150 + Math.floor(Math.random() * 25);
+    enemy.maxHealth = 300 + Math.floor(Math.random() * 100);
     enemy.sprites = {stand: slime_stand01,
                     attack: slime_attack01};
   } else if (type === "bat") {
-    enemy.xp = 2;
+    enemy.xp = 10;
     enemy.name = "bat";
     enemy.width = 159;
-    enemy.item = "vampire fang";
-    enemy.dropRate = 0.5;
     enemy.height = 129;
-    enemy.attack = 10 + Math.floor(Math.random() * 10);
-    enemy.defense = 4 + Math.floor(Math.random() * 4);
-    enemy.attackSpeed = 125 + Math.floor(Math.random() * 62);
-    enemy.maxHealth = 35 + Math.floor(Math.random() * 35);
+    enemy.item = "vampire fang";
+    enemy.dropRate = 0.25;
+    enemy.attack = 35 + Math.floor(Math.random() * 10);
+    enemy.defense = 1 + Math.floor(Math.random() * 1);
+    enemy.attackSpeed = 175 + Math.floor(Math.random() * 25);
+    enemy.maxHealth = 150 + Math.floor(Math.random() * 35);
     enemy.sprites = {stand: bat_stand01,
                     attack: bat_attack01};
   } else if (type === "rat") {
     var enemy = new Enemy;
-    enemy.xp = 20;
+    enemy.xp = 200;
     enemy.name = "rat";
     enemy.width = 250;
     enemy.item = "subway pizza";
@@ -63,9 +63,10 @@ var enemyMake = function(type) {
                     attack: rat_attack01};
   } else if (type === "bee") {
     var enemy = new Enemy;
-    enemy.xp = 20;
+    enemy.xp = 200;
     enemy.name = "bee";
     enemy.width = 250;
+    this.pos_y = 230;
     enemy.item = "honey grahams";
     enemy.dropRate = 1.0;
     enemy.height = 250;
@@ -75,7 +76,38 @@ var enemyMake = function(type) {
     enemy.maxHealth = 300 + Math.floor(Math.random() * 50);
     enemy.sprites = {stand: bee_stand01,
                     attack: bee_attack01};
-  } else if (type === "player") {
+
+  // BOSSES
+  } else if (type === "trogdor") {
+    enemy.pos_y = 150;
+    enemy.xp = 1000;
+    enemy.name = "trogdor";
+    enemy.width = 442;
+    enemy.item = "trogdor head";
+    enemy.dropRate = 0.5;
+    enemy.height = 448;
+    enemy.attack = 100 + Math.floor(Math.random() * 100);
+    enemy.defense = 50 + Math.floor(Math.random() * 4);
+    enemy.attackSpeed = 175 + Math.floor(Math.random() * 75);
+    enemy.maxHealth = 2500 + Math.floor(Math.random() * 500);
+    enemy.sprites = {stand: trogdor_stand01,
+                    attack: trogdor_attack01};
+  } else if (type === "kudler") {
+    enemy.pos_y = 180;
+    enemy.xp = 1000;
+    enemy.name = "kudler";
+    enemy.width = 350;
+    enemy.item = "locket of hair";
+    enemy.dropRate = 0.5;
+    enemy.height = 400;
+    enemy.attack = 100 + Math.floor(Math.random() * 100);
+    enemy.defense = 50 + Math.floor(Math.random() * 4);
+    enemy.attackSpeed = 175 + Math.floor(Math.random() * 75);
+    enemy.maxHealth = 2500 + Math.floor(Math.random() * 500);
+    enemy.sprites = {stand: ben_stand01,
+                    attack: ben_attack01};
+  }
+  else if (type === "player") {
     enemy.width = 70;
     enemy.height = 100;
     enemy.name = "player";
@@ -115,6 +147,6 @@ Enemy.prototype.setPose = function(pose) {
 Enemy.prototype.attackPlayer = function(player) {
   bloodMarks.push(new Blood);
   new Audio('<%= asset_path("hit-arg3.wav")%>').play();
-  player.health -= this.attack;
+  player.health -= Math.floor(Math.max((this.attack - (Math.random() * your_char.defense * 0.50) - your_char.defense * 0.75), 1));
 }
 
