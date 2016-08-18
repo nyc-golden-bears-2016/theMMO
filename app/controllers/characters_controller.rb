@@ -11,7 +11,6 @@ class CharactersController < ApplicationController
   def create
     @character = current_user.characters.build(character_params)
     if @character.save
-      binding.pry
       flash[:notice] = "\"#{@character.name}\" has been successfully created."
       session[:character_id] = @character.id
       3.times { @character.items << Item.new(name: "potion") }
