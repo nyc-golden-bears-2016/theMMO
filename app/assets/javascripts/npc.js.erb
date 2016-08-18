@@ -14,9 +14,15 @@ var npcMake = function(name){
     npc.pos_x = 3000;
     npc.pos_y = 2000;
     npc.sprite = trogdor_stand01;
+  } else if (name === "kudler"){
+    npc.name = "kudler"
+    npc.pos_x = 450;
+    npc.pos_y = 1729;
+    npc.sprite = ben_stand01;
   }
   return npc;
 }
 
 npcs.push(npcMake("trogdor"));
+npcs.push(npcMake("kudler"));
 
