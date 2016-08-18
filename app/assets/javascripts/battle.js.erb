@@ -40,6 +40,8 @@ var prepareBattle = function(){
       currentEnemies.push(enemyMake("lysol"));
     } else if (typeOfEnemy === 6) {
       currentEnemies.push(enemyMake("purpleguy"));
+    } else if (typeOfEnemy === 7) {
+      currentEnemies.push(enemyMake("Marco"));
     } else {
       currentEnemies.push(enemyMake("missing no."));
     }
@@ -73,6 +75,8 @@ var prepareBossBattle = function(boss){
     bosses.push(enemyMake("trogdor"));
   } else if (boss === "kudler") {
     bosses.push(enemyMake("kudler"));
+  } else if (boss === "Marco") {
+    bosses.push(enemyMake("Marco"));
   } //else if (boss === "bossname") {
   //   bosses.push(enemyMake("bossname"));
   // }

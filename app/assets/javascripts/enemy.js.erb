@@ -105,6 +105,21 @@ var enemyMake = function(type) {
     enemy.maxHealth = 4000 + Math.floor(Math.random() * 50);
     enemy.sprites = {stand: purpleguy_stand01,
                     attack: purpleguy_attack01};
+  } else if (type === "Marco") {
+    var enemy = new Enemy;
+    enemy.xp = 200;
+    enemy.name = "Marco";
+    enemy.width = 322;
+    enemy.pos_y = 120;
+    enemy.item = "Credit Card";
+    enemy.dropRate = 1.0;
+    enemy.height = 467;
+    enemy.attack = 2 + Math.floor(Math.random() * 10);
+    enemy.defense = 6 + Math.floor(Math.random() * 6);
+    enemy.attackSpeed = 50 + Math.floor(Math.random() * 25);
+    enemy.maxHealth = 200 + Math.floor(Math.random() * 50);
+    enemy.sprites = {stand: Marco_stand01,
+                    attack: Marco_attack01};
 
   // BOSSES
   } else if (type === "trogdor") {
