@@ -23,8 +23,9 @@ var informationWindow = function(player, party) {
 
 //party
 	if (party == ""){
-		$("#partyMembers").remove();
+		$("#partyMembers").hide();
 	} else {
+		$("#partyMembers").show();
 		$.each(party,
 		  function(index, member) {
 		    $('<p style="margin-bottom:0px;"></p>')
