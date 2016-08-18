@@ -8,9 +8,9 @@ var determineNumberOfEnemies = function() {
 
 var determineEnemyType = function() {
   if(your_char.pos_x > SCREEN_WIDTH * 3 && your_char.pos_y  > SCREEN_HEIGHT * 2) {
-    return Math.floor( (Math.random() * 3) + 2);
+    return Math.floor( (Math.random() * 5) + 2);
   } else {
-    return Math.floor( (Math.random() * 2) + 1);
+    return Math.floor( (Math.random() * 4) + 1);
   }
 }
 
@@ -34,6 +34,10 @@ var prepareBattle = function(){
       currentEnemies.push(enemyMake("bee"));
     } else if (typeOfEnemy === 4) {
       currentEnemies.push(enemyMake("rat"));
+    } else if (typeOfEnemy === 5) {
+      currentEnemies.push(enemyMake("lysol"));
+    } else if (typeOfEnemy === 6) {
+      currentEnemies.push(enemyMake("purpleguy"));
     } else {
       currentEnemies.push(enemyMake("missing no."));
     }

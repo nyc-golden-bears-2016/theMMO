@@ -76,6 +76,35 @@ var enemyMake = function(type) {
     enemy.maxHealth = 300 + Math.floor(Math.random() * 50);
     enemy.sprites = {stand: bee_stand01,
                     attack: bee_attack01};
+  } else if (type === "lysol") {
+    var enemy = new Enemy;
+    enemy.xp = 200;
+    enemy.name = "lysol";
+    enemy.width = 250;
+    enemy.pos_y = 100;
+    enemy.item = "GET ONE FREE!!";
+    enemy.dropRate = 1.0;
+    enemy.height = 200;
+    enemy.attack = 2 + Math.floor(Math.random() * 10);
+    enemy.defense = 6 + Math.floor(Math.random() * 6);
+    enemy.attackSpeed = 50 + Math.floor(Math.random() * 25);
+    enemy.maxHealth = 200 + Math.floor(Math.random() * 50);
+    enemy.sprites = {stand: lysol_stand01,
+                    attack: lysol_attack01};
+  } else if (type === "purpleguy") {
+    var enemy = new Enemy;
+    enemy.xp = 200;
+    enemy.name = "purpleguy";
+    enemy.width = 250;
+    enemy.item = "DBC T-shirt";
+    enemy.dropRate = 1.0;
+    enemy.height = 200;
+    enemy.attack = 2 + Math.floor(Math.random() * 10);
+    enemy.defense = 6 + Math.floor(Math.random() * 6);
+    enemy.attackSpeed = 50 + Math.floor(Math.random() * 25);
+    enemy.maxHealth = 200 + Math.floor(Math.random() * 50);
+    enemy.sprites = {stand: purpleguy_stand01,
+                    attack: purpleguy_attack01};
 
   // BOSSES
   } else if (type === "trogdor") {
