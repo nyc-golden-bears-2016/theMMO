@@ -56,9 +56,9 @@
         $('#slider').not(this).each(function () {
             total += $(this).slider('value');
         })
-        if (total > 100) {
-            return false;
-          }
+        // if (total > 100) {
+        //     return false;
+        //   }
     },
     change: function(ev, ui0) {
       $('input#character_attack').val(ui0.value);
@@ -74,11 +74,12 @@
         $('#slider').not(this).each(function () {
             total += $(this).slider('value');
         })
-        if (total > 100) {
-            return false;
-          }
+        // if (total > 100) {
+        //     return false;
+        //   }
     },
     change: function(ev, ui0) {
+      console.log("changed");
       $('input#character_defense').val(ui0.value);
     }
 });
@@ -91,15 +92,31 @@
         $('#slider').not(this).each(function () {
             total += $(this).slider('value');
         })
-        if (total > 100) {
-            return false;
-          }
+        // if (total > 100) {
+        //     return false;
+        //   }
     },
     change: function(ev, ui0) {
       $('input#character_max_health').val(ui0.value);
     }
 
 });
-    $('#total').text(ui);
+   var correctBars = function() {
+    var total = 0;
+    total += $(".slider1").slider('value');
+    total += $(".slider2").slider('value');
+    if(total > 100) {
+      $(".slider2").slider('value', 100 - $(".slider1").slider('value'));
+      total = 0;
+      total += $(".slider1").slider('value');
+      total += $(".slider2").slider('value');
+    }
+    total += $(".slider3").slider('value');
+    if(total > 100) {
+      $(".slider3").slider('value', 100 - ($(".slider1").slider('value') + $(".slider2").slider('value')));
+    }
+    console.log(total);
+   }
+   setInterval(correctBars, 33);
 
 </script>

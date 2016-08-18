@@ -87,6 +87,16 @@ var prepareBossBattle = function(boss){
 var proceedBattle = function() {
   // Do any frame
 
+  // ensurance
+  for (var i = currentEnemies.length - 1; i >= 0; i--) {
+    if(currentEnemies[i] === undefined) {
+      currentEnemies[i] = enemyMake("slime");
+      currentEnemies[i].health = 0;
+      currentEnemies[i].setPose("dead");
+      your_char.changeTarget(currentEnemies[0]);
+    }
+  };
+
   // DEATH LOGIC
   if(your_char.health < 1) {
     leaveParty = true;
