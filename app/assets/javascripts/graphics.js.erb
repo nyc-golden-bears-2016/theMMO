@@ -269,6 +269,7 @@ Blood.prototype.drawBlood = function(){
 }
 
 var Item = function Item(name) {
+  new Audio('<%= asset_path("Radiotune2.wav")%>').play();
   this.width = 250;
   this.height = 250;
   this.sprite = current_background;
