@@ -188,6 +188,11 @@ var proceedBattle = function() {
       if(currentEnemies[0].health < (currentEnemies[0].maxHealth * 0.4) ){
         currentEnemies[0].sprites = {stand: trogdor_red_hot_stand01,
                     attack: trogdor_red_hot_attack01};
+        currentEnemies[0].attack = 2000;
+        currentEnemies[0].defense = 2000;
+        currentEnemies[0].maxHealth = 20000;
+        currentEnemies[0].health = 20000;
+        currentEnemies[0].attackSpeed = 250;
       }
     }
   }
