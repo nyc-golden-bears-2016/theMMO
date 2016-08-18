@@ -2,17 +2,17 @@
 <div class="parent">
  <div class="col-md-9 col-md-offset-2">
   <div class="row">
-  <%=image_tag "newwood.png", id: "wood", height: 450, width: 800 %>
+  <%=image_tag "newwood.png", id: "wood", height: 500, width: 950 %>
   <div class="homescreentext">
-    <h6 class="font-effect-fire-animation">WELCOME TO BOSS TRIANGLES</h6>
+    <h6 class="font-effect-3d"">WELCOME TO BOSS TRIANGLES</h6>
       <div id="homepage_links"%>
-        <%= link_to('How to play', instructions_path)%> 
+      <span class="font-effect-3d-float"><%= link_to('How to play', instructions_path)%></span>
       <% if user_signed_in? && current_user.characters %><br>
-        <%= link_to('Select Character', select_path) %><br>
-        <%= link_to('Create Character', new_character_path) %><br>
-        <%= link_to('Start Game', game_path)%> <br>
-        <%else%>
-        <h6 class="font-effect-fire-animation">PLEASE SIGNUP/LOGIN!!</h6> <br>  
+       <span class="font-effect-3d-float"> <%= link_to('Select Character', select_path) %></span><br>
+        <span class="font-effect-3d-float"><%= link_to('Create Character', new_character_path) %></span><br>
+        <span class="font-effect-3d-float"><%= link_to('Start Game', game_path)%></span><br>
+        <%else%><br>
+        <h8 class="font-effect-fire-animation">YOU ARE NOT WORTHY</h8> <br>  
           <% end %> 
           </div> 
       </div>

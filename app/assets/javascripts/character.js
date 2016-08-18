@@ -48,25 +48,69 @@ Character.prototype.faceDirection = function(direction) {
     this.direction = direction;
   }
 }
-function showValue(newValue)
-{
-  document.getElementById("range").innerHTML=newValue;
-}
+// function showValue(newValue)
+// {
+//   document.getElementById("range").innerHTML=newValue;
+// }
 
-function showValue1(newValue1)
-{
-  document.getElementById("range1").innerHTML=newValue1;
+// function showValue1(newValue1)
+// {
+//   document.getElementById("range1").innerHTML=newValue1;
   
-}
+// }
 
-function showValue2(newValue2)
-{
-  document.getElementById("range2").innerHTML=newValue2;
+// function showValue2(newValue2)
+// {
+//   document.getElementById("range2").innerHTML=newValue2;
   
-}
+//  $('.slider1').slider({
+//         min: 0,
+//         max: 100,
+//     slide: function (ev, ui) {
+//         var total = ui.value;
+//         $('#slider').not(this).each(function () {
+//             total += $(this).slider('value'); 
+//         })
+//         if (total > 100) {
+//             return false;
+//           }
+//     },
+//     change: function(ev, ui0) {
+//       $('input#character_attack').val(ui0.value);        
+//     }
+// });
 
-function showValue3(newValue3)
-{
-  document.getElementById("range3").innerHTML=newValue3;
-  
-}
+//   $('.slider2').slider({
+//         min: 0,
+//         max: 100,
+//     slide: function (ev, ui) {
+//         var total = ui.value;
+//         $('#slider').not(this).each(function () {
+//             total += $(this).slider('value'); 
+//         })
+//         if (total > 100) {
+//             return false;
+//           }
+//     },
+//     change: function(ev, ui0) {
+//       $('input#character_defense').val(ui0.value);        
+//     }
+// });
+//    $('.slider3').slider({
+//         min: 0,
+//         max: 100,
+//     slide: function (ev, ui) {
+//         var total = ui.value;
+//         $('#slider').not(this).each(function () {
+//             total += $(this).slider('value'); 
+//         })
+//         if (total > 100) {
+//             return false;
+//           }
+//     },
+//     change: function(ev, ui0) {
+//       $('input#character_max_health').val(ui0.value);        
+//     }
+// });
+
+
