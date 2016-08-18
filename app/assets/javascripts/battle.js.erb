@@ -8,7 +8,7 @@ var determineNumberOfEnemies = function() {
 
 var determineEnemyType = function() {
   if(your_char.pos_x > SCREEN_WIDTH * 3 && your_char.pos_y  > SCREEN_HEIGHT * 2) {
-    return Math.floor( (Math.random() * 5) + 2);
+    return Math.floor( (Math.random() * 5) + 3);
   } else {
     return Math.floor( (Math.random() * 4) + 1);
   }
@@ -38,6 +38,8 @@ var prepareBattle = function(){
       currentEnemies.push(enemyMake("lysol"));
     } else if (typeOfEnemy === 6) {
       currentEnemies.push(enemyMake("purpleguy"));
+    } else if (typeOfEnemy === 7) {
+      currentEnemies.push(enemyMake("Marco"));
     } else {
       currentEnemies.push(enemyMake("missing no."));
     }
