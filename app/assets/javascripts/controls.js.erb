@@ -29,7 +29,7 @@ var processInputBuffer = function(){
     };
   }
 
-  if(inBattle) { // Battle controls
+  if(inBattle === true && deathScreenTime === 60) { // Battle controls
     if((keys_pressed.indexOf(66) != -1) && (keys_pressed_checker.indexOf(66) === -1) ) {
       keys_pressed_checker.push(66);
       if(your_char.enemyTarget) {

@@ -65,6 +65,8 @@ var prepareBossBattle = function(boss){
   bosses = [];
   if (boss === "trogdor") {
     bosses.push(enemyMake("trogdor"));
+  } else if (boss === "kudler") {
+    bosses.push(enemyMake("kudler"));
   } //else if (boss === "bossname") {
   //   bosses.push(enemyMake("bossname"));
   // }
@@ -77,25 +79,36 @@ var proceedBattle = function() {
 
   // DEATH LOGIC
   if(your_char.health < 1) {
-    alert("you ded");
-    refreshBattleDisplay();
-    keys_pressed = [];
-    keys_pressed_checker = [];
-    clicked = [];
-    clickLocation = [];
-    your_char.max_health = Math.floor(your_char.max_health / 2);
-    your_char.attack = Math.floor(your_char.attack / 2);
-    your_char.defense = Math.floor(your_char.defense / 2);
-    your_char.pos_x = 483;
-    your_char.pos_y = 2016;
-    inBattle = false;
-    battleOver = true;
-    your_char.health = your_char.max_health;
-    $.ajax({
-      url: "/characters/auto_save",
-      method: "PATCH",
-      data: {pos_x: your_char.pos_x, pos_y: your_char.pos_y, max_health: your_char.max_health, attack: your_char.attack, xp: your_char.xp, level: your_char.level, defense: your_char.defense, health: your_char.health}
-    });
+    if(bloodMarks.length > 0) {
+      for (var i = currentEnemies.length - 1; i >= 0; i--) {
+        currentEnemies[i].attackSpeed = 0;
+      };
+    } else {
+      deathScreenTime--;
+    }
+    if(deathScreenTime < 0) {
+      deathScreenTime = 60;
+      refreshBattleDisplay();
+      keys_pressed = [];
+      keys_pressed_checker = [];
+      clicked = [];
+      clickLocation = [];
+      your_char.max_health = Math.floor(your_char.max_health / 2);
+      your_char.attack = Math.floor(your_char.attack / 2);
+      your_char.defense = Math.floor(your_char.defense / 2);
+      your_char.pos_x = 483;
+      your_char.pos_y = 2016;
+      inBattle = false;
+      battleOver = true;
+      your_char.health = your_char.max_health;
+      $.ajax({
+        url: "/characters/auto_save",
+        method: "PATCH",
+        data: {pos_x: your_char.pos_x, pos_y: your_char.pos_y, max_health: your_char.max_health, attack: your_char.attack, xp: your_char.xp, level: your_char.level, defense: your_char.defense, health: your_char.health}
+      });
+    }
+  } else {
+    deathScreenTime = 60;
   }
 
   // ITEM EFFECTS (Cooldowns)
@@ -127,7 +140,7 @@ var proceedBattle = function() {
     if(battleOver === true) {
       playerOpponent = "";
       if(messagesLoaded === false) {
-        victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + SCREEN_HEIGHT / 4 + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;">YOU WIN!!</div>');
+        victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + (SCREEN_HEIGHT / 4 + 20) + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;">YOU WIN!!</div>');
         totalxp = 0;
         for (var i = currentEnemies.length - 1; i >= 0; i--) {
           if(Math.random() < currentEnemies[i].dropRate) {
@@ -140,7 +153,7 @@ var proceedBattle = function() {
             var currentInventory = your_char.inventory.filter(function(item) {
               return item === currentEnemies[i].item;
             });
-            victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + SCREEN_HEIGHT / 4 + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;">Obtained ' + currentEnemies[i].item + '!<br>Now hold: ' + currentInventory.length + '</div>')
+            victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + (SCREEN_HEIGHT / 4 + 20) + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;">Obtained ' + currentEnemies[i].item + '!<br>Now hold: ' + currentInventory.length + '</div>')
           };
           your_char.xp += currentEnemies[i].xp;
           totalxp += currentEnemies[i].xp;
@@ -148,11 +161,11 @@ var proceedBattle = function() {
         var previousLevel = your_char.level;
         calculateLevel();
         var currentLevel = your_char.level;
-        victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + SCREEN_HEIGHT / 4 + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;">Gained '+ totalxp +' xp points!</div>')
+        victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + (SCREEN_HEIGHT / 4 + 20) + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;">Gained '+ totalxp +' xp points!</div>')
         if (currentLevel > previousLevel){
-          victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + SCREEN_HEIGHT / 4 + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;">You leveled up to level '+ currentLevel +'! CONGRATULATIONS!!</div>')
+          victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + (SCREEN_HEIGHT / 4 + 20) + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;">You leveled up to level '+ currentLevel +'! CONGRATULATIONS!!</div>')
         };
-        victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + SCREEN_HEIGHT / 4 + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;"></div>')
+        victoryMessages.push('<div class="battle-message" style="position:absolute;background-color:white;top:' + (SCREEN_HEIGHT / 4 + 20) + 'px;left:' + SCREEN_WIDTH / 4 + 'px;width:400px;height:200px;"></div>')
         messagesLoaded = true;
         $("body").prepend(victoryMessages.shift());
         currentEnemies = [];

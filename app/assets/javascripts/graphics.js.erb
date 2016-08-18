@@ -6,11 +6,11 @@ var theField =[["X","X","X","X",  "X","X","X","X",  "X","X","X","X",  "X","X","X
                ["X","X","X","X",  "X","X","X","X",  "X","X","X","N",  "X","X","X","X"],
 
                ["X","X","X","X",  "X","X","X","X",  "X","X","X","N",  "X","X","X","X"],
-               ["X","X","X","X",  "X","N","X","N",  "X","N","X","N",  "X","X","X","X"],
-               ["X","X","X","X",  "X","X","X","X",  "X","X","X","N",  "X","X","X","X"],
-               ["X","X","X","X",  "X","N","X","N",  "X","N","X","N",  "X","X","X","X"],
+               ["X","X","X","X",  "X","N","5","N",  "5","N","X","N",  "X","X","X","X"],
+               ["X","X","X","X",  "X","5","5","5",  "5","5","X","N",  "X","X","X","X"],
+               ["X","X","X","X",  "X","N","5","N",  "5","N","X","N",  "X","X","X","X"],
 
-               ["X","X","X","X",  "X","N","X","N",  "N","N","N","N",  "X","X","X","X"],
+               ["X","X","X","X",  "X","N","5","N",  "N","N","N","N",  "X","X","X","X"],
                ["X","X","X","X",  "X","X","X","N",  "X","X","X","X",  "X","X","X","5"],
                ["X","X","X","X",  "X","N","X","N",  "X","X","X","X",  "X","5","5","5"],
                ["X","X","X","X",  "X","N","X","N",  "X","X","X","X",  "5","5","5","5"],
@@ -175,8 +175,8 @@ var drawBattle = function(){
 
   var totalEnemyWidth = 0;
 
-  if(inBattle === true) {
-    refreshBattleDisplay();
+  refreshBattleDisplay();
+  if(inBattle === true && deathScreenTime === 60) {
     battleDisplay(your_char, currentEnemies);
   }
 
@@ -216,6 +216,9 @@ var drawBattle = function(){
   for (var i = 0; i < bloodThisFrame.length; i++) {
     context.drawImage(bloodThisFrame[i].drawBlood(), bloodThisFrame[i].pos_x, bloodThisFrame[i].pos_y);
   };
+  if(your_char.health < 1 && bloodMarks.length < 1) {
+    context.drawImage(death_screen, 0, 0);
+  }
 }
 
 var drawGame = function(){
@@ -237,7 +240,7 @@ var Slash = function Slash(enemy) {
   this.sprites = [slash01, slash02, slash03, slash04, slash05, slash06];
   this.currentSprite = -1;
   this.pos_x = (enemy.pos_x - 60) + Math.floor(Math.random() * (enemy.width/1.5)) || 0;
-  this.pos_y = (enemy.pos_y - 125) + Math.floor(Math.random() * (100)) || 0;
+  this.pos_y = (enemy.pos_y - 125) + Math.floor(Math.random() * (enemy.height/1.5)) || 0;
 }
 
 Slash.prototype.drawSlash = function(){
