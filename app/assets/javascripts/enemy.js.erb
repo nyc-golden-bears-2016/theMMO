@@ -78,41 +78,42 @@ var enemyMake = function(type) {
                     attack: bee_attack01};
   } else if (type === "lysol") {
     var enemy = new Enemy;
-    enemy.xp = 200;
+    enemy.xp = 1000;
     enemy.name = "lysol";
     enemy.width = 250;
     enemy.pos_y = 100;
     enemy.item = "GET ONE FREE!!";
-    enemy.dropRate = 1.0;
+    enemy.dropRate = 0.8;
     enemy.height = 200;
-    enemy.attack = 2 + Math.floor(Math.random() * 10);
-    enemy.defense = 6 + Math.floor(Math.random() * 6);
+    enemy.attack = 400 + Math.floor(Math.random() * 10);
+    enemy.defense = 18 + Math.floor(Math.random() * 6);
     enemy.attackSpeed = 50 + Math.floor(Math.random() * 25);
-    enemy.maxHealth = 200 + Math.floor(Math.random() * 50);
+    enemy.maxHealth = 6000 + Math.floor(Math.random() * 50);
     enemy.sprites = {stand: lysol_stand01,
                     attack: lysol_attack01};
   } else if (type === "purpleguy") {
     var enemy = new Enemy;
-    enemy.xp = 200;
+    enemy.xp = 1500;
     enemy.name = "purpleguy";
     enemy.width = 250;
     enemy.item = "DBC T-shirt";
-    enemy.dropRate = 1.0;
+    enemy.dropRate = 0.4;
     enemy.height = 200;
-    enemy.attack = 2 + Math.floor(Math.random() * 10);
-    enemy.defense = 6 + Math.floor(Math.random() * 6);
-    enemy.attackSpeed = 50 + Math.floor(Math.random() * 25);
-    enemy.maxHealth = 200 + Math.floor(Math.random() * 50);
+    enemy.attack = 400 + Math.floor(Math.random() * 10);
+    enemy.defense = 20 + Math.floor(Math.random() * 6);
+    enemy.attackSpeed = 170 + Math.floor(Math.random() * 25);
+    enemy.maxHealth = 4000 + Math.floor(Math.random() * 50);
     enemy.sprites = {stand: purpleguy_stand01,
                     attack: purpleguy_attack01};
   } else if (type === "Marco") {
     var enemy = new Enemy;
     enemy.xp = 200;
     enemy.name = "Marco";
-    enemy.width = 250;
-    enemy.item = "Marco's Credit Card";
+    enemy.width = 322;
+    enemy.pos_y = 120;
+    enemy.item = "Credit Card";
     enemy.dropRate = 1.0;
-    enemy.height = 200;
+    enemy.height = 467;
     enemy.attack = 2 + Math.floor(Math.random() * 10);
     enemy.defense = 6 + Math.floor(Math.random() * 6);
     enemy.attackSpeed = 50 + Math.floor(Math.random() * 25);
@@ -137,16 +138,16 @@ var enemyMake = function(type) {
                     attack: trogdor_attack01};
   } else if (type === "kudler") {
     enemy.pos_y = 180;
-    enemy.xp = 1000;
+    enemy.xp = 20000;
     enemy.name = "kudler";
     enemy.width = 350;
     enemy.item = "locket of hair";
     enemy.dropRate = 0.5;
     enemy.height = 400;
-    enemy.attack = 100 + Math.floor(Math.random() * 100);
-    enemy.defense = 50 + Math.floor(Math.random() * 4);
+    enemy.attack = 4000 + Math.floor(Math.random() * 100);
+    enemy.defense = 4000 + Math.floor(Math.random() * 4);
     enemy.attackSpeed = 175 + Math.floor(Math.random() * 75);
-    enemy.maxHealth = 2500 + Math.floor(Math.random() * 500);
+    enemy.maxHealth = 40000 + Math.floor(Math.random() * 500);
     enemy.sprites = {stand: ben_stand01,
                     attack: ben_attack01};
   }

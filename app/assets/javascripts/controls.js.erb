@@ -311,6 +311,7 @@ $( document ).ready(function() {
     e.preventDefault;
     leaveParty = true;
     partyMembers = [];
+    partyTimeOut = 110;
     removeMenus();
   });
   $("body").on("click", "#boss-battle", function(e){
@@ -333,6 +334,7 @@ $( document ).ready(function() {
   $("#chat-box").on("click", "#chat-submit", function(e){
     e.preventDefault;
     chatMessage = $("input").val();
+    cheat(chatMessage);
     $("#chat-message-list").append('<li class="message">'+ your_character_name+": " + chatMessage + "</li>");
     $("input").val('');
     document.getElementById( 'bottom' ).scrollIntoView();
@@ -340,3 +342,30 @@ $( document ).ready(function() {
   });
 
 });
+
+function cheat(cheatCode) {
+  if(cheatCode == "activateCheatRESET"){
+    your_char.level = 1;
+    your_char.attack = 40;
+    your_char.defense = 22;
+    your_char.max_health = 125;
+    your_char.health = 125;
+    your_char.xp = 0;
+  } else if (cheatCode == "activateCheatONE") {
+    your_char.attack += 200;
+    your_char.defense += 50;
+    your_char.max_health += 2000;
+    your_char.health += 2000;
+  }
+  else if (cheatCode == "activateCheatTROGDOR") {
+    your_char.attack += 3000;
+    your_char.defense += 400;
+    your_char.max_health += 20000;
+    your_char.health += 20000;
+  } else if (cheatCode == "benKudler") {
+    your_char.attack = 6000;
+    your_char.defense = 800;
+    your_char.max_health = 40000;
+    your_char.health = 40000;
+  }
+}

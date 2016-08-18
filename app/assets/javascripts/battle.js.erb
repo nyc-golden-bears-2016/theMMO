@@ -1,5 +1,5 @@
 var determineNumberOfEnemies = function() {
-  if(your_char.pos_x > SCREEN_WIDTH * 3 && your_char.pos_y  > SCREEN_HEIGHT * 2) {
+  if(your_char.pos_x > SCREEN_WIDTH * 2 && your_char.pos_y  > SCREEN_HEIGHT * 1) {
     return Math.floor( (Math.random() * 3) + 1)
   } else {
     return Math.floor( (Math.random() * 4) + 1)
@@ -8,9 +8,11 @@ var determineNumberOfEnemies = function() {
 
 var determineEnemyType = function() {
   if(your_char.pos_x > SCREEN_WIDTH * 3 && your_char.pos_y  > SCREEN_HEIGHT * 2) {
-    return Math.floor( (Math.random() * 5) + 3);
+    return Math.floor( (Math.random() * 2) + 5);
+  } else if(your_char.pos_x > SCREEN_WIDTH * 2 && your_char.pos_y  > SCREEN_HEIGHT * 1) {
+    return Math.floor( (Math.random() * 3) + 2);
   } else {
-    return Math.floor( (Math.random() * 4) + 1);
+    return Math.floor( (Math.random() * 2) + 1);
   }
 }
 
@@ -73,6 +75,8 @@ var prepareBossBattle = function(boss){
     bosses.push(enemyMake("trogdor"));
   } else if (boss === "kudler") {
     bosses.push(enemyMake("kudler"));
+  } else if (boss === "Marco") {
+    bosses.push(enemyMake("Marco"));
   } //else if (boss === "bossname") {
   //   bosses.push(enemyMake("bossname"));
   // }
@@ -85,9 +89,12 @@ var proceedBattle = function() {
 
   // DEATH LOGIC
   if(your_char.health < 1) {
+    leaveParty = true;
+    partyMembers = [];
+    partyTimeOut = 110;
     if(bloodMarks.length > 0) {
       for (var i = currentEnemies.length - 1; i >= 0; i--) {
-        currentEnemies[i].attackSpeed = 0.892372;
+        currentEnemies[i].attackSpeed = "";
       };
     } else {
       deathScreenTime--;
