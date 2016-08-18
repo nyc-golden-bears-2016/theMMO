@@ -1,14 +1,37 @@
 console.log("AUDIO LOADER PAGE LOADING");
 var fieldMusic = new Audio('<%= asset_path("oldburg10render.mp3")%>');
-
+var battleMusic = new Audio('<%= asset_path("chippy master.mp3")%>');
+fieldMusic.play();
+battleMusic.play();
+battleMusic.volume = 0.6;
+fieldMusic.pause();
+battleMusic.pause();
 
 var fieldMusicLoop = function(){
-  if(fieldMusic.currentTime > 300) {
-    fieldMusic.currentTime = 0;
-  }
-  if(fieldMusic.volume !== 0.6 && fieldMusic.currentTime > 75) {
-    fieldMusic.volume = 0.6;
-  } else if(fieldMusic.currentTime < 75 && fieldMusic.volume !== 0.8) {
-    fieldMusic.volume = 0.8;
+  if(inBattle === true) {
+    if(!fieldMusic.paused) {
+      fieldMusic.pause();
+    }
+    if(battleMusic.paused) {
+      battleMusic.play();
+    }
+    if(battleMusic.currentTime > 58) {
+      battleMusic.currentTime = 0;
+    }
+  } else {
+    if(!battleMusic.paused) {
+      battleMusic.pause();
+    }
+    if(fieldMusic.paused) {
+      fieldMusic.play();
+    }
+    if(fieldMusic.currentTime > 300) {
+      fieldMusic.currentTime = 0;
+    }
+    if(fieldMusic.volume !== 0.6 && fieldMusic.currentTime > 75) {
+      fieldMusic.volume = 0.6;
+    } else if(fieldMusic.currentTime < 75 && fieldMusic.volume !== 0.8) {
+      fieldMusic.volume = 0.8;
+    }
   }
 }
