@@ -21,6 +21,10 @@ var clickLocation = [];
 
 var wSocket = 0;
 
+var itemToGive = "";
+var givenItem = "";
+var receivedItem = "";
+
 var otherPlayers = {};
 var npcs = [];
 var playerNames = [];
@@ -41,9 +45,11 @@ var clearMessage = false;
 var currentEnemies = [];
 var battleId = ""; // a unique id is assigned to every battle to prevent running into the same battle more than once while in a party
 
+
 var otherPlayertoPartyWith = "";
 var partyMembers = [];
 var otherPlayertoTradeWith = "";
+var preparingToTradeWith = "";
 var leaveParty = false;
 
 //PVP

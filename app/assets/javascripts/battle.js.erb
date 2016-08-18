@@ -73,8 +73,50 @@ var prepareBossBattle = function(boss){
 }
 
 var proceedBattle = function() {
+  // Do any frame
+
+  // DEATH LOGIC
+  if(your_char.health < 1) {
+    alert("you ded");
+    your_char.max_health = Math.floor(your_char.max_health / 2);
+    your_char.attack = Math.floor(your_char.attack / 2);
+    your_char.defense = Math.floor(your_char.defense / 2);
+    your_char.pos_x = 483;
+    your_char.pos_y = 2016;
+    inBattle = false;
+    battleOver = true;
+    your_char.health = your_char.max_health;
+    $.ajax({
+      url: "/characters/auto_save",
+      method: "PATCH",
+      data: {pos_x: your_char.pos_x, pos_y: your_char.pos_y, max_health: your_char.max_health, attack: your_char.attack, xp: your_char.xp, level: your_char.level, defense: your_char.defense, health: your_char.health}
+    });
+  }
+
+  // ITEM EFFECTS (Cooldowns)
   your_char.recoveryTime--;
   your_char.processStatusEffects();
+  // GIVING LOGIC
+  if(receivedItem !== "") {
+    your_char.inventory.push(receivedItem);
+    $.ajax({
+      url: "/items",
+      method: "POST",
+      data: {item_name: receivedItem}
+    })
+    receivedItem = "";
+  }
+  if(givenItem !== "") {
+    your_char.inventory.splice(your_char.inventory.indexOf(givenItem), 1)
+    $.ajax({
+      url: "/items/use",
+      method: "DELETE",
+      data: {item_name: givenItem}
+    });
+    givenItem = "";
+  }
+
+  // BATTLE LOGIC
   if (inBattle === true) {
     $(".player-names").remove();
     if(battleOver === true) {
@@ -146,6 +188,11 @@ var proceedBattle = function() {
       if(currentEnemies[0].health < (currentEnemies[0].maxHealth * 0.4) ){
         currentEnemies[0].sprites = {stand: trogdor_red_hot_stand01,
                     attack: trogdor_red_hot_attack01};
+        currentEnemies[0].attack = 2000;
+        currentEnemies[0].defense = 2000;
+        currentEnemies[0].maxHealth = 20000;
+        currentEnemies[0].health = 20000;
+        currentEnemies[0].attackSpeed = 250;
       }
     }
   }
