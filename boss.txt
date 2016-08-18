@@ -1,0 +1,54 @@
+1. assets/images folder
+add your image files
+
+
+2. image_loader.js.erb
+load images
+example:
+var bat_stand01 = new Image();
+bat_stand01.src = '<%= asset_path("bat_stand01.png") %>'
+bat_stand01.onload = function(){
+  console.log("bat_stand01 loaded");
+}
+
+
+3. enemy.js.erb > in enemyMake function
+add new else if statement under “//BOSSES” and change all attributes
+example:
+else if (type === "bat") {
+  enemy.pos_y = 150; //this attribute changes position of where boss is drawn
+  enemy.xp = 2;
+  enemy.name = "bat";
+  enemy.width = 159; //in pixels
+  enemy.item = "vampire fang";
+  enemy.dropRate = 0.5;
+  enemy.height = 129; //in pixels
+  enemy.attack = 10 + Math.floor(Math.random() * 10);
+  enemy.defense = 4 + Math.floor(Math.random() * 4);
+  enemy.attackSpeed = 125 + Math.floor(Math.random() * 62);
+  enemy.maxHealth = 35 + Math.floor(Math.random() * 35);
+  enemy.sprites = {stand: bat_stand01,
+                  attack: bat_attack01};
+}
+
+
+4. battle.js.erb > in prepareBossBattle function
+add else if statement
+example: 
+else if (boss === "trogdor") {
+  bosses.push(enemyMake("trogdor"));
+}
+
+
+5. npc.js.erb > in npcMake function
+add else if
+example
+if (name === "trogdor"){
+  npc.pos_x = 3000;
+  npc.pos_y = 2000;
+  npc.sprite = trogdor_stand01;
+}
+
+6. push the npc into the npc array
+example 
+npcs.push(npcMake("kudler"));
