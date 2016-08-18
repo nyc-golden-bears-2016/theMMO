@@ -22,34 +22,34 @@ var Enemy = function Enemy() {
 var enemyMake = function(type) {
   var enemy = new Enemy;
   if (type === "slime") {
-    enemy.xp = 1;
+    enemy.xp = 5;
     enemy.name = "slime";
     enemy.item = "potion";
-    enemy.dropRate = 0.2;
+    enemy.dropRate = 0.5;
     enemy.width = 174;
     enemy.height = 131;
     enemy.attack = 4 + Math.floor(Math.random() * 4);
     enemy.defense = 4 + Math.floor(Math.random() * 4);
-    enemy.attackSpeed = 70 + Math.floor(Math.random() * 35);
-    enemy.maxHealth = 30 + Math.floor(Math.random() * 30);
+    enemy.attackSpeed = 120 + Math.floor(Math.random() * 15);
+    enemy.maxHealth = 300 + Math.floor(Math.random() * 100);
     enemy.sprites = {stand: slime_stand01,
                     attack: slime_attack01};
   } else if (type === "bat") {
-    enemy.xp = 2;
+    enemy.xp = 10;
     enemy.name = "bat";
     enemy.width = 159;
     enemy.item = "vampire fang";
-    enemy.dropRate = 0.5;
+    enemy.dropRate = 0.25;
     enemy.height = 129;
     enemy.attack = 10 + Math.floor(Math.random() * 10);
     enemy.defense = 4 + Math.floor(Math.random() * 4);
-    enemy.attackSpeed = 125 + Math.floor(Math.random() * 62);
-    enemy.maxHealth = 35 + Math.floor(Math.random() * 35);
+    enemy.attackSpeed = 150 + Math.floor(Math.random() * 15);
+    enemy.maxHealth = 150 + Math.floor(Math.random() * 35);
     enemy.sprites = {stand: bat_stand01,
                     attack: bat_attack01};
   } else if (type === "rat") {
     var enemy = new Enemy;
-    enemy.xp = 20;
+    enemy.xp = 200;
     enemy.name = "rat";
     enemy.width = 250;
     enemy.item = "subway pizza";
@@ -63,7 +63,7 @@ var enemyMake = function(type) {
                     attack: rat_attack01};
   } else if (type === "bee") {
     var enemy = new Enemy;
-    enemy.xp = 20;
+    enemy.xp = 200;
     enemy.name = "bee";
     enemy.width = 250;
     this.pos_y = 230;
@@ -132,6 +132,6 @@ Enemy.prototype.setPose = function(pose) {
 Enemy.prototype.attackPlayer = function(player) {
   bloodMarks.push(new Blood);
   new Audio('<%= asset_path("hit-arg3.wav")%>').play();
-  player.health -= this.attack;
+  player.health -= Math.floor(Math.max((this.attack - (Math.random() * your_char.defense * 0.50) - your_char.defense * 0.75), 1));
 }
 

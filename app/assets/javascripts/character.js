@@ -33,7 +33,7 @@ var Character = function Character(name){
 };
 
 Character.prototype.attackEnemy = function(enemy) {
-  enemy.health -= this.attack;
+  enemy.health -= Math.floor(Math.max((this.attack - (Math.random() * enemy.defense * 0.55) - enemy.defense * 0.80), 1));
 }
 
 Character.prototype.changeTarget = function(enemy) {

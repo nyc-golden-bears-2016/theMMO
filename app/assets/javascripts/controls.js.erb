@@ -12,16 +12,14 @@ var nearestLivingEnemy = function(enemyIndex, direction) {
 };
 
 var processInputBuffer = function(){
-
+  // console.log(your_char.recoveryTime);
   // potion use
   if( (keys_pressed.indexOf(49) != -1) && (keys_pressed_checker.indexOf(49) === -1) ) {
     keys_pressed_checker.push(49);
-    usePotion = true;
     if(your_char.recoveryTime <= 0 && your_char.inventory.indexOf("potion") !== -1) {
       your_char.inventory.splice(your_char.inventory.indexOf("potion"), 1);
-      your_char.health = Math.min(your_char.health + your_char.max_health * 0.2, your_char.max_health);
-      your_char.recoveryTime += 90;
-      recentlyRecovered = 3;
+      your_char.health = Math.floor(Math.min(your_char.health + your_char.max_health * 0.7, your_char.max_health));
+      your_char.recoveryTime = 150;
       itemDisplays.push(new Item("potion"));
       $.ajax({
         url: "/items/use",
@@ -68,7 +66,7 @@ var processInputBuffer = function(){
       if(your_char.recoveryTime <= 0 && your_char.inventory.indexOf("subway pizza") !== -1) {
         your_char.inventory.splice(your_char.inventory.indexOf("subway pizza"), 1);
         your_char.attack += Math.floor(your_char.attack * 0.2);
-        your_char.recoveryTime += 300;
+        your_char.recoveryTime = 300;
         your_char.statusEffects.push("subway pizza");
         itemDisplays.push(new Item("subway pizza"));
         your_char.statusEffects.push(new StatusEffect("subway pizza"));
@@ -86,7 +84,7 @@ var processInputBuffer = function(){
         var bloodSuck = Math.floor(your_char.enemyTarget.health * 0.05);
         your_char.enemyTarget.health -= bloodSuck;
         your_char.health = Math.min(your_char.max_health, your_char.health + bloodSuck);
-        your_char.recoveryTime += 500;
+        your_char.recoveryTime = 500;
         itemDisplays.push(new Item("vampire fang"));
         $.ajax({
           url: "/items/use",
@@ -155,7 +153,7 @@ var processInputBuffer = function(){
         if(your_char.recoveryTime <= 0 && your_char.inventory.indexOf("honey grahams") !== -1) {
           your_char.inventory.splice(your_char.inventory.indexOf("honey grahams"), 1);
           your_char.speed += 4;
-          your_char.recoveryTime += 300;
+          your_char.recoveryTime = 300;
           itemDisplays.push(new Item("honey grahams"));
           your_char.statusEffects.push(new StatusEffect("honey grahams"));
           $.ajax({

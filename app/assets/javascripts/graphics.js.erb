@@ -11,14 +11,14 @@ var theField =[["X","X","X","X",  "X","X","X","X",  "X","X","X","X",  "X","X","X
                ["X","X","X","X",  "X","N","X","N",  "X","N","X","N",  "X","X","X","X"],
 
                ["X","X","X","X",  "X","N","X","N",  "N","N","N","N",  "X","X","X","X"],
-               ["X","X","X","X",  "X","X","X","N",  "X","X","X","X",  "X","X","X","X"],
-               ["X","X","X","X",  "X","N","X","N",  "X","X","X","X",  "X","X","X","X"],
-               ["X","X","X","X",  "X","N","X","N",  "X","X","X","X",  "X","X","X","X"],
+               ["X","X","X","X",  "X","X","X","N",  "X","X","X","X",  "X","X","X","5"],
+               ["X","X","X","X",  "X","N","X","N",  "X","X","X","X",  "X","5","5","5"],
+               ["X","X","X","X",  "X","N","X","N",  "X","X","X","X",  "5","5","5","5"],
 
-               ["X","N","N","N",  "X","X","X","N",  "N","N","N","N",  "X","X","X","X"],
-               ["X","N","X","N",  "X","X","X","X",  "X","X","X","N",  "X","X","X","X"],
-               ["X","N","N","N",  "X","X","X","X",  "X","X","X","N",  "X","X","X","X"],
-               ["X","X","X","X",  "X","X","X","X",  "X","X","X","N",  "X","X","X","X"]];
+               ["X","N","N","N",  "X","X","X","N",  "N","N","N","N",  "5","5","5","5"],
+               ["X","N","5","N",  "X","X","X","X",  "X","5","5","N",  "5","5","5","5"],
+               ["X","N","N","N",  "X","X","X","X",  "X","5","5","N",  "5","5","5","5"],
+               ["X","X","X","X",  "X","X","X","X",  "X","5","5","N",  "5","5","5","5"]];
 
 
 // other players
@@ -139,6 +139,8 @@ var drawField = function(){
       // TODO: this should be refactored so that it only draws within a radius of the player
       if( theField[y][x] === "N" ) {
         context.drawImage(seamless_stone, ( (SCREEN_WIDTH / 4) * x ) - backgroundScrollX, ( (SCREEN_HEIGHT / 4) * y ) - backgroundScrollY);
+      } else if( theField[y][x] === "5" ) {
+        context.drawImage(seamless_dirt, ( (SCREEN_WIDTH / 4) * x ) - backgroundScrollX, ( (SCREEN_HEIGHT / 4) * y ) - backgroundScrollY);
       } else {
         context.drawImage(seamless_grass, ( (SCREEN_WIDTH / 4) * x ) - backgroundScrollX, ( (SCREEN_HEIGHT / 4) * y ) - backgroundScrollY);
       };
