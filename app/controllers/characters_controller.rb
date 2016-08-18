@@ -1,5 +1,5 @@
 class CharactersController < ApplicationController
-  before_action :check_character, only: [:game, :update, :select]
+  before_action :check_character, only: [:game, :update]
   before_action :set_character_name, only: :game
   before_action :authenticate_user!, except: [:index, :show, :instructions, :about, :update, :select]
 

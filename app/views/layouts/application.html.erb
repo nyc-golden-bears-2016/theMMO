@@ -6,8 +6,10 @@
     <%= csrf_meta_tags %>
     <%= javascript_include_tag 'application' %>  
     <link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light|Passion+One' rel='stylesheet' type='text/css'>
-
+    <link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light|Passion+One|family=Black+Ops+One|Luckiest+Guy|Sonsie+One|Shojumaru&effect=3d|3d-float|anaglyph|brick-sign|canvas-print|
+            crackle|decaying|destruction|distressed|distressed-wood|emboss|fire|fire-animation|fragile|grass|ice|mitosis|neon|outline|putting-green|
+            scuffed-steel|shadow-multiple|splintered|static|stonewash|vintage|wallpaper' 
+            rel='stylesheet' type='text/css'>
   </head>
   	<nav class="hidenav">
 		<div class ="container">
@@ -29,7 +31,7 @@
 			<% else %>
 				<ul class="nav navbar-nav navbar-right">
         			<li>
-        			<%= link_to('Login', new_user_session_path)%>
+        			<%= link_to('Sign In', new_user_session_path)%>
         			</li>
         			<li>
   					<%= link_to "Sign Up", new_user_registration_path %>

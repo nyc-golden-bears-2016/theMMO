@@ -1,4 +1,4 @@
-<%= video_tag "landscape.webm", id:"video-background", autoplay: true, loop: true %>
+<%= video_tag "abstract.webm", id:"video-background", autoplay: true, loop: true %>
  <h1>CREATE CHARACTER</h1>
 <br>
 <br>
@@ -9,42 +9,97 @@
     <div class="panel panel-default">
       <div class="panel-heading">
       <div id="the_slider">
-<h1>Character name<%=@character.attack %></h2>
-<p><%= @character.attack %></p>
+
+<h7>Character Attributes</h7><br><br>
 <%= form_for @character do |create| %>
+
   <div class="charinput">
   <%= create.label :name %>
   <%= create.text_field :name %>
  </div>
-  <h2>Character attributes</h2>
-  <%= create.label :attack %>  <span id="range">0</span>
+  
+  <%= create.label :attack %><br>
+    <div id="slider" class="slider1"></div>
   <%= create.hidden_field :attack %>
-  <%= create.range_field :attack, :min=>0, :max=>100, :value=>0,  :class=>"slide", :id=>"slider1", :onchange=> "showValue(this.value)"%>
-    <%= create.label :health %>  <span id="range1">0</span>
-  <%= create.hidden_field :health %>
-   <%= create.range_field :health, :min=>0, :max=>100, :value=>0, :class=>"slide", :id=>"slider1", :onchange=> "showValue1(this.value)"%>
 
-    <%= create.label :defense %>  <span id="range2">0</span>
+
+  <%= create.label :defense %><br>
+  <div id="slider" class="slider2"></div><div id="total"></div> 
   <%= create.hidden_field :defense %>
-   <%= create.range_field :defense, :min=>0, :max=>100, :value=>0, :class=>"slide", :id=>"slider1", :onchange=> "showValue2(this.value)"%>
 
-    <%= create.label :max_health %>  <span id="range3">0</span>
+  <%= create.label :max_health %><br>
+  <div id="slider" class="slider3"></div>
   <%= create.hidden_field :max_health %>
-   <%= create.range_field :max_health, :min=>0, :max=>100, :value=>0, :class=>"slide", :id=>"slider1", :onchange=> "showValue3(this.value)"%>
-<%= create.submit %>
+<br> 
+  
+  <%= create.submit %>
 <% end %>
-
+       </div>
       </div>
     </div>
   </div>
 </div>
-</div>
-<br>
+  <br>
 <br>
 <div class="text-center col-md-5 col-md-offset-4.4">
-<%=image_tag("knight_south01.png", height: 400, width: 300)%>
-</div>
-</div>
+  <%=image_tag("knight_south01.png", height: 400, width: 300)%>
+    </div>
+  </div>
 </div>
 
+<script type="text/javascript">
+  $('.slider1').slider({
+        min: 0,
+        max: 100,
+    slide: function (ev, ui) {
+        var total = ui.value;
+        $('#slider').not(this).each(function () {
+            total += $(this).slider('value'); 
+        })
+        if (total > 100) {
+            return false;
+          }
+    },
+    change: function(ev, ui0) {
+      $('input#character_attack').val(ui0.value);        
 
+    }
+});
+
+  $('.slider2').slider({
+        min: 0,
+        max: 100,
+    slide: function (ev, ui) {
+        var total = ui.value;
+        $('#slider').not(this).each(function () {
+            total += $(this).slider('value'); 
+        })
+        if (total > 100) {
+            return false;
+          }
+    },
+    change: function(ev, ui0) {
+      $('input#character_defense').val(ui0.value);        
+    }
+});
+
+   $('.slider3').slider({
+        min: 0,
+        max: 100,
+    slide: function (ev, ui) {
+        var total = ui.value;
+        $('#slider').not(this).each(function () {
+            total += $(this).slider('value'); 
+        })
+        if (total > 100) {
+            return false;
+          }
+    },
+    change: function(ev, ui0) {
+      $('input#character_max_health').val(ui0.value);        
+    }
+
+});
+    $('#total').text(ui);
+
+</script>
