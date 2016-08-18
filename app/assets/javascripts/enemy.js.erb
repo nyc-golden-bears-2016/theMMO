@@ -49,31 +49,31 @@ var enemyMake = function(type) {
                     attack: bat_attack01};
   } else if (type === "rat") {
     var enemy = new Enemy;
-    enemy.xp = 200;
+    enemy.xp = 100;
     enemy.name = "rat";
     enemy.width = 250;
     enemy.item = "subway pizza";
     enemy.dropRate = 1.0;
     enemy.height = 200;
-    enemy.attack = 2 + Math.floor(Math.random() * 10);
+    enemy.attack = 200 + Math.floor(Math.random() * 10);
     enemy.defense = 6 + Math.floor(Math.random() * 6);
-    enemy.attackSpeed = 50 + Math.floor(Math.random() * 25);
-    enemy.maxHealth = 200 + Math.floor(Math.random() * 50);
+    enemy.attackSpeed = 150 + Math.floor(Math.random() * 25);
+    enemy.maxHealth = 1500 + Math.floor(Math.random() * 1000);
     enemy.sprites = {stand: rat_stand01,
                     attack: rat_attack01};
   } else if (type === "bee") {
     var enemy = new Enemy;
-    enemy.xp = 200;
+    enemy.xp = 250;
     enemy.name = "bee";
     enemy.width = 250;
-    this.pos_y = 230;
+    enemy.pos_y = 210;
     enemy.item = "honey grahams";
     enemy.dropRate = 1.0;
     enemy.height = 250;
-    enemy.attack = 2 + Math.floor(Math.random() * 10);
-    enemy.defense = 6 + Math.floor(Math.random() * 6);
-    enemy.attackSpeed = 50 + Math.floor(Math.random() * 25);
-    enemy.maxHealth = 300 + Math.floor(Math.random() * 50);
+    enemy.attack = 300 + Math.floor(Math.random() * 10);
+    enemy.defense = 3 + Math.floor(Math.random() * 6);
+    enemy.attackSpeed = 175 + Math.floor(Math.random() * 25);
+    enemy.maxHealth = 2000 + Math.floor(Math.random() * 500);
     enemy.sprites = {stand: bee_stand01,
                     attack: bee_attack01};
   } else if (type === "lysol") {
@@ -109,16 +109,16 @@ var enemyMake = function(type) {
   // BOSSES
   } else if (type === "trogdor") {
     enemy.pos_y = 150;
-    enemy.xp = 1000;
+    enemy.xp = 5000;
     enemy.name = "trogdor";
     enemy.width = 442;
     enemy.item = "trogdor head";
     enemy.dropRate = 0.5;
     enemy.height = 448;
-    enemy.attack = 100 + Math.floor(Math.random() * 100);
-    enemy.defense = 50 + Math.floor(Math.random() * 4);
+    enemy.attack = 700 + Math.floor(Math.random() * 100);
+    enemy.defense = 25 + Math.floor(Math.random() * 4);
     enemy.attackSpeed = 175 + Math.floor(Math.random() * 75);
-    enemy.maxHealth = 2500 + Math.floor(Math.random() * 500);
+    enemy.maxHealth = 10000 + Math.floor(Math.random() * 500);
     enemy.sprites = {stand: trogdor_stand01,
                     attack: trogdor_attack01};
   } else if (type === "kudler") {

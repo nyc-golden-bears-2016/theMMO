@@ -85,7 +85,7 @@ var proceedBattle = function() {
   if(your_char.health < 1) {
     if(bloodMarks.length > 0) {
       for (var i = currentEnemies.length - 1; i >= 0; i--) {
-        currentEnemies[i].attackSpeed = 0;
+        currentEnemies[i].attackSpeed = 0.892372;
       };
     } else {
       deathScreenTime--;
@@ -97,9 +97,9 @@ var proceedBattle = function() {
       keys_pressed_checker = [];
       clicked = [];
       clickLocation = [];
-      your_char.max_health = Math.floor(your_char.max_health / 2);
-      your_char.attack = Math.floor(your_char.attack / 2);
-      your_char.defense = Math.floor(your_char.defense / 2);
+      your_char.max_health = Math.floor(your_char.max_health * 0.95);
+      your_char.attack = Math.floor(your_char.attack * 0.95);
+      your_char.defense = Math.floor(your_char.defense * 0.95);
       your_char.pos_x = 483;
       your_char.pos_y = 2016;
       inBattle = false;

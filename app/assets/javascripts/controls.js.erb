@@ -14,7 +14,7 @@ var nearestLivingEnemy = function(enemyIndex, direction) {
 var processInputBuffer = function(){
   // console.log(your_char.recoveryTime);
   // potion use
-  if( (keys_pressed.indexOf(49) != -1) && (keys_pressed_checker.indexOf(49) === -1) ) {
+  if( (keys_pressed.indexOf(49) != -1) && (keys_pressed_checker.indexOf(49) === -1 && your_char.health > 0) ) {
     keys_pressed_checker.push(49);
     if(your_char.recoveryTime <= 0 && your_char.inventory.indexOf("potion") !== -1) {
       your_char.inventory.splice(your_char.inventory.indexOf("potion"), 1);
@@ -29,7 +29,7 @@ var processInputBuffer = function(){
     };
   }
 
-  if(inBattle === true && deathScreenTime === 60) { // Battle controls
+  if(inBattle === true && your_char.health > 0) { // Battle controls
     if((keys_pressed.indexOf(66) != -1) && (keys_pressed_checker.indexOf(66) === -1) ) {
       keys_pressed_checker.push(66);
       if(your_char.enemyTarget) {
