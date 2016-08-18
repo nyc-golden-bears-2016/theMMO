@@ -10,6 +10,9 @@ class CharactersController < ApplicationController
 
   def create
     @character = current_user.characters.build(character_params)
+    @character.attack += 1
+    @character.defense += 1
+    @character.max_health += 1
     @character.attack /= 1.5;
     @character.defense /= 2;
     @character.max_health *= 3;

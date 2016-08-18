@@ -17,21 +17,21 @@
   <%= create.label :name %>
   <%= create.text_field :name %>
  </div>
-  
+
   <%= create.label :attack %><br>
     <div id="slider" class="slider1"></div>
   <%= create.hidden_field :attack %>
 
 
   <%= create.label :defense %><br>
-  <div id="slider" class="slider2"></div><div id="total"></div> 
+  <div id="slider" class="slider2"></div><div id="total"></div>
   <%= create.hidden_field :defense %>
 
   <%= create.label :max_health %><br>
   <div id="slider" class="slider3"></div>
   <%= create.hidden_field :max_health %>
-<br> 
-  
+<br>
+
   <%= create.submit %>
 <% end %>
        </div>
@@ -54,14 +54,14 @@
     slide: function (ev, ui) {
         var total = ui.value;
         $('#slider').not(this).each(function () {
-            total += $(this).slider('value'); 
+            total += $(this).slider('value');
         })
         if (total > 100) {
             return false;
           }
     },
     change: function(ev, ui0) {
-      $('input#character_attack').val(ui0.value);        
+      $('input#character_attack').val(ui0.value);
 
     }
 });
@@ -72,14 +72,14 @@
     slide: function (ev, ui) {
         var total = ui.value;
         $('#slider').not(this).each(function () {
-            total += $(this).slider('value'); 
+            total += $(this).slider('value');
         })
         if (total > 100) {
             return false;
           }
     },
     change: function(ev, ui0) {
-      $('input#character_defense').val(ui0.value);        
+      $('input#character_defense').val(ui0.value);
     }
 });
 
@@ -89,14 +89,14 @@
     slide: function (ev, ui) {
         var total = ui.value;
         $('#slider').not(this).each(function () {
-            total += $(this).slider('value'); 
+            total += $(this).slider('value');
         })
         if (total > 100) {
             return false;
           }
     },
     change: function(ev, ui0) {
-      $('input#character_max_health').val(ui0.value);        
+      $('input#character_max_health').val(ui0.value);
     }
 
 });
