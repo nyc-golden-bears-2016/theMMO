@@ -2,14 +2,14 @@ var refreshInformationWindow = function(){
   	$("#information_window").remove();
 };
 
+var frameCount = 0;
+
 var informationWindow = function(player, party) {
-
-//player, level
-	// if (player.name == null){
-	// 	player.name = "John Doe";
-	// };
-
+	frameCount++;
+//player
 	$("#playerName > .value").text(player.name);
+
+//level
 	$("#level > .value").text(player.level);
 
 //health
@@ -53,5 +53,37 @@ var informationWindow = function(player, party) {
 				.appendTo('#items > .value');
 		}
 	);
-};
+//control
+	
+	var message = [];
 
+	if(inBattle === true){
+		message = ['Hit "B" to attack!', "Use arrow to change target"];	
+	}	else { 
+		message = ["Use arrow to move", "Click other character to interact"];
+	}
+  
+	if(frameCount > 90) { 
+		frameCount = 0;	
+	  if ( rotateCounter === 0 ) {
+	    rotateCounter = 1;
+	  } else {
+	    rotateCounter = 0;
+	  }
+	  content = message[rotateCounter];
+	  $("#control > .value").text(content);
+	}
+	//}
+
+		// setInterval(function(){
+		// 	$("#control > .value").text('Hit "B" to attack!!')}, 1000);
+
+		// setInterval(function(){
+		// 	$("#control > .value").text('Use arrow keys to change target')}, 1000);
+
+
+
+//interval
+
+
+};
