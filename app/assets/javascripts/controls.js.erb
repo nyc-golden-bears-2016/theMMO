@@ -256,7 +256,7 @@ var allowClick = function() {
       clicked.push("NPC");
       clicked.push(checkNpc(global_x, global_y));
       var width = getTextWidth('I am A' + clicked[1] + ' !', "18px Arial");
-      var menu = '<div class="npc-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (60 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:75px;">I am ' + clicked[1] +' !<button id="boss-battle" style="margin-bottom:3px;">Fight '+ clicked[1] +'!</button></div>';
+      var menu = '<div class="npc-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (60 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ (width + 10).toString() +'px;height:75px;">I am ' + clicked[1] +' !<button id="boss-battle" style="margin-bottom:3px;">Fight '+ clicked[1] +'!</button></div>';
       $("body").prepend(menu);
     }
   }, false);
