@@ -1,5 +1,5 @@
 class CharactersController < ApplicationController
-  before_action :check_character, only: [:game, :update]
+  before_action :check_character, only: [:game]
   before_action :set_character_name, only: :game
   before_action :authenticate_user!, except: [:index, :show, :instructions, :about, :update, :select]
 
@@ -18,6 +18,7 @@ class CharactersController < ApplicationController
     @character.max_health *= 3;
     @character.health = @character.max_health;
     if @character.save
+      binding.pry
       flash[:notice] = "\"#{@character.name}\" has been successfully created."
       session[:character_id] = @character.id
       3.times { @character.items << Item.new(name: "potion") }
@@ -31,7 +32,8 @@ class CharactersController < ApplicationController
     # @character1 = Character.find_by(id: session[:character_id])
     # @character1.update_attribute :character_id, current_user.character.id
     # @character1.save
-    @character1 = Character.find(params[:id])
+    params.permit(:id)
+    @character1 = Character.find(params[:character][:id])
     session[:character_id] = @character1.id
     flash[:notice] = "You have changed your character to\"#{@character1.name}\"."
     redirect_to "/"

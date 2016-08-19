@@ -31,7 +31,7 @@
     			<div id="left">
 					<%@character1.each do |character|%>
   						<h10><%=character.name%></h10><br>
-  						<%= form_for character, method: :patch do |f| %>
+  						<%= form_for character, method: :PATCH, url: "/characters/update" do |f| %>
     					<%= f.hidden_field :id, :value => character.id %>
     					<%= f.submit "Select Character" %>
   							<% end %>
