@@ -1,0 +1,154 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "https://fonts.googleapis.com/css?family=Rancho&effect=fire-animation";
+
+
+
+body {
+  background: #f7f8E5;
+}
+.character{
+  display: block;
+  max-width:230px;
+  max-height:95px;
+  width: auto;
+  height: auto;
+}
+
+ h1, h2, h3, h4, h5{
+  font-weight: 1000;
+  text-align: center;
+  font-family:Luckiest Guy;
+  color: #0039e6;
+}
+
+h6{
+  font-family:Luckiest Guy;
+  font-size: 55px;
+}
+
+h7 {
+  font-family:Luckiest Guy;
+  color: #009999;
+  font-size: 30px;
+  margin-left: 75px;
+}
+
+h8 {
+  font-size: 55px;
+  font-family: Rancho;
+}
+
+
+h9{
+  font-size: 20px;
+  font-family: Rancho;
+  color: #ff0000;
+
+}
+
+a{color: #00ff00;
+font-weight: 200;
+font-family: 'Passion One', cursive;
+font-size: 175%;}
+
+h10{
+  font-size: 20px;
+  font-family:Luckiest Guy;
+  color: black;
+  text-align: center;
+}
+
+h11{
+  font-size: 20px;
+  text-align: center;
+  font-family:Luckiest Guy;
+  color: black;
+  text-align: center;
+   margin: 500px;
+
+}
+
+a {
+  color:  #99cc00;
+  font-weight: 200;
+  font-family:Luckiest Guy;
+  font-size: 175%;
+}
+
+#homepage_links {
+  font-size: 200%;
+}
+
+#wood {
+  display: block;
+  position: relative;
+  width: 100%;
+  left: 30px;
+  top: 70px;
+}
+
+.homescreentext {
+  position: absolute;
+  text-align: center;
+  left: 130px;
+  top: 140px;
+}
+
+
+/*
+.panel-heading{background-color: #ffdf80 !important; }*/
+/*.panel-body{background-color:  #99ff99 !important; }*/
+
+label {
+    display: inline-block;
+    margin-bottom: 5px;
+    color: #0039e6 !important;
+    font-size: 150% !important;
+    font-family:Luckiest Guy;
+}
+
+.charinput{text-align: center}
+textarea {
+  min-height: 250px;
+}
+
+
+#video-background {
+/*  making the video fullscreen  */
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+}
+
+#slider{
+  background: #ED0A3F;
+   height: 10px;
+  width: 300px;
+    margin: 16px;
+    width: 300px;
+}
+
+#left {
+    float: left;
+    width: 50%;
+    background: red;
+    height: 100%;
+    overflow: scroll;
+}
+
+#content div{
+    background-color:  #ff6600;
+    height: 300px;
+    width:200px;
+    float: left;
+    overflow-y: auto;
+    border-radius: 25px;
+}
+
+
