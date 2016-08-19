@@ -1,32 +1,46 @@
 <%= video_tag "landscape.webm", id:"video-background", autoplay: true, loop: true %>
  		<h1>SELECT CHARACTER</h1>
- 		<div class="col-md-7 col-md-offset-2">
+ 		<div class=".container-fluid">
+    <div class="col-xs-1">
+    </div>
+
+    <div class="col-xs-9">
+      <div class="row">
+
 		<%=image_tag "newwood.png", id: "wood", height: 450, width: 900 %>
 		</div>
+    </div>
+        </div>
 					<br>
-
 				<br>
 			<br>
 		<br>
 	<br>
 <br>
-
+  <div align="center">
 <div class="text-center col-md-5 col-md-offset-4">
+  <br>
+  <br>
+  <br>
+<br>
+
 	<%=image_tag("knight_south01.png", height: 350, width: 300)%>
 		<div class="col-md-5 ">
-
 			<% if @character1.exists? %>
 			<div id="content">
     			<div id="left">
 					<%@character1.each do |character|%>
   						<h10><%=character.name%></h10><br>
-  						<%= form_for character, method: :patch do |f| %>
+  						<%= form_for character, method: :PATCH, url: "/characters/update" do |f| %>
     					<%= f.hidden_field :id, :value => character.id %>
     					<%= f.submit "Select Character" %>
   							<% end %>
    						<% end %>
      			</div>
      		</div>
+        <br>
+         <br>
+          <br>
   						<%else%>
   							<h1>HURRY UP AND MAKE A CHARACTER</h1>
   								<%= link_to('Create Character', new_character_path) %>

@@ -5,10 +5,11 @@ Rails.application.routes.draw do
 
   get    "/select" => "characters#select"
   patch "/characters/auto_save" => 'characters#auto_save'
-  patch  "/characters" => "characters#update"
+  #patch  "/characters" => "characters#selection"
   get "/game" => 'characters#game'
   get "instructions"=> 'characters#instructions'
   get "about" => 'characters#about'
+
 
 
   resources :characters, only: [:create, :game, :new, :update, :edit]

@@ -1,10 +1,17 @@
+
+
 <%= video_tag "landscape.webm", id:"video-background", autoplay: true, loop: true %>
-<div class="parent">
- <div class="col-md-9 col-md-offset-2">
-  <div class="row">
+
+<div class=".container">
+    <div class="row">
+ <div class="col-xs-9">
+ </div>
+  <div align="center">
+
   <%=image_tag "newwood.png", id: "wood", height: 500, width: 950 %>
+</div>
   <div class="homescreentext">
-    <h6 class="font-effect-3d"">WELCOME TO BOSS TRIANGLES</h6>
+    <h6 class="font-effect-3d">WELCOME TO BOSS TRIANGLES</h6>
       <div id="homepage_links"%>
       <span class="font-effect-3d-float"><%= link_to('How to play', instructions_path)%></span>
       <% if user_signed_in? && current_user.characters %><br>
@@ -12,10 +19,9 @@
         <span class="font-effect-3d-float"><%= link_to('Create Character', new_character_path) %></span><br>
         <span class="font-effect-3d-float"><%= link_to('Start Game', game_path)%></span><br>
         <%else%><br>
-        <h8 class="font-effect-fire-animation">YOU ARE NOT WORTHY</h8> <br>  
-          <% end %> 
-          </div> 
+        <h8 class="font-effect-fire-animation">YOU ARE NOT WORTHY</h8> <br>
+          <% end %>
+          </div>
       </div>
       </div>
-    </div>    
- 
+    </div>
