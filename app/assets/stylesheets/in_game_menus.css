@@ -1,0 +1,19 @@
+.player-menu {
+  border: 5px solid black;
+  border-radius: 3px;
+}
+
+.other-player-menu {
+  border: 5px solid black;
+  border-radius: 3px;
+}
+
+.npc-menu {
+  border: 5px solid black;
+  border-radius: 3px;
+}
+
+.item-menu {
+  border: 5px solid black;
+  border-radius: 3px;
+}

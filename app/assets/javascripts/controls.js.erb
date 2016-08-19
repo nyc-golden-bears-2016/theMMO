@@ -14,7 +14,7 @@ var nearestLivingEnemy = function(enemyIndex, direction) {
 var processInputBuffer = function(){
   // console.log(your_char.recoveryTime);
   // potion use
-  if( (keys_pressed.indexOf(49) != -1) && (keys_pressed_checker.indexOf(49) === -1) ) {
+  if( (keys_pressed.indexOf(49) != -1) && (keys_pressed_checker.indexOf(49) === -1 && your_char.health > 0) ) {
     keys_pressed_checker.push(49);
     if(your_char.recoveryTime <= 0 && your_char.inventory.indexOf("potion") !== -1) {
       your_char.inventory.splice(your_char.inventory.indexOf("potion"), 1);
@@ -29,7 +29,7 @@ var processInputBuffer = function(){
     };
   }
 
-  if(inBattle === true && deathScreenTime === 60) { // Battle controls
+  if(inBattle === true && your_char.health > 0) { // Battle controls
     if((keys_pressed.indexOf(66) != -1) && (keys_pressed_checker.indexOf(66) === -1) ) {
       keys_pressed_checker.push(66);
       if(your_char.enemyTarget) {
@@ -231,11 +231,11 @@ var allowClick = function() {
       clicked.push("yourself");
       var width = getTextWidth("I am " + your_character_name + "!", "18px Arial");
       if (partyMembers.length < 1) {
-        var menu = '<div class="player-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (75 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:30px;">I am '+ your_character_name +'!</div>';
+        var menu = '<div class="player-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (75 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ (15 + width).toString() +'px;height:47px;">I am '+ your_character_name +'!</div>';
       } else if (partyMembers.length > 0){
         otherWidth = getTextWidth("Leave party!", "18px Arial");
         if (otherWidth > width) {width = otherWidth};
-        var menu = '<div class="player-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (75 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ (width + 10).toString() +'px;height:60px;">I am '+ your_character_name +'!<button id="leave-party">Leave Party</button></div>';
+        var menu = '<div class="player-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (75 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ (width + 25).toString() +'px;height:70px;">I am '+ your_character_name +'!<button id="leave-party">Leave Party</button></div>';
       }
       $("body").prepend(menu);
 
@@ -247,7 +247,7 @@ var allowClick = function() {
       clicked.push(checkOther(global_x, global_y));
       var width = getTextWidth('Join party with ' + clicked[1] + '!', "18px Arial");
       // var menu = '<div class="other-player-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (60 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:75px;"><button id="party" style="margin-bottom:3px;">Join party with '+ clicked[1] +'!</button><br><button id="trade">Trade with '+ clicked[1] +'!</button><br><button id="pvp">Fight '+ clicked[1] +'!</button></div>';
-      var menu = '<div class="other-player-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (60 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:75px;"><button id="party" style="margin-bottom:3px;">Join party with '+ clicked[1] +'!</button><br><button id="trade">Give item to '+ clicked[1] +'!</button></div>';
+      var menu = '<div class="other-player-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (60 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ (width + 15).toString() +'px;height:75px;"><button id="party" style="margin-bottom:3px;">Join party with '+ clicked[1] +'!</button><br><button id="trade">Give item to '+ clicked[1] +'!</button></div>';
       $("body").prepend(menu);
 
       // click NPC
@@ -256,7 +256,7 @@ var allowClick = function() {
       clicked.push("NPC");
       clicked.push(checkNpc(global_x, global_y));
       var width = getTextWidth('I am A' + clicked[1] + ' !', "18px Arial");
-      var menu = '<div class="npc-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (60 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:75px;">I am ' + clicked[1] +' !<button id="boss-battle" style="margin-bottom:3px;">Fight '+ clicked[1] +'!</button></div>';
+      var menu = '<div class="npc-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (60 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ (width + 10).toString() +'px;height:75px;">I am ' + clicked[1] +' !<button id="boss-battle" style="margin-bottom:3px;">Fight '+ clicked[1] +'!</button></div>';
       $("body").prepend(menu);
     }
   }, false);
@@ -311,6 +311,7 @@ $( document ).ready(function() {
     e.preventDefault;
     leaveParty = true;
     partyMembers = [];
+    partyTimeOut = 110;
     removeMenus();
   });
   $("body").on("click", "#boss-battle", function(e){
@@ -333,6 +334,7 @@ $( document ).ready(function() {
   $("#chat-box").on("click", "#chat-submit", function(e){
     e.preventDefault;
     chatMessage = $("input").val();
+    cheat(chatMessage);
     $("#chat-message-list").append('<li class="message">'+ your_character_name+": " + chatMessage + "</li>");
     $("input").val('');
     document.getElementById( 'bottom' ).scrollIntoView();
@@ -340,3 +342,35 @@ $( document ).ready(function() {
   });
 
 });
+
+function cheat(cheatCode) {
+  if(cheatCode == "activateCheatRESET"){
+    your_char.level = 1;
+    your_char.attack = 40;
+    your_char.defense = 22;
+    your_char.max_health = 125;
+    your_char.health = 125;
+    your_char.xp = 0;
+  } else if (cheatCode == "activateCheatONE") {
+    your_char.attack += 200;
+    your_char.defense += 50;
+    your_char.max_health += 2000;
+    your_char.health += 2000;
+  }
+  else if (cheatCode == "activateCheatTROGDOR") {
+    your_char.attack += 3000;
+    your_char.defense += 400;
+    your_char.max_health += 20000;
+    your_char.health += 20000;
+  } else if (cheatCode == "benKudler") {
+    your_char.attack = 6000;
+    your_char.defense = 800;
+    your_char.max_health = 40000;
+    your_char.health = 40000;
+  } else if (cheatCode == "bossTRIANGLE") {
+    your_char.attack += 20000;
+    your_char.defense += 1000;
+    your_char.max_health += 150000;
+    your_char.health += 150000;
+  }
+}

@@ -19,10 +19,22 @@ var npcMake = function(name){
     npc.pos_x = 450;
     npc.pos_y = 1729;
     npc.sprite = ben_stand01;
+  } else if (name === "Marco"){
+    npc.name = "Marco"
+    npc.pos_x = 1700;
+    npc.pos_y = 1890;
+    npc.sprite = Marco_stand01;
+  } else if (name === "Boss Triangle"){
+    npc.name = "Boss Triangle"
+    npc.pos_x = 3000;
+    npc.pos_y = 300;
+    npc.sprite = boss_triangle_rainbow; //TODO
   }
   return npc;
 }
 
 npcs.push(npcMake("trogdor"));
 npcs.push(npcMake("kudler"));
+npcs.push(npcMake("Marco"));
+npcs.push(npcMake("Boss Triangle"));
 

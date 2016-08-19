@@ -1,5 +1,5 @@
 var determineNumberOfEnemies = function() {
-  if(your_char.pos_x > SCREEN_WIDTH * 3 && your_char.pos_y  > SCREEN_HEIGHT * 2) {
+  if(your_char.pos_x > SCREEN_WIDTH * 2 && your_char.pos_y  > SCREEN_HEIGHT * 1) {
     return Math.floor( (Math.random() * 3) + 1)
   } else {
     return Math.floor( (Math.random() * 4) + 1)
@@ -8,6 +8,8 @@ var determineNumberOfEnemies = function() {
 
 var determineEnemyType = function() {
   if(your_char.pos_x > SCREEN_WIDTH * 3 && your_char.pos_y  > SCREEN_HEIGHT * 2) {
+    return Math.floor( (Math.random() * 2) + 5);
+  } else if(your_char.pos_x > SCREEN_WIDTH * 2 && your_char.pos_y  > SCREEN_HEIGHT * 1) {
     return Math.floor( (Math.random() * 3) + 2);
   } else {
     return Math.floor( (Math.random() * 2) + 1);
@@ -34,6 +36,12 @@ var prepareBattle = function(){
       currentEnemies.push(enemyMake("bee"));
     } else if (typeOfEnemy === 4) {
       currentEnemies.push(enemyMake("rat"));
+    } else if (typeOfEnemy === 5) {
+      currentEnemies.push(enemyMake("lysol"));
+    } else if (typeOfEnemy === 6) {
+      currentEnemies.push(enemyMake("purpleguy"));
+    } else if (typeOfEnemy === 7) {
+      currentEnemies.push(enemyMake("Marco"));
     } else {
       currentEnemies.push(enemyMake("missing no."));
     }
@@ -67,6 +75,10 @@ var prepareBossBattle = function(boss){
     bosses.push(enemyMake("trogdor"));
   } else if (boss === "kudler") {
     bosses.push(enemyMake("kudler"));
+  } else if (boss === "Marco") {
+    bosses.push(enemyMake("Marco"));
+  } else if (boss === "Boss Triangle") {
+    bosses.push(enemyMake("Boss Triangle"));
   } //else if (boss === "bossname") {
   //   bosses.push(enemyMake("bossname"));
   // }
@@ -77,11 +89,24 @@ var prepareBossBattle = function(boss){
 var proceedBattle = function() {
   // Do any frame
 
+  // ensurance
+  for (var i = currentEnemies.length - 1; i >= 0; i--) {
+    if(currentEnemies[i] === undefined) {
+      currentEnemies[i] = enemyMake("slime");
+      currentEnemies[i].health = 0;
+      currentEnemies[i].setPose("dead");
+      your_char.changeTarget(currentEnemies[0]);
+    }
+  };
+
   // DEATH LOGIC
   if(your_char.health < 1) {
+    leaveParty = true;
+    partyMembers = [];
+    partyTimeOut = 110;
     if(bloodMarks.length > 0) {
       for (var i = currentEnemies.length - 1; i >= 0; i--) {
-        currentEnemies[i].attackSpeed = 0;
+        currentEnemies[i].attackSpeed = "";
       };
     } else {
       deathScreenTime--;
@@ -93,9 +118,9 @@ var proceedBattle = function() {
       keys_pressed_checker = [];
       clicked = [];
       clickLocation = [];
-      your_char.max_health = Math.floor(your_char.max_health / 2);
-      your_char.attack = Math.floor(your_char.attack / 2);
-      your_char.defense = Math.floor(your_char.defense / 2);
+      your_char.max_health = Math.floor(your_char.max_health * 0.95);
+      your_char.attack = Math.floor(your_char.attack * 0.95);
+      your_char.defense = Math.floor(your_char.defense * 0.95);
       your_char.pos_x = 483;
       your_char.pos_y = 2016;
       inBattle = false;
@@ -182,6 +207,51 @@ var proceedBattle = function() {
       }
       return;
     }
+
+    //BOSS DIFFERENT SPRITES
+    //TROGDOR
+    if(currentEnemies[0].name === "trogdor") {
+      if(currentEnemies[0].sprites.stand === trogdor_stand01){
+        if(currentEnemies[0].health < (currentEnemies[0].maxHealth * 0.2) ){
+          currentEnemies[0].sprites = {stand: trogdor_red_hot_stand01,
+                      attack: trogdor_red_hot_attack01};
+          currentEnemies[0].attack = 2000;
+          currentEnemies[0].defense = 2000;
+          currentEnemies[0].maxHealth = 20000;
+          currentEnemies[0].health = 20000;
+          currentEnemies[0].attackSpeed = 250;
+        }
+      }
+    }
+
+    // BOSS TRIANGLE
+    if(currentEnemies[0].name === "Boss Triangle") {
+      if(currentEnemies[0].sprites.stand === boss_triangle_stand01){
+        if(currentEnemies[0].health < (currentEnemies[0].maxHealth * 0.2) ){
+          currentEnemies[0].sprites = {stand: boss_triangle_stand02,
+                      attack: boss_triangle_attack02};
+          currentEnemies[0].attack += 2000;
+          currentEnemies[0].defense += 2000;
+          currentEnemies[0].maxHealth += 250000;
+          currentEnemies[0].health = currentEnemies[0].maxHealth;
+          currentEnemies[0].attackSpeed = 250;
+        }
+      }
+      if(currentEnemies[0].sprites.stand === boss_triangle_stand02){
+        if(currentEnemies[0].health < (currentEnemies[0].maxHealth * 0.2) ){
+          currentEnemies[0].sprites = {stand: boss_triangle_stand03,
+                      attack: boss_triangle_attack03};
+          currentEnemies[0].attack += 3000;
+          currentEnemies[0].defense += 3000;
+          currentEnemies[0].maxHealth += 350000;
+          currentEnemies[0].pos_y = 110;
+          currentEnemies[0].pos_x = -10;
+          currentEnemies[0].health = currentEnemies[0].maxHealth;
+        }
+      }
+    }
+
+    // WIN BATTLE LOGIC (if all enemies are dead)
     currentBattleFrame++;
     for (var i = currentEnemies.length - 1; i >= 0; i--) {
       if(currentEnemies[i].health <= 0) {
@@ -205,21 +275,6 @@ var proceedBattle = function() {
       }
     };
 
-    //BOSS DIFFERENT SPRITES
-    //TROGDOR
-    if(currentEnemies[0].name === "trogdor") {
-      if(currentEnemies[0].sprites.stand === trogdor_stand01){
-        if(currentEnemies[0].health < (currentEnemies[0].maxHealth * 0.4) ){
-          currentEnemies[0].sprites = {stand: trogdor_red_hot_stand01,
-                      attack: trogdor_red_hot_attack01};
-          currentEnemies[0].attack = 2000;
-          currentEnemies[0].defense = 2000;
-          currentEnemies[0].maxHealth = 20000;
-          currentEnemies[0].health = 20000;
-          currentEnemies[0].attackSpeed = 250;
-        }
-      }
-    }
   }
 }
 
