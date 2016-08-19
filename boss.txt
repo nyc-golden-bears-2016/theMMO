@@ -52,3 +52,7 @@ if (name === "trogdor"){
 6. push the npc into the npc array
 example 
 npcs.push(npcMake("kudler"));
+
+7. (optional)
+change sprites depending on logic or health of boss
+located in battle.js.erb file > proceedBattle function > under "BOSS DIFFERENT SPRITES" comment

@@ -77,6 +77,8 @@ var prepareBossBattle = function(boss){
     bosses.push(enemyMake("kudler"));
   } else if (boss === "Marco") {
     bosses.push(enemyMake("Marco"));
+  } else if (boss === "Boss Triangle") {
+    bosses.push(enemyMake("Boss Triangle"));
   } //else if (boss === "bossname") {
   //   bosses.push(enemyMake("bossname"));
   // }
@@ -205,6 +207,49 @@ var proceedBattle = function() {
       }
       return;
     }
+
+    //BOSS DIFFERENT SPRITES
+    //TROGDOR
+    if(currentEnemies[0].name === "trogdor") {
+      if(currentEnemies[0].sprites.stand === trogdor_stand01){
+        if(currentEnemies[0].health < (currentEnemies[0].maxHealth * 0.2) ){
+          currentEnemies[0].sprites = {stand: trogdor_red_hot_stand01,
+                      attack: trogdor_red_hot_attack01};
+          currentEnemies[0].attack = 2000;
+          currentEnemies[0].defense = 2000;
+          currentEnemies[0].maxHealth = 20000;
+          currentEnemies[0].health = 20000;
+          currentEnemies[0].attackSpeed = 250;
+        }
+      }
+    }
+
+    // BOSS TRIANGLE
+    if(currentEnemies[0].name === "Boss Triangle") {
+      if(currentEnemies[0].sprites.stand === boss_triangle_stand01){
+        if(currentEnemies[0].health < (currentEnemies[0].maxHealth * 0.2) ){
+          currentEnemies[0].sprites = {stand: boss_triangle_stand02,
+                      attack: boss_triangle_stand02};
+          currentEnemies[0].attack += 2000;
+          currentEnemies[0].defense += 2000;
+          currentEnemies[0].maxHealth += 250000;
+          currentEnemies[0].health = currentEnemies[0].maxHealth;
+          currentEnemies[0].attackSpeed = 250;
+        }
+      }
+      if(currentEnemies[0].sprites.stand === boss_triangle_stand02){
+        if(currentEnemies[0].health < (currentEnemies[0].maxHealth * 0.2) ){
+          currentEnemies[0].sprites = {stand: boss_triangle_stand03,
+                      attack: boss_triangle_stand03};
+          currentEnemies[0].attack += 3000;
+          currentEnemies[0].defense += 3000;
+          currentEnemies[0].maxHealth += 350000;
+          currentEnemies[0].health = currentEnemies[0].maxHealth;
+        }
+      }
+    }
+
+    // WIN BATTLE LOGIC (if all enemies are dead)
     currentBattleFrame++;
     for (var i = currentEnemies.length - 1; i >= 0; i--) {
       if(currentEnemies[i].health <= 0) {
@@ -228,21 +273,6 @@ var proceedBattle = function() {
       }
     };
 
-    //BOSS DIFFERENT SPRITES
-    //TROGDOR
-    if(currentEnemies[0].name === "trogdor") {
-      if(currentEnemies[0].sprites.stand === trogdor_stand01){
-        if(currentEnemies[0].health < (currentEnemies[0].maxHealth * 0.4) ){
-          currentEnemies[0].sprites = {stand: trogdor_red_hot_stand01,
-                      attack: trogdor_red_hot_attack01};
-          currentEnemies[0].attack = 2000;
-          currentEnemies[0].defense = 2000;
-          currentEnemies[0].maxHealth = 20000;
-          currentEnemies[0].health = 20000;
-          currentEnemies[0].attackSpeed = 250;
-        }
-      }
-    }
   }
 }
 
