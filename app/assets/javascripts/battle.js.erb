@@ -229,7 +229,7 @@ var proceedBattle = function() {
       if(currentEnemies[0].sprites.stand === boss_triangle_stand01){
         if(currentEnemies[0].health < (currentEnemies[0].maxHealth * 0.2) ){
           currentEnemies[0].sprites = {stand: boss_triangle_stand02,
-                      attack: boss_triangle_stand02};
+                      attack: boss_triangle_attack02};
           currentEnemies[0].attack += 2000;
           currentEnemies[0].defense += 2000;
           currentEnemies[0].maxHealth += 250000;
@@ -240,10 +240,12 @@ var proceedBattle = function() {
       if(currentEnemies[0].sprites.stand === boss_triangle_stand02){
         if(currentEnemies[0].health < (currentEnemies[0].maxHealth * 0.2) ){
           currentEnemies[0].sprites = {stand: boss_triangle_stand03,
-                      attack: boss_triangle_stand03};
+                      attack: boss_triangle_attack03};
           currentEnemies[0].attack += 3000;
           currentEnemies[0].defense += 3000;
           currentEnemies[0].maxHealth += 350000;
+          currentEnemies[0].pos_y = 110;
+          currentEnemies[0].pos_x = -10;
           currentEnemies[0].health = currentEnemies[0].maxHealth;
         }
       }
