@@ -150,8 +150,21 @@ var enemyMake = function(type) {
     enemy.maxHealth = 40000 + Math.floor(Math.random() * 500);
     enemy.sprites = {stand: ben_stand01,
                     attack: ben_attack01};
-  }
-  else if (type === "player") {
+  } else if (type === "Boss Triangle") {
+    enemy.pos_y = 150;
+    enemy.xp = 50000;
+    enemy.name = "Boss Triangle";
+    enemy.width = 442; //TODO
+    enemy.item = "TRIFORCE";
+    enemy.dropRate = 0.1;
+    enemy.height = 448; //TODO
+    enemy.attack = 10000 + Math.floor(Math.random() * 1000);
+    enemy.defense = 8000 + Math.floor(Math.random() * 1000);
+    enemy.attackSpeed = 175 + Math.floor(Math.random() * 75);
+    enemy.maxHealth = 500000 + Math.floor(Math.random() * 1000);
+    enemy.sprites = {stand: boss_triangle_stand01,
+                    attack: boss_triangle_attack01};
+  } else if (type === "player") {
     enemy.width = 70;
     enemy.height = 100;
     enemy.name = "player";
