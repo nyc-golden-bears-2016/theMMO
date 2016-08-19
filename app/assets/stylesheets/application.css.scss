@@ -23,7 +23,7 @@
 
 
 body {
-	background: #f7f8E5;
+  background: #f7f8E5;
 }
 .character{
   display: block;
@@ -32,15 +32,15 @@ body {
   width: auto;
   height: auto;
 }
- 
+
  h1, h2, h3, h4, h5{
-	font-weight: 1000;
-	text-align: center;
-	font-family:Luckiest Guy;
-	color: #0039e6;
+  font-weight: 1000;
+  text-align: center;
+  font-family:Luckiest Guy;
+  color: #0039e6;
 }
 
-h6{ 
+h6{
   font-family:Luckiest Guy;
   font-size: 55px;
 }
@@ -88,7 +88,7 @@ h11{
 }
 
 a {
-  color:  #99cc00; 
+  color:  #99cc00;
   font-weight: 200;
   font-family:Luckiest Guy;
   font-size: 175%;
@@ -100,15 +100,21 @@ a {
 
 #wood {
   position: absolute;
-  left: 30px;
-  top: 70px;
+  left: 21%;
+  top: 125px;
+}
+
+#wood1 {
+  position: absolute;
+  left: 15%;
+  top: 125px;
 }
 
 .homescreentext {
   position: absolute;
   text-align: center;
-  left: 130px;
-  top: 140px;
+  left: 27%;
+  top: 180px;
 }
 
 
@@ -126,7 +132,7 @@ label {
 
 .charinput{text-align: center}
 textarea {
-	min-height: 250px;
+  min-height: 250px;
 }
 
 
@@ -157,7 +163,7 @@ textarea {
     height: 100%;
     overflow: scroll;
 }
- 
+
 #content div{
     background-color:  #ff6600;
     height: 300px;
