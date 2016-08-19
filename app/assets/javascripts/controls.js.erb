@@ -231,11 +231,11 @@ var allowClick = function() {
       clicked.push("yourself");
       var width = getTextWidth("I am " + your_character_name + "!", "18px Arial");
       if (partyMembers.length < 1) {
-        var menu = '<div class="player-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (75 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:30px;">I am '+ your_character_name +'!</div>';
+        var menu = '<div class="player-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (75 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ (15 + width).toString() +'px;height:47px;">I am '+ your_character_name +'!</div>';
       } else if (partyMembers.length > 0){
         otherWidth = getTextWidth("Leave party!", "18px Arial");
         if (otherWidth > width) {width = otherWidth};
-        var menu = '<div class="player-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (75 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ (width + 10).toString() +'px;height:60px;">I am '+ your_character_name +'!<button id="leave-party">Leave Party</button></div>';
+        var menu = '<div class="player-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (75 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ (width + 25).toString() +'px;height:70px;">I am '+ your_character_name +'!<button id="leave-party">Leave Party</button></div>';
       }
       $("body").prepend(menu);
 
@@ -247,7 +247,7 @@ var allowClick = function() {
       clicked.push(checkOther(global_x, global_y));
       var width = getTextWidth('Join party with ' + clicked[1] + '!', "18px Arial");
       // var menu = '<div class="other-player-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (60 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:75px;"><button id="party" style="margin-bottom:3px;">Join party with '+ clicked[1] +'!</button><br><button id="trade">Trade with '+ clicked[1] +'!</button><br><button id="pvp">Fight '+ clicked[1] +'!</button></div>';
-      var menu = '<div class="other-player-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (60 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ width.toString() +'px;height:75px;"><button id="party" style="margin-bottom:3px;">Join party with '+ clicked[1] +'!</button><br><button id="trade">Give item to '+ clicked[1] +'!</button></div>';
+      var menu = '<div class="other-player-menu" style="text-align:center;padding:7px;position:absolute;background-color:white;top:' + (60 +clickLocation[1]).toString() + 'px;left:' + (clickLocation[0]).toString() + 'px;width:'+ (width + 15).toString() +'px;height:75px;"><button id="party" style="margin-bottom:3px;">Join party with '+ clicked[1] +'!</button><br><button id="trade">Give item to '+ clicked[1] +'!</button></div>';
       $("body").prepend(menu);
 
       // click NPC
