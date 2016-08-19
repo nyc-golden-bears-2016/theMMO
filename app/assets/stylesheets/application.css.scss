@@ -14,6 +14,7 @@
  *= require jquery-ui
  *= require ./battle_message.css
  *= require ./game.css
+ *= require ./in_game_menus.css
  */
 
 @import "bootstrap-sprockets";
@@ -32,7 +33,7 @@ body {
   width: auto;
   height: auto;
 }
- 
+
  h1, h2, h3, h4, h5{
 	font-weight: 1000;
 	text-align: center;
@@ -40,7 +41,7 @@ body {
 	color: #0039e6;
 }
 
-h6{ 
+h6{
   font-family:Luckiest Guy;
   font-size: 55px;
 }
@@ -88,7 +89,7 @@ h11{
 }
 
 a {
-  color:  #99cc00; 
+  color:  #99cc00;
   font-weight: 200;
   font-family:Luckiest Guy;
   font-size: 175%;
@@ -157,7 +158,7 @@ textarea {
     height: 100%;
     overflow: scroll;
 }
- 
+
 #content div{
     background-color:  #ff6600;
     height: 300px;
